@@ -8,6 +8,9 @@ import friends from '@/assets/img/friends.svg'
 import news from '@/assets/img/news.svg'
 import messanger from '@/assets/img/messanger.svg'
 import search from '@/assets/img/search.svg'
+import audio from '@/assets/img/audio.svg'
+import video from '@/assets/img/video.svg'
+import community from '@/assets/img/community.svg'
 
 import styles from './LeftSidebar.module.scss'
 
@@ -46,16 +49,30 @@ const LeftSidebar: FC = () => {
 					<Image src={messanger} alt="Сообщения" />
 					<span>Сообщения</span>
 				</Link>
+				<Link href="/communities" className={styles.item}>
+					<div className={styles.item}>
+						<Image src={community} alt="Сообщества" />
+						<span>Сообщества</span>
+					</div>
+				</Link>
+				<Link href="/audio" className={styles.item}>
+					<div className={styles.item}>
+						<Image src={audio} alt="Аудио" />
+						<span>Аудиозаписи</span>
+					</div>
+				</Link>
+				<Link href="/video" className={styles.item}>
+					<div className={styles.item}>
+						<Image src={video} alt="Видео" />
+						<span>Видео</span>
+					</div>
+				</Link>
 				<Link href="/search" className={styles.item}>
 					<div className={styles.item}>
 						<Image src={search} alt="Поиск" />
 						<span>Поиск</span>
 					</div>
 				</Link>
-				{/*<div className={styles.item}>*/}
-				{/*	<Image src={audio} alt="Аудио" />*/}
-				{/*	<span>Аудио</span>*/}
-				{/*</div>*/}
 				{/*<div className={styles.item}>*/}
 				{/*	<Image src={like} alt="Избранное" width={30} height={30} />*/}
 				{/*	<span>Избранное</span>*/}
