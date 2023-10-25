@@ -1,0 +1,27 @@
+.chatInfo {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #bdbdbd;
+  background-color: #1d1d24;
+  border-bottom: 1px solid #28282f;
+
+  a {
+
+  }
+
+  span {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 600;
+  }
+
+  img {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+  }
+}
