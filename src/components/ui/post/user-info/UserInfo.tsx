@@ -20,7 +20,17 @@ const UserInfo: FC<{ post: IPost; refetchPosts: any }> = ({
 }) => {
 	const [editModalIsOpen, setEditIsOpen] = React.useState(false)
 	const [removeModalIsOpen, setRemoveIsOpen] = React.useState(false)
+
+	const postId = post._id
+	const postCreated = useDate(post.createdAt)
+
 	const { user } = useAuth()
+	const userFullName = `${post.user.firstName} ${post.user.lastName}`
+	const isUserPost: boolean = post.user._id === user._id
+
+	const profileLink: string = isUserPost
+		? '/profile'
+		: `/profile/${post.user._id}`
 
 	return (
 		<div className={styles.user}>
@@ -28,14 +38,14 @@ const UserInfo: FC<{ post: IPost; refetchPosts: any }> = ({
 				<PostForm
 					refetch={refetchPosts}
 					setIsOpen={setEditIsOpen}
-					postId={post._id}
+					postId={postId}
 				/>
 			</Modal>
 			<Modal modalIsOpen={removeModalIsOpen} setIsOpen={setRemoveIsOpen}>
 				<RemoveForm
 					refetch={refetchPosts}
 					setIsOpen={setRemoveIsOpen}
-					postId={post._id}
+					postId={postId}
 				/>
 			</Modal>
 			<div className={styles.userInfo}>
@@ -46,20 +56,13 @@ const UserInfo: FC<{ post: IPost; refetchPosts: any }> = ({
 					height={500}
 				/>
 				<div className={styles.details}>
-					<Link
-						href={
-							post.user._id === user._id
-								? '/profile'
-								: `/profile/${post.user._id}`
-						}
-						className={styles.name}
-					>
-						{`${post.user.firstName} ${post.user.lastName}`}
+					<Link href={profileLink} className={styles.name}>
+						{userFullName}
 					</Link>
-					<span className={styles.date}>{useDate(post.createdAt)}</span>
+					<span className={styles.date}>{postCreated}</span>
 				</div>
 			</div>
-			{post.user._id === user._id && (
+			{isUserPost && (
 				<div>
 					<Image
 						src={edit}
@@ -68,7 +71,6 @@ const UserInfo: FC<{ post: IPost; refetchPosts: any }> = ({
 						style={{ marginRight: '5px' }}
 					/>
 					<Image
-						// onClick={() => deletePostHandler(post._id)}
 						onClick={() => setRemoveIsOpen((prev) => !prev)}
 						src={trash}
 						alt="удалить"
