@@ -1,37 +1,37 @@
-.header{
+.header {
   display: flex;
   justify-content: space-between;
   background-color: #1d1d24;
   height: 70px;
-  padding: 15px;
+  padding: 15px 15px 15px 0;
   border-bottom: 1px solid #2c2c2c;
   position: sticky;
   top: 0;
   z-index: 999;
 
-  .left{
+  .left {
     display: flex;
     gap: 15px;
 
-    img{
+    img {
       cursor: pointer;
     }
   }
 
-  .center{
+  .center {
     display: flex;
     gap: 60px;
 
-    img{
+    img {
       cursor: pointer;
     }
   }
 
-  .right{
+  .right {
     display: flex;
     gap: 10px;
 
-    img{
+    img {
       cursor: pointer;
       width: 40px;
       height: 40px;
