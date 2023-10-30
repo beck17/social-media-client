@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useActions } from '../../../hooks/useActions'
 import Button from '../../ui/button/Button'
 
-import logo from '@/assets/img/logo.png'
+import logo from '@/assets/img/logo.svg'
 
 import styles from './Navbar.module.scss'
 
