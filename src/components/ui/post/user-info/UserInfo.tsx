@@ -3,25 +3,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { useAuth } from '../../../../hooks/useAuth'
+import { useDate } from '../../../../hooks/useDate'
+
+import PostActions from '../../select/PostActions'
 
 import { IPost } from '../../../../types/post.interface'
-import edit from '@/assets/img/edit.svg'
-
-import trash from '@/assets/img/trash.svg'
 import styles from './UserInfo.module.scss'
-import Modal from '../../modal/Modal'
-import PostForm from '../../edit-forms/post-form/PostForm'
-import { useDate } from '../../../../hooks/useDate'
-import RemoveForm from '../../edit-forms/remove-form/RemoveForm'
 
-const UserInfo: FC<{ post: IPost; refetchPosts: any }> = ({
-	post,
-	refetchPosts,
-}) => {
-	const [editModalIsOpen, setEditIsOpen] = React.useState(false)
-	const [removeModalIsOpen, setRemoveIsOpen] = React.useState(false)
-
-	const postId = post._id
+const UserInfo: FC<{ post: IPost }> = ({ post }) => {
 	const postCreated = useDate(post.createdAt)
 
 	const { user } = useAuth()
@@ -34,20 +23,6 @@ const UserInfo: FC<{ post: IPost; refetchPosts: any }> = ({
 
 	return (
 		<div className={styles.user}>
-			<Modal modalIsOpen={editModalIsOpen} setIsOpen={setEditIsOpen}>
-				<PostForm
-					refetch={refetchPosts}
-					setIsOpen={setEditIsOpen}
-					postId={postId}
-				/>
-			</Modal>
-			<Modal modalIsOpen={removeModalIsOpen} setIsOpen={setRemoveIsOpen}>
-				<RemoveForm
-					refetch={refetchPosts}
-					setIsOpen={setRemoveIsOpen}
-					postId={postId}
-				/>
-			</Modal>
 			<div className={styles.userInfo}>
 				<Image
 					src={`http://localhost:5000${post.user.avatar}`}
@@ -62,21 +37,7 @@ const UserInfo: FC<{ post: IPost; refetchPosts: any }> = ({
 					<span className={styles.date}>{postCreated}</span>
 				</div>
 			</div>
-			{isUserPost && (
-				<div>
-					<Image
-						src={edit}
-						alt="Редактировать"
-						onClick={() => setEditIsOpen((prev) => !prev)}
-						style={{ marginRight: '5px' }}
-					/>
-					<Image
-						onClick={() => setRemoveIsOpen((prev) => !prev)}
-						src={trash}
-						alt="удалить"
-					/>
-				</div>
-			)}
+			{isUserPost && <PostActions postId={post._id} />}
 		</div>
 	)
 }

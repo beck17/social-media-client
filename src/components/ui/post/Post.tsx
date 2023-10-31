@@ -18,10 +18,7 @@ import commentsImg from '@/assets/img/comments.svg'
 
 import styles from './Post.module.scss'
 
-const Post: FC<{ post: IPost; refetchPosts: any }> = ({
-	post,
-	refetchPosts,
-}) => {
+const Post: FC<{ post: IPost }> = ({ post }) => {
 	const [commentOpen, setCommentOpen] = useState<boolean>(false)
 
 	const { comments, refetch } = usePostComments(post._id)
@@ -48,7 +45,7 @@ const Post: FC<{ post: IPost; refetchPosts: any }> = ({
 	return (
 		<div className={styles.post}>
 			<div className={styles.container}>
-				<UserInfo post={post} refetchPosts={refetchPosts} />
+				<UserInfo post={post} />
 				<div className={styles.content}>
 					<p>{post.text}</p>
 					{post.image && (
