@@ -6,7 +6,7 @@ import CommunityItem from './communityItem/CommunityItem'
 import styles from './Community.module.scss'
 import CommunityBlock from './communityItem/CommunityBlock'
 
-const Communities: FC = () => {
+const MyCommunities: FC = () => {
 	return (
 		<div className={styles.community}>
 			<div className={styles.container}>
@@ -20,4 +20,4 @@ const Communities: FC = () => {
 	)
 }
 
-export default Communities
+export default MyCommunities
