@@ -4,8 +4,10 @@ import Image from 'next/image'
 
 import styles from '../Community.module.scss'
 import CommunityActions from './CommunityActions'
+import { ICommunity } from '../../../../types/community.interface'
 
-const CommunityItem: FC = () => {
+const CommunityItem: FC<{ community: ICommunity }> = ({ community }) => {
+	console.log(community)
 	return (
 		<div className={styles.item}>
 			<div className={styles.item1}>
@@ -13,17 +15,14 @@ const CommunityItem: FC = () => {
 					<Image
 						width={1000}
 						height={1000}
-						src="http://localhost:5000/uploads/default/1020773.jpg"
+						src={`http://localhost:5000${community.communityAvatar}`}
 						alt="0-"
 					/>
 				</Link>
 				<div className={styles.info}>
-					<Link href={`/profile`}>
-						{/*<span></span>*/}
-						Некое название
-					</Link>
+					<Link href={`/profile`}>{community.name}</Link>
 					<span>Спорт</span>
-					<span>1,000 подписчиков</span>
+					<span>{community.members.length} подписчиков</span>
 				</div>
 			</div>
 			<CommunityActions />

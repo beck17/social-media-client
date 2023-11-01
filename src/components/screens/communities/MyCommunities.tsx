@@ -12,9 +12,9 @@ const MyCommunities: FC = () => {
 			<div className={styles.container}>
 				<CommunityBlock />
 				<Input placeholder="Найти сообщество..." />
-				<CommunityItem />
-				<CommunityItem />
-				<CommunityItem />
+				{/*<CommunityItem />*/}
+				{/*<CommunityItem />*/}
+				{/*<CommunityItem />*/}
 			</div>
 		</div>
 	)
