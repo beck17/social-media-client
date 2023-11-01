@@ -49,7 +49,7 @@ const LeftSidebar: FC = () => {
 					<Image src={messanger} alt="Сообщения" />
 					<span>Сообщения</span>
 				</Link>
-				<Link href="/communities" className={styles.item}>
+				<Link href="/my-communities" className={styles.item}>
 					<div className={styles.item}>
 						<Image src={community} alt="Сообщества" />
 						<span>Сообщества</span>

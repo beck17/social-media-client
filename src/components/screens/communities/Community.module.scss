@@ -9,6 +9,18 @@
   .container {
     padding: 20px;
 
+    .communityTop {
+      display: flex;
+      flex-direction: column;
+
+      span {
+        font-size: 18px;
+        color: #bdbdbd;
+        margin-bottom: 15px;
+
+      }
+    }
+
 
     .item {
       display: flex;
@@ -36,8 +48,8 @@
           a {
             margin-top: 10px;
             margin-bottom: 5px;
-            color: #fefefe;
-            font-size: 20px;
+            color: rgba(254, 254, 254, 0.85);
+            font-size: 18px;
           }
 
           span {
@@ -47,7 +59,7 @@
           }
 
           a:hover {
-            color: #7a7b8a;
+            color: rgba(254, 254, 254, 0.52);
           }
         }
       }
