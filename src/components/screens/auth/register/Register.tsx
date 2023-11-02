@@ -32,7 +32,6 @@ const Register: FC = ({ togglePage }) => {
 
 	const onSubmit: SubmitHandler<IRegisterUser> = (data) => {
 		register(data)
-		console.log(data)
 		reset()
 	}
 
