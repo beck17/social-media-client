@@ -1,10 +1,10 @@
 import { useQuery } from 'react-query'
-import { AllCommunityService } from '../services/community/all-community'
+import { CommunityService } from '../services/community/community.service'
 
-export const useAllCommunities = () => {
+export const useAllCommunity = () => {
 	const { data, isLoading, refetch } = useQuery(
 		'get all communities',
-		() => AllCommunityService.getAllCommunities(),
+		() => CommunityService.getAllCommunities(),
 		{
 			select: ({ data }) => data,
 		},
@@ -12,3 +12,5 @@ export const useAllCommunities = () => {
 
 	return { communities: data, isLoading, refetch }
 }
+
+// export const use

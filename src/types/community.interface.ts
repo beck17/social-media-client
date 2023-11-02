@@ -14,3 +14,8 @@ export interface ICommunity {
 	createdAt: string
 	updatedAt: string
 }
+
+export interface ICommunityCreate {
+	name: string
+	description: string
+}

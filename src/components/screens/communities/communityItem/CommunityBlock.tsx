@@ -3,10 +3,17 @@ import Button from '../../../ui/button/Button'
 
 import styles from '../Community.module.scss'
 import Link from 'next/link'
+import Modal from '../../../ui/modal/Modal'
+import CommunityForm from '../../../ui/edit-forms/community-form/CommunityForm'
 
 const CommunityBlock: FC = () => {
+	const [isOpenModal, setIsOpenModal] = React.useState(false)
+
 	return (
 		<div className={styles.communityBlock}>
+			<Modal modalIsOpen={isOpenModal} setIsOpen={setIsOpenModal}>
+				<CommunityForm setIsOpen={setIsOpenModal} />
+			</Modal>
 			<p>
 				Ваши сообщества <span>37</span>
 			</p>
@@ -14,7 +21,9 @@ const CommunityBlock: FC = () => {
 				<Link href="/all-communities">
 					<Button>Все сообщества</Button>
 				</Link>
-				<Button>Создать сообщество</Button>
+				<Button onClick={() => setIsOpenModal(!isOpenModal)}>
+					Создать сообщество
+				</Button>
 			</div>
 		</div>
 	)
