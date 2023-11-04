@@ -11,7 +11,15 @@ import { useDate } from '../../../hooks/useDate'
 
 const Community: FC = () => {
 	const { query } = useRouter()
-	const { community } = useOneCommunity(query.id)
+	const { community, isLoading } = useOneCommunity(query.id)
+	const avatarPath = {
+		avatar: isLoading
+			? '/uploads/default/no-avatar.jpg'
+			: community?.communityAvatar,
+		background: isLoading
+			? '/uploads/default/background.jpg'
+			: community?.communityBackgroundPic,
+	}
 	return (
 		<div className={styles.community}>
 			{/*<ModalEdit modalIsOpen={modalIsOpen} setIsOpen={setIsOpen}>*/}
@@ -20,7 +28,7 @@ const Community: FC = () => {
 			<div className={styles.images}>
 				<Image
 					className={styles.cover}
-					src={`http://localhost:5000${community?.communityBackgroundPic}`}
+					src={`http://localhost:5000${avatarPath.background}`}
 					alt="2"
 					width={0}
 					height={0}
@@ -32,7 +40,7 @@ const Community: FC = () => {
 					width={0}
 					height={0}
 					sizes="100vw 100vh"
-					src={`http://localhost:5000${community?.communityAvatar}`}
+					src={`http://localhost:5000${avatarPath.avatar}`}
 					alt="1"
 					className={styles.profilePic}
 				/>
