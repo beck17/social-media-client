@@ -17,4 +17,11 @@ export const CommunityService = {
 			data: { name, description },
 		})
 	},
+
+	async getOneCommunity(id: string): ICommunity {
+		return instance<ICommunity>({
+			url: `${UrlEnums.communities}/${id}`,
+			method: 'GET',
+		})
+	},
 }

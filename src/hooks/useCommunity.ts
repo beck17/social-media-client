@@ -13,4 +13,14 @@ export const useAllCommunity = () => {
 	return { communities: data, isLoading, refetch }
 }
 
-// export const use
+export const useOneCommunity = (id) => {
+	const { data, isLoading, refetch } = useQuery(
+		`get community ${id}`,
+		() => CommunityService.getOneCommunity(id),
+		{
+			select: ({ data }) => data,
+		},
+	)
+
+	return { community: data, isLoading, refetch }
+}
