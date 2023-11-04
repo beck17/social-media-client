@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import Button from '../../../ui/button/Button'
 
-import styles from '../Community.module.scss'
+import styles from '../CommunityItems.module.scss'
 import Link from 'next/link'
 import Modal from '../../../ui/modal/Modal'
 import CommunityForm from '../../../ui/edit-forms/community-form/CommunityForm'

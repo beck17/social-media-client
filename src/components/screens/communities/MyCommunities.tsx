@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import Input from '../../ui/input/Input'
 import CommunityItem from './communityItem/CommunityItem'
 
-import styles from './Community.module.scss'
+import styles from './CommunityItems.module.scss'
 import CommunityBlock from './communityItem/CommunityBlock'
 
 const MyCommunities: FC = () => {
