@@ -2,22 +2,49 @@ import React, { FC } from 'react'
 import styles from './CommunityItems.module.scss'
 import Input from '../../ui/input/Input'
 import CommunityItem from './communityItem/CommunityItem'
-import { useAllCommunity } from '../../../hooks/useCommunity'
+import {
+	useAllCommunity,
+	useSearchAllCommunities,
+} from '../../../hooks/useCommunity'
 
 const AllCommunities: FC = () => {
-	const { communities, isLoading } = useAllCommunity()
+	const { communities: allCommunities, isLoading } = useAllCommunity()
+	const { searchCommunities, handleSearch, searchTerm, searchIsLoading } =
+		useSearchAllCommunities()
+
 	return (
 		<div className={styles.community}>
 			<div className={styles.container}>
 				<div className={styles.communityTop}>
 					<span>Все сообщества</span>
-					<Input placeholder="Найти сообщество..." />
+					<Input
+						value={searchTerm}
+						onChange={handleSearch}
+						placeholder="Найти сообщество..."
+					/>
 				</div>
-				{isLoading
-					? 'pfuheprf'
-					: communities?.map((community) => (
-							<CommunityItem key={community._id} community={community} />
-					  ))}
+				{searchIsLoading || isLoading ? (
+					<p>Загрузка...</p>
+				) : searchCommunities?.length >= 1 ? (
+					searchCommunities?.map((community) => (
+						<CommunityItem key={community._id} community={community} />
+					))
+				) : searchTerm === '' ? (
+					allCommunities?.map((community) => (
+						<CommunityItem key={community._id} community={community} />
+					))
+				) : (
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							height: '20vh',
+						}}
+					>
+						<span style={{ color: '#afafaf' }}>Сообщества не найдены</span>
+					</div>
+				)}
 			</div>
 		</div>
 	)

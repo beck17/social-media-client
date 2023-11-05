@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query'
 import { CommunityService } from '../services/community/community.service'
+import React, { ChangeEvent } from 'react'
 
 export const useAllCommunity = () => {
 	const { data, isLoading, refetch } = useQuery(
@@ -35,4 +36,28 @@ export const useGetUserCommunities = (id) => {
 	)
 
 	return { communities: data, isLoading, refetch }
+}
+
+export const useSearchAllCommunities = () => {
+	const [searchTerm, setSearchTerm] = React.useState<string>('')
+
+	const { data, isLoading } = useQuery(
+		['search all communities:', searchTerm],
+		() => CommunityService.searchAllCommunities(searchTerm),
+		{
+			select: ({ data }) => data,
+			enabled: !!searchTerm,
+		},
+	)
+
+	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+		setSearchTerm(e.target.value)
+	}
+
+	return {
+		handleSearch,
+		searchCommunities: data,
+		searchIsLoading: isLoading,
+		searchTerm,
+	}
 }

@@ -37,8 +37,15 @@ export const CommunityService = {
 	},
 
 	async getUserCommunities(userId: string): ICommunityResponse[] {
-		return instance<ICommunityResponse>({
+		return instance<ICommunityResponse[]>({
 			url: `${UrlEnums.community}/user/${userId}`,
+			method: 'GET',
+		})
+	},
+
+	async searchAllCommunities(search: string): ICommunityResponse[] {
+		return instance<ICommunityResponse[]>({
+			url: `${UrlEnums.community}/search/${search}`,
 			method: 'GET',
 		})
 	},
