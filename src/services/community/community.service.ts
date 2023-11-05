@@ -24,4 +24,11 @@ export const CommunityService = {
 			method: 'GET',
 		})
 	},
+
+	async toggleSubscribe(communityId: string): ICommunity {
+		return instance<ICommunity>({
+			url: `${UrlEnums.communities}/${communityId}`,
+			method: 'POST',
+		})
+	},
 }

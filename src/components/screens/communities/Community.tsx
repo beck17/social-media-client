@@ -8,10 +8,12 @@ import Post from '../../ui/post/Post'
 import styles from './Community.module.scss'
 import { useOneCommunity } from '../../../hooks/useCommunity'
 import { useDate } from '../../../hooks/useDate'
+import { useMutation } from 'react-query'
+import { CommunityService } from '../../../services/community/community.service'
 
 const Community: FC = () => {
 	const { query } = useRouter()
-	const { community, isLoading } = useOneCommunity(query.id)
+	const { community, isLoading, refetch } = useOneCommunity(query.id)
 	const avatarPath = {
 		avatar: isLoading
 			? '/uploads/default/no-avatar.jpg'
@@ -19,6 +21,19 @@ const Community: FC = () => {
 		background: isLoading
 			? '/uploads/default/background.jpg'
 			: community?.communityBackgroundPic,
+	}
+
+	const { mutateAsync } = useMutation(
+		`toggle subscribe community ${community?._id}`,
+		(id: string) => CommunityService.toggleSubscribe(id),
+		{
+			onSuccess(data) {
+				refetch()
+			},
+		},
+	)
+	const toggleSubscribeHandler = async (id) => {
+		await mutateAsync(id)
 	}
 	return (
 		<div className={styles.community}>
@@ -53,7 +68,9 @@ const Community: FC = () => {
 					</span>
 					<span className={styles.info}>{useDate(community?.createdAt)}</span>
 				</div>
-				<Button>Подписаться</Button>
+				<Button onClick={() => toggleSubscribeHandler(community?._id)}>
+					Подписаться
+				</Button>
 			</div>
 			<div className={styles.communityContainer}>
 				<SubmitPost />
