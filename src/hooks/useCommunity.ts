@@ -24,3 +24,15 @@ export const useOneCommunity = (id) => {
 
 	return { community: data, isLoading, refetch }
 }
+
+export const useGetUserCommunities = (id) => {
+	const { data, isLoading, refetch } = useQuery(
+		`get user = ${id} communities`,
+		() => CommunityService.getUserCommunities(id),
+		{
+			select: ({ data }) => data,
+		},
+	)
+
+	return { communities: data, isLoading, refetch }
+}

@@ -19,3 +19,10 @@ export interface ICommunityCreate {
 	name: string
 	description: string
 }
+
+export interface ICommunityResponse {
+	_id: string
+	name: string
+	members: string[]
+	communityAvatar: string
+}

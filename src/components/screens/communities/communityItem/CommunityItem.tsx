@@ -19,7 +19,7 @@ const CommunityItem: FC<{ community: ICommunity }> = ({ community }) => {
 					/>
 				</Link>
 				<div className={styles.info}>
-					<Link href={`/profile`}>{community.name}</Link>
+					<Link href={`/community/${community._id}`}>{community.name}</Link>
 					<span>Спорт</span>
 					<span>{community.members.length} подписчиков</span>
 				</div>

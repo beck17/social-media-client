@@ -6,5 +6,5 @@ export enum UrlEnums {
 	postComment = '/post-comment',
 	post = '/post',
 	auth = '/auth',
-	communities = '/community',
+	community = '/community',
 }

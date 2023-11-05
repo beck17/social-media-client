@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Modal from '../../../ui/modal/Modal'
 import CommunityForm from '../../../ui/edit-forms/community-form/CommunityForm'
 
-const CommunityBlock: FC = () => {
+const CommunityBlock: FC<{ count: number }> = ({ count }) => {
 	const [isOpenModal, setIsOpenModal] = React.useState(false)
 
 	return (
@@ -15,7 +15,7 @@ const CommunityBlock: FC = () => {
 				<CommunityForm setIsOpen={setIsOpenModal} />
 			</Modal>
 			<p>
-				Ваши сообщества <span>37</span>
+				Ваши сообщества <span>{count}</span>
 			</p>
 			<div className={styles.buttons}>
 				<Link href="/all-communities">

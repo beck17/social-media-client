@@ -1,18 +1,22 @@
 import { instance } from '../../api/api.interceptor'
 import { UrlEnums } from '../../enums/url.enum'
-import { ICommunity, ICommunityCreate } from '../../types/community.interface'
+import {
+	ICommunity,
+	ICommunityCreate,
+	ICommunityResponse,
+} from '../../types/community.interface'
 
 export const CommunityService = {
 	async getAllCommunities(): ICommunity[] {
 		return instance<ICommunity[]>({
-			url: `${UrlEnums.communities}`,
+			url: `${UrlEnums.community}`,
 			method: 'GET',
 		})
 	},
 
 	async createCommunity({ name, description }: ICommunityCreate): ICommunity {
 		return instance<ICommunity>({
-			url: `${UrlEnums.communities}`,
+			url: `${UrlEnums.community}`,
 			method: 'POST',
 			data: { name, description },
 		})
@@ -20,15 +24,22 @@ export const CommunityService = {
 
 	async getOneCommunity(id: string): ICommunity {
 		return instance<ICommunity>({
-			url: `${UrlEnums.communities}/${id}`,
+			url: `${UrlEnums.community}/${id}`,
 			method: 'GET',
 		})
 	},
 
 	async toggleSubscribe(communityId: string): ICommunity {
 		return instance<ICommunity>({
-			url: `${UrlEnums.communities}/${communityId}`,
+			url: `${UrlEnums.community}/${communityId}`,
 			method: 'POST',
+		})
+	},
+
+	async getUserCommunities(userId: string): ICommunityResponse[] {
+		return instance<ICommunityResponse>({
+			url: `${UrlEnums.community}/user/${userId}`,
+			method: 'GET',
 		})
 	},
 }
