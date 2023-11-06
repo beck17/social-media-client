@@ -49,4 +49,11 @@ export const CommunityService = {
 			method: 'GET',
 		})
 	},
+
+	async isSubscribed(communityId: string): boolean {
+		return instance<boolean>({
+			url: `${UrlEnums.community}/userSub/${communityId}`,
+			method: 'GET',
+		})
+	},
 }

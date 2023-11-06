@@ -6,7 +6,7 @@ import Button from '../../ui/button/Button'
 import SubmitPost from '../feed/submitPost/SubmitPost'
 import Post from '../../ui/post/Post'
 import styles from './Community.module.scss'
-import { useOneCommunity } from '../../../hooks/useCommunity'
+import { useIsSubscribed, useOneCommunity } from '../../../hooks/useCommunity'
 import { useDate } from '../../../hooks/useDate'
 import { useMutation } from 'react-query'
 import { CommunityService } from '../../../services/community/community.service'
@@ -14,6 +14,9 @@ import { CommunityService } from '../../../services/community/community.service'
 const Community: FC = () => {
 	const { query } = useRouter()
 	const { community, isLoading, refetch } = useOneCommunity(query.id)
+	const { isSubscribed, isSubscribedLoading, isSubscribedRefetch } =
+		useIsSubscribed(query.id)
+
 	const avatarPath = {
 		avatar: isLoading
 			? '/uploads/default/no-avatar.jpg'
@@ -32,9 +35,13 @@ const Community: FC = () => {
 			},
 		},
 	)
+
 	const toggleSubscribeHandler = async (id) => {
 		await mutateAsync(id)
+		await isSubscribedRefetch()
 	}
+
+	const buttonTitle = isSubscribed ? 'Отписаться' : 'Подписаться'
 	return (
 		<div className={styles.community}>
 			{/*<ModalEdit modalIsOpen={modalIsOpen} setIsOpen={setIsOpen}>*/}
@@ -69,7 +76,7 @@ const Community: FC = () => {
 					<span className={styles.info}>{useDate(community?.createdAt)}</span>
 				</div>
 				<Button onClick={() => toggleSubscribeHandler(community?._id)}>
-					Подписаться
+					{buttonTitle}
 				</Button>
 			</div>
 			<div className={styles.communityContainer}>

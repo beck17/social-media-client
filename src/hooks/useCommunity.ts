@@ -61,3 +61,19 @@ export const useSearchAllCommunities = () => {
 		searchTerm,
 	}
 }
+
+export const useIsSubscribed = (id) => {
+	const { data, isLoading, refetch } = useQuery(
+		`IsSubscribed = ${id} communities`,
+		() => CommunityService.isSubscribed(id),
+		{
+			select: ({ data }) => data,
+		},
+	)
+
+	return {
+		isSubscribed: data,
+		isSubscribedLoading: isLoading,
+		isSubscribedRefetch: refetch,
+	}
+}
