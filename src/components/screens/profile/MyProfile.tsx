@@ -25,7 +25,7 @@ const MyProfile: FC = () => {
 		posts,
 		isLoading: isLoadingPosts,
 		refetch: refetchPosts,
-	} = useUserPost(user._id)
+	} = useUserPost(myProfile?._id)
 
 	return (
 		<div className={styles.profile}>

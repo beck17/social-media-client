@@ -10,12 +10,17 @@ import { useIsSubscribed, useOneCommunity } from '../../../hooks/useCommunity'
 import { useDate } from '../../../hooks/useDate'
 import { useMutation } from 'react-query'
 import { CommunityService } from '../../../services/community/community.service'
+import { useCommunityPosts } from '../../../hooks/useCommunityPost'
+import SubmitCommunityPost from './submitCommunityPost/SubmitCommunityPost'
+import { useAuth } from '../../../hooks/useAuth'
+import CommunityContent from './communityContent/CommunityContent'
+import PostLoader from '../../ui/loaders/post-loader/PostLoader'
+import CommunityActions from './communityItem/CommunityActions'
 
 const Community: FC = () => {
+	const { user } = useAuth()
 	const { query } = useRouter()
 	const { community, isLoading, refetch } = useOneCommunity(query.id)
-	const { isSubscribed, isSubscribedLoading, isSubscribedRefetch } =
-		useIsSubscribed(query.id)
 
 	const avatarPath = {
 		avatar: isLoading
@@ -26,27 +31,10 @@ const Community: FC = () => {
 			: community?.communityBackgroundPic,
 	}
 
-	const { mutateAsync } = useMutation(
-		`toggle subscribe community ${community?._id}`,
-		(id: string) => CommunityService.toggleSubscribe(id),
-		{
-			onSuccess(data) {
-				refetch()
-			},
-		},
-	)
+	const isCreator: boolean = user._id === community?.creator
 
-	const toggleSubscribeHandler = async (id) => {
-		await mutateAsync(id)
-		await isSubscribedRefetch()
-	}
-
-	const buttonTitle = isSubscribed ? 'Отписаться' : 'Подписаться'
 	return (
 		<div className={styles.community}>
-			{/*<ModalEdit modalIsOpen={modalIsOpen} setIsOpen={setIsOpen}>*/}
-			{/*	<ProfileForm refetch={refetchProfile} setIsOpen={setIsOpen} />*/}
-			{/*</ModalEdit>*/}
 			<div className={styles.images}>
 				<Image
 					className={styles.cover}
@@ -75,15 +63,27 @@ const Community: FC = () => {
 					</span>
 					<span className={styles.info}>{useDate(community?.createdAt)}</span>
 				</div>
-				<Button onClick={() => toggleSubscribeHandler(community?._id)}>
-					{buttonTitle}
-				</Button>
+				{/*<Button onClick={() => toggleSubscribeHandler(community?._id)}>*/}
+				{/*	{buttonTitle}*/}
+				{/*</Button>*/}
+				<span style={{ position: 'relative', top: '-10px' }}>
+					<CommunityActions
+						communityId={community?._id}
+						refetch={refetch}
+						isCreator={isCreator}
+					/>
+				</span>
 			</div>
 			<div className={styles.communityContainer}>
-				<SubmitPost />
-				{community?.posts?.map((post) => (
-					<Post post={post} key={post._id} />
-				))}
+				{isLoading ? (
+					<PostLoader />
+				) : (
+					<CommunityContent
+						community={community}
+						isLoading={isLoading}
+						isCreator={isCreator}
+					/>
+				)}
 			</div>
 		</div>
 	)

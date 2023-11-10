@@ -9,37 +9,42 @@ import PostActions from '../../select/PostActions'
 
 import { IPost } from '../../../../types/post.interface'
 import styles from './UserInfo.module.scss'
+import CommunityActions from '../../../screens/communities/communityItem/CommunityActions'
+import CommunityPostActions from '../../select/CommunityPostActions'
 
-const UserInfo: FC<{ post: IPost }> = ({ post }) => {
+const CommunityInfo: FC<{ post: IPost; isCreator: boolean }> = ({
+	post,
+	isCreator,
+}) => {
 	const postCreated = useDate(post.createdAt)
-
-	const { user } = useAuth()
-	const postOwnerName = `${post.user.firstName} ${post.user.lastName}`
-	const isUserPost: boolean = post.user._id === user._id
-
-	const profileLink: string = isUserPost
-		? '/profile'
-		: `/profile/${post.user._id}`
 
 	return (
 		<div className={styles.user}>
 			<div className={styles.userInfo}>
 				<Image
-					src={`http://localhost:5000${post.user.avatar}`}
+					src={`http://localhost:5000${post.community?.communityAvatar}`}
 					alt="аватар"
 					width={500}
 					height={500}
 				/>
 				<div className={styles.details}>
-					<Link href={profileLink} className={styles.name}>
-						{postOwnerName}
+					<Link
+						href={`/community/${post.community?._id}`}
+						className={styles.name}
+					>
+						{post.community?.name}
 					</Link>
 					<span className={styles.date}>{postCreated}</span>
 				</div>
 			</div>
-			{isUserPost && <PostActions postId={post._id} />}
+			{isCreator && (
+				<CommunityPostActions
+					postId={post._id}
+					communityId={post.community?._id}
+				/>
+			)}
 		</div>
 	)
 }
 
-export default UserInfo
+export default CommunityInfo

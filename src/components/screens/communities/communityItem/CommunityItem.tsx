@@ -24,7 +24,7 @@ const CommunityItem: FC<{ community: ICommunity }> = ({ community }) => {
 					<span>{community.members.length} подписчиков</span>
 				</div>
 			</div>
-			<CommunityActions />
+			{/*<CommunityActions communityId={community._id} />*/}
 		</div>
 	)
 }
