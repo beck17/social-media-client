@@ -4,6 +4,7 @@ import {
 	ICommunity,
 	ICommunityCreate,
 	ICommunityResponse,
+	ICommunityUpdate,
 } from '../../types/community.interface'
 
 export const CommunityService = {
@@ -54,6 +55,29 @@ export const CommunityService = {
 		return instance<boolean>({
 			url: `${UrlEnums.community}/userSub/${communityId}`,
 			method: 'GET',
+		})
+	},
+
+	async updateCommunity(
+		{
+			name,
+			description,
+			communityAvatar,
+			communityBackgroundPic,
+		}: ICommunityUpdate,
+		communityId: string,
+	): ICommunity {
+		return instance<ICommunity>({
+			url: `${UrlEnums.community}/${communityId}`,
+			method: 'PUT',
+			data: { name, description, communityAvatar, communityBackgroundPic },
+		})
+	},
+
+	async removeCommunity(communityId: string): ICommunity {
+		return instance<ICommunity>({
+			url: `${UrlEnums.community}/${communityId}`,
+			method: 'DELETE',
 		})
 	},
 }

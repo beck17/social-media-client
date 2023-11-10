@@ -1,5 +1,6 @@
 import { IUserNames } from './user.interface'
 import { IComment } from './comment.interface'
+import { ICommunityNames } from './community.interface'
 
 export interface IPost {
 	_id: string
@@ -7,6 +8,7 @@ export interface IPost {
 	text: string
 	image: string
 	comments: IComment[]
+	community?: ICommunityNames
 	createdAt: string
 	updatedAt: string
 }

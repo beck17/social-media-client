@@ -17,8 +17,9 @@ import like from '@/assets/img/like.svg'
 import commentsImg from '@/assets/img/comments.svg'
 
 import styles from './Post.module.scss'
+import CommunityInfo from './user-info/CommunityInfo'
 
-const Post: FC<{ post: IPost }> = ({ post }) => {
+const Post: FC<{ post: IPost; isCreator: boolean }> = ({ post, isCreator }) => {
 	const [commentOpen, setCommentOpen] = useState<boolean>(false)
 
 	const { comments, refetch } = usePostComments(post._id)
@@ -42,10 +43,15 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
 		await mutateAsync(id)
 	}
 
+	const infoComponent = post?.community ? (
+		<CommunityInfo post={post} isCreator={isCreator} />
+	) : (
+		<UserInfo post={post} />
+	)
 	return (
 		<div className={styles.post}>
 			<div className={styles.container}>
-				<UserInfo post={post} />
+				{infoComponent}
 				<div className={styles.content}>
 					<p>{post.text}</p>
 					{post.image && (

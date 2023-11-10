@@ -1,5 +1,5 @@
 import { IUser } from './user.interface'
-import { IPost } from './post.interface'
+import { ICommunityPost } from './community-post.interface'
 
 export interface ICommunity {
 	_id: string
@@ -10,7 +10,7 @@ export interface ICommunity {
 	creator: string
 	members: IUser[]
 	admins: IUser[]
-	posts: IPost[]
+	posts: ICommunityPost[]
 	createdAt: string
 	updatedAt: string
 }
@@ -25,4 +25,17 @@ export interface ICommunityResponse {
 	name: string
 	members: string[]
 	communityAvatar: string
+}
+
+export interface ICommunityNames {
+	_id: string
+	name: string
+	communityAvatar: string
+}
+
+export interface ICommunityUpdate {
+	name?: string
+	description?: string
+	avatarCommunity?: string
+	communityBackgroundPic?: string
 }
