@@ -2,20 +2,15 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 
-import Button from '../../ui/button/Button'
-import SubmitPost from '../feed/submitPost/SubmitPost'
-import Post from '../../ui/post/Post'
-import styles from './Community.module.scss'
-import { useIsSubscribed, useOneCommunity } from '../../../hooks/useCommunity'
-import { useDate } from '../../../hooks/useDate'
-import { useMutation } from 'react-query'
-import { CommunityService } from '../../../services/community/community.service'
-import { useCommunityPosts } from '../../../hooks/useCommunityPost'
-import SubmitCommunityPost from './submitCommunityPost/SubmitCommunityPost'
-import { useAuth } from '../../../hooks/useAuth'
 import CommunityContent from './communityContent/CommunityContent'
 import PostLoader from '../../ui/loaders/post-loader/PostLoader'
 import CommunityActions from './communityItem/CommunityActions'
+
+import { useOneCommunity } from '../../../hooks/useCommunity'
+import { useDateWithYear } from '../../../hooks/useDate'
+import { useAuth } from '../../../hooks/useAuth'
+
+import styles from './Community.module.scss'
 
 const Community: FC = () => {
 	const { user } = useAuth()
@@ -61,7 +56,9 @@ const Community: FC = () => {
 					<span className={styles.info}>
 						{community?.members.length} подписчиков
 					</span>
-					<span className={styles.info}>{useDate(community?.createdAt)}</span>
+					<span className={styles.info}>
+						{useDateWithYear(community?.createdAt) + 'г.'}
+					</span>
 				</div>
 				<CommunityActions
 					communityId={community?._id}
