@@ -63,16 +63,11 @@ const Community: FC = () => {
 					</span>
 					<span className={styles.info}>{useDate(community?.createdAt)}</span>
 				</div>
-				{/*<Button onClick={() => toggleSubscribeHandler(community?._id)}>*/}
-				{/*	{buttonTitle}*/}
-				{/*</Button>*/}
-				<span style={{ position: 'relative', top: '-10px' }}>
-					<CommunityActions
-						communityId={community?._id}
-						refetch={refetch}
-						isCreator={isCreator}
-					/>
-				</span>
+				<CommunityActions
+					communityId={community?._id}
+					refetch={refetch}
+					isCreator={isCreator}
+				/>
 			</div>
 			<div className={styles.communityContainer}>
 				{isLoading ? (
