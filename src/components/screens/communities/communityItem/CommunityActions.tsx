@@ -12,6 +12,7 @@ import {
 import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 import { CommunityService } from '../../../../services/community/community.service'
+import Button from '../../../ui/button/Button'
 
 const CommunityActions: FC<{
 	communityId: string
@@ -69,8 +70,20 @@ const CommunityActions: FC<{
 		document.body.addEventListener('click', handleOutsideClick)
 	}, [])
 
+	if (!isCreator) {
+		return (
+			<Button onClick={() => toggleSubscribeHandler(communityId)}>
+				{buttonTitle}
+			</Button>
+		)
+	}
+
 	return (
-		<div className={styles.sort} ref={communityActionRef}>
+		<div
+			className={styles.sort}
+			ref={communityActionRef}
+			style={{ position: 'relative', top: '-10px' }}
+		>
 			<Modal modalIsOpen={editModalIsOpen} setIsOpen={setEditIsOpen}>
 				<CommunityEditForm
 					refetch={refetch}
@@ -94,17 +107,10 @@ const CommunityActions: FC<{
 						<li onClick={() => toggleSubscribeHandler(communityId)}>
 							{buttonTitle}
 						</li>
-						{isCreator && (
-							<>
-								<li onClick={handleUpdateCommunity}>Редактировать</li>
-								<li
-									style={{ color: 'indianred' }}
-									onClick={handleRemoveCommunity}
-								>
-									Удалить
-								</li>
-							</>
-						)}
+						<li onClick={handleUpdateCommunity}>Редактировать</li>
+						<li style={{ color: 'indianred' }} onClick={handleRemoveCommunity}>
+							Удалить
+						</li>
 					</ul>
 				</div>
 			)}
