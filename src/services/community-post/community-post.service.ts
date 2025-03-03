@@ -1,13 +1,15 @@
-import { instance } from '../../api/api.interceptor'
-import { UrlEnums } from '../../enums/url.enum'
+import { instance } from '@/api/api.interceptor'
+import { UrlEnums } from '@/constants/url.enum'
+
 import {
 	ICommunityPost,
 	ICommunityPostCreate,
 	ICommunityPostUpdate,
-} from '../../types/community-post.interface'
+} from '@/types/community-post.interface'
+
 
 export const CommunityPostService = {
-	async getCommunityPosts(communityId: string): ICommunityPost[] {
+	async getCommunityPosts(communityId: string) {
 		return instance<ICommunityPost[]>({
 			url: `${UrlEnums.communityPost}/${communityId}`,
 			method: 'GET',
@@ -15,10 +17,10 @@ export const CommunityPostService = {
 	},
 
 	async createCommunityPost({
-		text,
-		image,
-		communityId,
-	}: ICommunityPostCreate): ICommunityPost {
+															text,
+															image,
+															communityId,
+														}: ICommunityPostCreate) {
 		return instance<ICommunityPost>({
 			url: `${UrlEnums.communityPost}`,
 			method: 'POST',
@@ -29,7 +31,7 @@ export const CommunityPostService = {
 	async updateCommunityPost(
 		{ text, image }: ICommunityPostUpdate,
 		postId: string,
-	): ICommunityPost {
+	) {
 		return instance<ICommunityPost>({
 			url: `${UrlEnums.communityPost}/${postId}`,
 			method: 'PUT',
@@ -37,7 +39,7 @@ export const CommunityPostService = {
 		})
 	},
 
-	async deleteCommunityPost(postId: string): ICommunityPost {
+	async deleteCommunityPost(postId: string) {
 		return instance<ICommunityPost>({
 			url: `${UrlEnums.communityPost}/${postId}`,
 			method: 'DELETE',

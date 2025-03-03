@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from 'react-query'
-import { CommentPostService } from '../services/post/comment.service'
-import { ICommentRequest } from '../types/comment.interface'
+import { CommentPostService } from '@/services/post/comment.service'
+import { ICommentRequest } from '@/types/comment.interface'
 
-export const usePostComments = (id) => {
+export const usePostComments = (id: string) => {
 	const { isLoading, data, refetch } = useQuery(
 		`get post comments${id}`,
 		() => CommentPostService.getCommentsByPostId(id),

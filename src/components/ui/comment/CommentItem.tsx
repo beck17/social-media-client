@@ -1,28 +1,34 @@
 import React, { FC, useState } from 'react'
 import Image from 'next/image'
+import { useMutation } from 'react-query'
 
-import { useAuth } from '../../../hooks/useAuth'
+import { useAuth } from '@/hooks/useAuth'
+import { useDate } from '@/hooks/useDate'
 
-import { IComment } from '../../../types/comment.interface'
+import { CommentPostService } from '@/services/post/comment.service'
+
+import Modal from '../modal/Modal'
+import CommentForm from '../edit-forms/comment-form/CommentForm'
 
 import trash from '../../../assets/img/trash.svg'
 import edit from '../../../assets/img/edit.svg'
 import noPhoto from '../../../assets/img/no-photo.svg'
 
-import styles from './Comment.module.scss'
-import { useMutation } from 'react-query'
-import { CommentPostService } from '../../../services/post/comment.service'
-import Modal from '../modal/Modal'
-import CommentForm from '../edit-forms/comment-form/CommentForm'
-import { useDate } from '../../../hooks/useDate'
+import { IComment } from '@/types/comment.interface'
 
-const CommentItem: FC<{
+import styles from './Comment.module.scss'
+
+
+interface Props {
 	comment: IComment
 	postUserId: string
 	refetchComment: any
-}> = ({ comment, postUserId, refetchComment }) => {
+}
+
+const CommentItem: FC<Props> = ({ comment, postUserId, refetchComment }) => {
 	const [modalIsOpen, setIsOpen] = useState(false)
 	const { user } = useAuth()
+	console.log(user)
 
 	const { mutateAsync } = useMutation(
 		`delete comment ${comment._id}`,
@@ -34,7 +40,7 @@ const CommentItem: FC<{
 		},
 	)
 
-	const removeCommentHandler = async (id) => {
+	const removeCommentHandler = async (id: string) => {
 		await mutateAsync(id)
 	}
 
@@ -59,9 +65,9 @@ const CommentItem: FC<{
 			</div>
 			<div className={styles.detail}>
 				<span className={styles.date}>{useDate(comment.createdAt)}</span>
-				{postUserId === user._id || comment.user._id === user._id ? (
+				{postUserId === user?._id || comment.user._id === user?._id ? (
 					<div>
-						{comment.user._id === user._id ? (
+						{comment.user._id === user?._id ? (
 							<Image
 								className={styles.img}
 								src={edit}

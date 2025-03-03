@@ -1,6 +1,8 @@
 import React, { FC, PropsWithChildren } from 'react'
-import { useAuth } from '../../hooks/useAuth'
 import { useRouter } from 'next/router'
+
+import { useAuth } from '@/hooks/useAuth'
+
 
 const CheckRoleAuth: FC<PropsWithChildren> = ({ children }) => {
 	const { user } = useAuth()

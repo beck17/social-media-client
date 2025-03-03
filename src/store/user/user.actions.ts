@@ -1,20 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import {
-	IPhonePassword,
-	IRegisterUser,
-	IUserResponse,
-} from '../../types/user.interface'
-import { AuthService } from '../../services/auth/auth.service'
-import { removeFromStorage } from '../../services/auth/auth.helper'
-import { errorCatch } from '../../api/api.helper'
+
+import { AuthService } from '@/services/auth/auth.service'
+import { removeFromStorage } from '@/services/auth/auth.helper'
+
+import { errorCatch } from '@/api/api.helper'
+import { IPhonePassword, IRegisterUser, IUserResponse } from '@/types/user.interface'
+
 
 export const register = createAsyncThunk<IUserResponse, IRegisterUser>(
 	'auth/register',
 	async (data, thunkApi) => {
 		try {
-			const response = await AuthService.register(data)
-
-			return response
+			return await AuthService.register(data)
 		} catch (e) {
 			return thunkApi.rejectWithValue(e)
 		}
@@ -25,9 +22,7 @@ export const login = createAsyncThunk<IUserResponse, IPhonePassword>(
 	'auth/login',
 	async (data, thunkApi) => {
 		try {
-			const response = await AuthService.login(data)
-
-			return response
+			return await AuthService.login(data)
 		} catch (e) {
 			return thunkApi.rejectWithValue(e)
 		}
@@ -42,9 +37,7 @@ export const checkAuth = createAsyncThunk<IUserResponse>(
 	'auth/checkAuth',
 	async (_, thunkApi) => {
 		try {
-			const response = await AuthService.getNewTokens()
-
-			return response
+			return await AuthService.getNewTokens()
 		} catch (e) {
 			if (errorCatch(e) === 'jwt expired') thunkApi.dispatch(logout())
 

@@ -1,13 +1,11 @@
-import React, { FC } from 'react'
+import React, { FC, PropsWithChildren } from 'react'
+
 import Navbar from './navbar/Navbar'
 import LeftSidebar from './leftSidebar/LeftSidebar'
 import RightSidebar from './rightSidebar/RightSidebar'
 
-type Prop = {
-	children: JSX.Element
-}
 
-const Layout: FC<{ children: Prop }> = ({ children }) => {
+const Layout: FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<>
 			<Navbar />

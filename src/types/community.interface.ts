@@ -36,6 +36,7 @@ export interface ICommunityNames {
 export interface ICommunityUpdate {
 	name?: string
 	description?: string
+	communityAvatar?: string
 	avatarCommunity?: string
 	communityBackgroundPic?: string
 }

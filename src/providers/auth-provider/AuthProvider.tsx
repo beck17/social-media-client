@@ -2,10 +2,12 @@ import React, { FC, PropsWithChildren, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 
-import { getAccessToken } from '../../services/auth/auth.helper'
-import { useAuth } from '../../hooks/useAuth'
-import { useActions } from '../../hooks/useActions'
+import { getAccessToken } from '@/services/auth/auth.helper'
+import { useAuth } from '@/hooks/useAuth'
+import { useActions } from '@/hooks/useActions'
+
 import Layout from '../../components/layout/Layout'
+
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 	const { user } = useAuth()

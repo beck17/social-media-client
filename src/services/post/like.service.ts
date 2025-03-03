@@ -1,5 +1,5 @@
 import { instance } from '../../api/api.interceptor'
-import { UrlEnums } from '../../enums/url.enum'
+import { UrlEnums } from '@/constants/url.enum'
 import { ILike } from '../../types/like.interface'
 
 export const LikePostService = {

@@ -1,17 +1,17 @@
-import { instance } from '../../api/api.interceptor'
-import { IComment } from '../../types/comment.interface'
-import { UrlEnums } from '../../enums/url.enum'
+import { instance } from '@/api/api.interceptor'
+import { IComment, ICommentRequest } from '@/types/comment.interface'
+import { UrlEnums } from '@/constants/url.enum'
 
 export const CommentPostService = {
-	async getCommentsByPostId(id: string): IComment[] {
+	async getCommentsByPostId(id: string) {
 		return instance<IComment[]>({
 			url: `/post-comment/${id}`,
 			method: 'GET',
 		})
 	},
 
-	async createPostComment({ text, postId }: IComment) {
-		return instance<IComment>({
+	async createPostComment({ text, postId }: ICommentRequest) {
+		return instance<ICommentRequest>({
 			url: `/post-comment`,
 			method: 'POST',
 			data: { text, postId },

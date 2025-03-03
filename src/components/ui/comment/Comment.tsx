@@ -3,24 +3,26 @@ import Image from 'next/image'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 
-import { CommentPostService } from '../../../services/post/comment.service'
+import { CommentPostService } from '@/services/post/comment.service'
 
-import { useProfile } from '../../../hooks/useProfile'
+import { useProfile } from '@/hooks/useProfile'
 
+import CommentItem from './CommentItem'
 import Button from '../button/Button'
 import Input from '../input/Input'
 
-import { IComment, ICommentRequest } from '../../../types/comment.interface'
-
+import { IComment, ICommentRequest } from '@/types/comment.interface'
 import styles from './Comment.module.scss'
-import CommentItem from './CommentItem'
 
-const Comments: FC<{
+
+interface Props {
 	comments: IComment[]
 	postId: string
 	refetch: any
 	postUserId: string
-}> = ({ comments, postUserId, postId, refetch }) => {
+}
+
+const Comments: FC<Props> = ({ comments, postUserId, postId, refetch }) => {
 	const { myProfile } = useProfile()
 
 	const {
@@ -55,14 +57,14 @@ const Comments: FC<{
 					src={`http://localhost:5000${myProfile?.avatar}`}
 					width={500}
 					height={500}
-					alt="аватар"
+					alt='аватар'
 				/>
 				<Input
 					{...register('text', {
 						required: 'Это поле обязательное',
 					})}
 					error={errors.text?.message}
-					placeholder="Введите комментарий..."
+					placeholder='Введите комментарий...'
 				/>
 				<Button>Отправить</Button>
 			</form>

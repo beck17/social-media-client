@@ -1,13 +1,16 @@
 import Cookies from 'js-cookie'
+
+import { getContentType } from '@/api/api.helper'
+import { saveToStorage } from './auth.helper'
+import { instance } from '@/api/api.interceptor'
+
 import {
 	IPhonePassword,
 	IRegisterResponse,
 	IRegisterUser,
 	IUserResponse,
-} from '../../types/user.interface'
-import { getContentType } from '../../api/api.helper'
-import { saveToStorage } from './auth.helper'
-import { instance } from '../../api/api.interceptor'
+} from '@/types/user.interface'
+
 
 export const AuthService = {
 	async login(data: IPhonePassword) {

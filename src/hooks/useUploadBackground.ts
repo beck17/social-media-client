@@ -1,9 +1,10 @@
-import { useMutation } from 'react-query'
 import { ChangeEvent } from 'react'
+import { useMutation } from 'react-query'
 
-import { MediaService } from '../services/media.service'
+import { MediaService } from '@/services/media.service'
 
-import { errorCatch } from '../api/api.helper'
+import { errorCatch } from '@/api/api.helper'
+
 
 export const useUploadBackground = (
 	onChange: (...event: any) => void,

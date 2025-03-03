@@ -1,16 +1,16 @@
 import { instance } from '../../api/api.interceptor'
-import { UrlEnums } from '../../enums/url.enum'
+import { UrlEnums } from '@/constants/url.enum'
 import { IPost, IPostResponse, IPostUpdate } from '../../types/post.interface'
 
 export const PostService = {
-	async getAllPost(): IPost[] {
+	async getAllPost() {
 		return instance<IPost[]>({
 			url: `${UrlEnums.post}`,
 			method: 'GET',
 		})
 	},
 
-	async getUserPosts(userId: string): IPost[] {
+	async getUserPosts(userId: string) {
 		return instance<IPost[]>({
 			url: `${UrlEnums.post}/user/${userId}`,
 			method: 'GET',
@@ -24,7 +24,7 @@ export const PostService = {
 		})
 	},
 
-	async createPost({ image, text }: IPostResponse): IPost {
+	async createPost({ image, text }: IPostResponse) {
 		return instance<IPost>({
 			url: `${UrlEnums.post}`,
 			method: 'POST',

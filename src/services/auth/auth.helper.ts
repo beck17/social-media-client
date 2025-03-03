@@ -1,5 +1,7 @@
 import Cookies from 'js-cookie'
-import { ITokens, IUserResponse } from '../../types/user.interface'
+
+import { ITokens, IUserResponse } from '@/types/user.interface'
+
 
 export const getAccessToken = () => {
 	const accessToken = Cookies.get('accessToken')

@@ -1,7 +1,9 @@
 import { useQuery } from 'react-query'
-import { LikePostService } from '../services/post/like.service'
 
-export const useLike = (postId) => {
+import { LikePostService } from '@/services/post/like.service'
+
+
+export const useLike = (postId: string) => {
 	const { data: liked, refetch: likedRefetch } = useQuery(
 		`getLike on post ${postId}`,
 		() => LikePostService.getLike(postId),
@@ -18,9 +20,9 @@ export const useLike = (postId) => {
 		},
 	)
 
-	const refetchHandler = () => {
-		likedRefetch()
-		countRefetch()
+	const refetchHandler = async () => {
+		await likedRefetch()
+		await countRefetch()
 	}
 
 	return { liked, count, refetchHandler }

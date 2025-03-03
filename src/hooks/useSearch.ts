@@ -1,6 +1,8 @@
 import { ChangeEvent, useState } from 'react'
 import { useQuery } from 'react-query'
-import { UserService } from '../services/user.service'
+
+import { UserService } from '@/services/user.service'
+
 
 export const useSearch = () => {
 	const [searchTerm, setSearchTerm] = useState<string>('')

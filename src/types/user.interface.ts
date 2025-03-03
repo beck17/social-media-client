@@ -1,3 +1,5 @@
+import { ICommunity } from '@/types/community.interface'
+
 export interface IUser {
 	_id: string
 	firstName: string
@@ -12,9 +14,13 @@ export interface IUser {
 	updatedAt?: string
 	postCount?: number
 	friends?: IUser[]
+	communities?: ICommunity[]
 }
 
 export interface IUserState {
+	_id: string
+	firstName: string
+	lastName: string
 	phoneNumber: number
 }
 
@@ -47,15 +53,16 @@ export interface IUserResponse extends ITokens {
 export interface IRegisterUser {
 	firstName: string
 	lastName: string
-	phoneNumber: string
+	phoneNumber: number
 	password: string
 }
 
-export interface IRegisterResponse {
+export interface IRegisterResponse extends ITokens{
 	id: string
 	firstName: string
 	lastName: string
 	phoneNumber: number
+	user: IUser
 }
 
 export interface IUserUpdate {

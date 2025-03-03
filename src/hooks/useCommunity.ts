@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { CommunityService } from '../services/community/community.service'
+import { CommunityService } from '@/services/community/community.service'
 import React, { ChangeEvent } from 'react'
 
 export const useAllCommunity = () => {
@@ -14,7 +14,7 @@ export const useAllCommunity = () => {
 	return { communities: data, isLoading, refetch }
 }
 
-export const useOneCommunity = (id) => {
+export const useOneCommunity = (id: string) => {
 	const { data, isLoading, refetch } = useQuery(
 		`get community ${id}`,
 		() => CommunityService.getOneCommunity(id),
@@ -26,7 +26,7 @@ export const useOneCommunity = (id) => {
 	return { community: data, isLoading, refetch }
 }
 
-export const useGetUserCommunities = (id) => {
+export const useGetUserCommunities = (id: string) => {
 	const { data, isLoading, refetch } = useQuery(
 		`get user = ${id} communities`,
 		() => CommunityService.getUserCommunities(id),
@@ -62,7 +62,7 @@ export const useSearchAllCommunities = () => {
 	}
 }
 
-export const useIsSubscribed = (id) => {
+export const useIsSubscribed = (id: string) => {
 	const { data, isLoading, refetch } = useQuery(
 		`IsSubscribed = ${id} communities`,
 		() => CommunityService.isSubscribed(id),

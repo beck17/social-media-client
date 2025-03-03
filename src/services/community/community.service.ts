@@ -1,21 +1,23 @@
-import { instance } from '../../api/api.interceptor'
-import { UrlEnums } from '../../enums/url.enum'
+import { instance } from '@/api/api.interceptor'
+import { UrlEnums } from '@/constants/url.enum'
+
 import {
 	ICommunity,
 	ICommunityCreate,
 	ICommunityResponse,
 	ICommunityUpdate,
-} from '../../types/community.interface'
+} from '@/types/community.interface'
+
 
 export const CommunityService = {
-	async getAllCommunities(): ICommunity[] {
+	async getAllCommunities() {
 		return instance<ICommunity[]>({
 			url: `${UrlEnums.community}`,
 			method: 'GET',
 		})
 	},
 
-	async createCommunity({ name, description }: ICommunityCreate): ICommunity {
+	async createCommunity({ name, description }: ICommunityCreate) {
 		return instance<ICommunity>({
 			url: `${UrlEnums.community}`,
 			method: 'POST',
@@ -23,35 +25,35 @@ export const CommunityService = {
 		})
 	},
 
-	async getOneCommunity(id: string): ICommunity {
+	async getOneCommunity(id: string) {
 		return instance<ICommunity>({
 			url: `${UrlEnums.community}/${id}`,
 			method: 'GET',
 		})
 	},
 
-	async toggleSubscribe(communityId: string): ICommunity {
+	async toggleSubscribe(communityId: string) {
 		return instance<ICommunity>({
 			url: `${UrlEnums.community}/${communityId}`,
 			method: 'POST',
 		})
 	},
 
-	async getUserCommunities(userId: string): ICommunityResponse[] {
+	async getUserCommunities(userId: string) {
 		return instance<ICommunityResponse[]>({
 			url: `${UrlEnums.community}/user/${userId}`,
 			method: 'GET',
 		})
 	},
 
-	async searchAllCommunities(search: string): ICommunityResponse[] {
+	async searchAllCommunities(search: string) {
 		return instance<ICommunityResponse[]>({
 			url: `${UrlEnums.community}/search/${search}`,
 			method: 'GET',
 		})
 	},
 
-	async isSubscribed(communityId: string): boolean {
+	async isSubscribed(communityId: string) {
 		return instance<boolean>({
 			url: `${UrlEnums.community}/userSub/${communityId}`,
 			method: 'GET',
@@ -66,7 +68,7 @@ export const CommunityService = {
 			communityBackgroundPic,
 		}: ICommunityUpdate,
 		communityId: string,
-	): ICommunity {
+	) {
 		return instance<ICommunity>({
 			url: `${UrlEnums.community}/${communityId}`,
 			method: 'PUT',
@@ -74,7 +76,7 @@ export const CommunityService = {
 		})
 	},
 
-	async removeCommunity(communityId: string): ICommunity {
+	async removeCommunity(communityId: string) {
 		return instance<ICommunity>({
 			url: `${UrlEnums.community}/${communityId}`,
 			method: 'DELETE',

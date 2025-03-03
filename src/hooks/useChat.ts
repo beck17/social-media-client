@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { IConversation, IMessageFields } from '../types/conversation.interface'
+import { IConversation, IMessageFields } from '@/types/conversation.interface'
 import { io, Socket } from 'socket.io-client'
 import { DefaultEventsMap } from '@socket.io/component-emitter'
 

@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { CommunityPostService } from '../services/community-post/community-post.service'
+import { CommunityPostService } from '@/services/community-post/community-post.service'
 
 export const useCommunityPosts = (communityId: string) => {
 	const { data, isLoading, refetch } = useQuery(

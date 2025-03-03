@@ -1,8 +1,9 @@
 import { useQuery } from 'react-query'
 
-import { UserService } from '../services/user.service'
+import { UserService } from '@/services/user.service'
 
-export const useIsFriend = (friendId) => {
+
+export const useIsFriend = (friendId: string) => {
 	const { isLoading, data, refetch } = useQuery(
 		`is friend ${friendId}`,
 		() => UserService.isFriend(friendId),

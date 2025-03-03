@@ -7,7 +7,11 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { IPhonePassword } from '../../../../types/user.interface'
 import { useActions } from '../../../../hooks/useActions'
 
-const Login: FC = ({ togglePage }) => {
+interface Props {
+	togglePage?: () => void
+}
+
+const Login: FC<Props> = ({ togglePage }) => {
 	const [error, setError] = useState<boolean>(false)
 	const { login } = useActions()
 
@@ -32,8 +36,8 @@ const Login: FC = ({ togglePage }) => {
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
 				<h2>Вход</h2>
 				<Input
-					placeholder="Номер телефона"
-					type="number"
+					placeholder='Номер телефона'
+					type='number'
 					{...register('phoneNumber', {
 						required: 'Это поле обязательное',
 					})}
@@ -41,8 +45,8 @@ const Login: FC = ({ togglePage }) => {
 					error={errors.root?.message}
 				/>
 				<Input
-					placeholder="Пароль"
-					type="password"
+					placeholder='Пароль'
+					type='password'
 					{...register('password', {
 						required: 'Это поле обязательное',
 					})}

@@ -1,11 +1,10 @@
 import React, { FC } from 'react'
-import { useSelector } from 'react-redux'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'
-import { useActions } from '../../../../hooks/useActions'
-import { IRegisterUser } from '../../../../types/user.interface'
+import { useActions } from '@/hooks/useActions'
+import { IRegisterUser } from '@/types/user.interface'
 
 import styles from '@/assets/styles/screens/Auth.module.scss'
 
@@ -16,9 +15,11 @@ type Inputs = {
 	password: string
 }
 
-const Register: FC = ({ togglePage }) => {
-	const { isLoading } = useSelector((state) => state.user)
+interface Props {
+	togglePage?: () => void
+}
 
+const Register: FC<Props> = ({ togglePage }) => {
 	const { register } = useActions()
 
 	const {

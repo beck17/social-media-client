@@ -1,4 +1,4 @@
-import { instance } from '../api/api.interceptor'
+import { instance } from '@/api/api.interceptor'
 
 export interface IMediaResponse {
 	image: string

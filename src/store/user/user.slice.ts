@@ -1,4 +1,4 @@
-import { IInitialState } from '../../types/user.interface'
+import { IInitialState } from '@/types/user.interface'
 import { createSlice } from '@reduxjs/toolkit'
 import { checkAuth, login, logout, register } from './user.actions'
 
@@ -7,7 +7,7 @@ const initialState: IInitialState = {
 	isLoading: false,
 }
 
-export const userSlice = createSlice<any>({
+export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {},
