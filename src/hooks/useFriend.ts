@@ -14,3 +14,15 @@ export const useIsFriend = (friendId: string) => {
 
 	return { isLoading, isFriend: data, isFriendRefetch: refetch }
 }
+
+export const useIsSubscribe = (friendId: string) => {
+	const { isLoading, data, refetch } = useQuery(
+		`is subscribe ${friendId}`,
+		() => UserService.isSubscribe(friendId),
+		{
+			select: ({ data }) => data,
+		},
+	)
+
+	return { isLoading, isSubscribe: data, isSubscribeRefetch: refetch }
+}

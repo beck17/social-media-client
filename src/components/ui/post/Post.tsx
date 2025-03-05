@@ -19,7 +19,7 @@ import commentsImg from '@/assets/img/comments.svg'
 import styles from './Post.module.scss'
 import CommunityInfo from './user-info/CommunityInfo'
 
-const Post: FC<{ post: IPost; isCreator: boolean }> = ({ post, isCreator }) => {
+const Post: FC<{ post: IPost; isCreator?: boolean }> = ({ post, isCreator }) => {
 	const [commentOpen, setCommentOpen] = useState<boolean>(false)
 
 	const { comments, refetch } = usePostComments(post._id)
@@ -39,7 +39,7 @@ const Post: FC<{ post: IPost; isCreator: boolean }> = ({ post, isCreator }) => {
 		},
 	)
 
-	const toggleLikeHandler = async (id) => {
+	const toggleLikeHandler = async (id: string) => {
 		await mutateAsync(id)
 	}
 

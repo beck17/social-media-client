@@ -12,7 +12,7 @@ import styles from './UserInfo.module.scss'
 import CommunityActions from '../../../screens/communities/communityItem/CommunityActions'
 import CommunityPostActions from '../../select/CommunityPostActions'
 
-const CommunityInfo: FC<{ post: IPost; isCreator: boolean }> = ({
+const CommunityInfo: FC<{ post: IPost; isCreator?: boolean }> = ({
 	post,
 	isCreator,
 }) => {

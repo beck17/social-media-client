@@ -15,7 +15,7 @@ export const useAllPost = () => {
 	return { posts: data, isLoading, refetch }
 }
 
-export const useUserPost = (userId: string) => {
+export const useUserPost = (userId: string | undefined) => {
 	const { data, isLoading, refetch } = useQuery(
 		`get user posts${userId}`,
 		() => PostService.getUserPosts(userId),

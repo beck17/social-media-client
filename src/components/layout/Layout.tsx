@@ -9,10 +9,10 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<>
 			<Navbar />
-			<div style={{ display: 'flex' }}>
+			<div style={{ display: 'flex',maxWidth: "1024px", margin: "0 auto" }}>
 				<LeftSidebar />
-				<div style={{ flex: 6 }}>{children}</div>
-				<RightSidebar />
+				<div style={{ flex: 9,  margin: "20px 0" }}>{children}</div>
+				{/*<RightSidebar />*/}
 			</div>
 		</>
 	)

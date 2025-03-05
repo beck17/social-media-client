@@ -1,22 +1,25 @@
 import { FC, useState } from 'react'
 import { useRouter } from 'next/router'
 
-import { useChat } from '../../../hooks/useChat'
-import { useAuth } from '../../../hooks/useAuth'
-import { useUserProfile } from '../../../hooks/useProfile'
+import { useChat } from '@/hooks/useChat'
+import { useAuth } from '@/hooks/useAuth'
+import { useUserProfile } from '@/hooks/useProfile'
+
+import Input from '@/components/ui/input/Input'
+import Button from '@/components/ui/button/Button'
 
 import ChatInfo from './chatInfo/ChatInfo'
 import Messages from './messages/Messages'
-import Input from '../../ui/input/Input'
-import Button from '../../ui/button/Button'
 
 import styles from '@/assets/styles/screens/Chat.module.scss'
+
 
 const Chat: FC = () => {
 	const [message, setMessage] = useState<string>('')
 
 	const router = useRouter()
-	const { id, withId } = router.query
+	const id = router.query.id as string
+	const withId = router.query.withId as string
 
 	const { userProfile } = useUserProfile(withId)
 
@@ -28,7 +31,7 @@ const Chat: FC = () => {
 		sendMessage({
 			text: message,
 			conversationId: String(id),
-			userFrom: String(user._id),
+			userFrom: String(user?._id),
 			userTo: String(userProfile?._id),
 		})
 		setMessage('')

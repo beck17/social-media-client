@@ -28,7 +28,6 @@ interface Props {
 const CommentItem: FC<Props> = ({ comment, postUserId, refetchComment }) => {
 	const [modalIsOpen, setIsOpen] = useState(false)
 	const { user } = useAuth()
-	console.log(user)
 
 	const { mutateAsync } = useMutation(
 		`delete comment ${comment._id}`,

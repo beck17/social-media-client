@@ -9,7 +9,7 @@ import {
 
 
 export const CommunityPostService = {
-	async getCommunityPosts(communityId: string) {
+	async getCommunityPosts(communityId: string| undefined) {
 		return instance<ICommunityPost[]>({
 			url: `${UrlEnums.communityPost}/${communityId}`,
 			method: 'GET',

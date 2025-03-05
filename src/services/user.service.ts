@@ -12,7 +12,7 @@ export const UserService = {
 		})
 	},
 
-	async getUserProfile(userId: string | number) {
+	async getUserProfile(userId: string) {
 		return instance<IUser>({
 			url: `${UrlEnums.user}/profile/${userId}`,
 			method: 'GET',
@@ -26,7 +26,7 @@ export const UserService = {
 		})
 	},
 
-	async addToFriends(friendId: string) {
+	async sendFriendRequest(friendId: string) {
 		return instance<boolean>({
 			url: `${UrlEnums.user}/${friendId}`,
 			method: 'POST',
@@ -37,6 +37,20 @@ export const UserService = {
 		return instance<boolean>({
 			url: `${UrlEnums.user}/friend/${friendId}`,
 			method: 'GET',
+		})
+	},
+
+	async isSubscribe(friendId: string) {
+		return instance<boolean>({
+			url: `${UrlEnums.user}/requestFriend/${friendId}`,
+			method: 'GET',
+		})
+	},
+
+	async unSubscribe(friendId: string) {
+		return instance<boolean>({
+			url: `${UrlEnums.user}/unSubscribe/${friendId}`,
+			method: 'PUT',
 		})
 	},
 

@@ -16,7 +16,7 @@ import styles from './Comment.module.scss'
 
 
 interface Props {
-	comments: IComment[]
+	comments?: IComment[]
 	postId: string
 	refetch: any
 	postUserId: string
@@ -68,7 +68,7 @@ const Comments: FC<Props> = ({ comments, postUserId, postId, refetch }) => {
 				/>
 				<Button>Отправить</Button>
 			</form>
-			{comments.map((comment) => (
+			{comments?.map((comment) => (
 				<CommentItem
 					key={comment._id}
 					comment={comment}

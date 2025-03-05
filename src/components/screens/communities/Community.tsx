@@ -6,16 +6,18 @@ import CommunityContent from './communityContent/CommunityContent'
 import PostLoader from '../../ui/loaders/post-loader/PostLoader'
 import CommunityActions from './communityItem/CommunityActions'
 
-import { useOneCommunity } from '../../../hooks/useCommunity'
-import { useDateWithYear } from '../../../hooks/useDate'
-import { useAuth } from '../../../hooks/useAuth'
+import { useOneCommunity } from '@/hooks/useCommunity'
+import { useDateWithYear } from '@/hooks/useDate'
+import { useAuth } from '@/hooks/useAuth'
 
 import styles from './Community.module.scss'
 
 const Community: FC = () => {
+	const router = useRouter()
+	const id = router.query.id as string
+
 	const { user } = useAuth()
-	const { query } = useRouter()
-	const { community, isLoading, refetch } = useOneCommunity(query.id)
+	const { community, isLoading, refetch } = useOneCommunity(id)
 
 	const avatarPath = {
 		avatar: isLoading
@@ -26,7 +28,7 @@ const Community: FC = () => {
 			: community?.communityBackgroundPic,
 	}
 
-	const isCreator: boolean = user._id === community?.creator
+	const isCreator: boolean = user?._id  === community?.creator
 
 	return (
 		<div className={styles.community}>

@@ -16,10 +16,10 @@ import styles from '../../feed/submitPost/SubmitPost.module.scss'
 
 const SubmitCommunityPost: FC<{
 	refetch: any
-	community: ICommunity
+	community?: ICommunity
 	isLoading: boolean
 }> = ({ refetch, community }) => {
-	const [image1, setImage] = useState()
+	const [image1, setImage] = useState<{image: string | undefined}>()
 	const { uploadFile } = useUploadFile(setImage)
 
 	const {

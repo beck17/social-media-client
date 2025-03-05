@@ -24,9 +24,6 @@ const MyCommunities: FC = () => {
 						<CommunityItem key={community._id} community={community} />
 					))
 				)}
-				{/*<CommunityItem />*/}
-				{/*<CommunityItem />*/}
-				{/*<CommunityItem />*/}
 			</div>
 		</div>
 	)

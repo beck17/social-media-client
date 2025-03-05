@@ -15,20 +15,21 @@ import { CommunityService } from '../../../../services/community/community.servi
 import Button from '../../../ui/button/Button'
 
 const CommunityActions: FC<{
-	communityId: string
+	communityId: string | undefined
 	refetch: any
 	isCreator: boolean
 }> = ({ communityId, refetch, isCreator }) => {
+	const router = useRouter()
+	const id = router.query.id as string
+
 	const [isOpenPopup, setIsOpenPopup] = React.useState(false)
 	const [editModalIsOpen, setEditIsOpen] = React.useState(false)
 	const [removeModalIsOpen, setRemoveIsOpen] = React.useState(false)
 
 	const communityActionRef = React.useRef()
 
-	const { query } = useRouter()
-
 	const { isSubscribed, isSubscribedLoading, isSubscribedRefetch } =
-		useIsSubscribed(query.id)
+		useIsSubscribed(id)
 	const { refetch: refetchAllCommunities } = useAllCommunity()
 
 	const { mutateAsync } = useMutation(
@@ -41,7 +42,7 @@ const CommunityActions: FC<{
 		},
 	)
 
-	const toggleSubscribeHandler = async (id) => {
+	const toggleSubscribeHandler = async (id: string) => {
 		setIsOpenPopup(false)
 		await mutateAsync(id)
 		await isSubscribedRefetch()

@@ -11,10 +11,10 @@ import { useAuth } from '../../../hooks/useAuth'
 import Button from '../../ui/button/Button'
 import ModalEdit from '../../ui/modal/Modal'
 import ProfileForm from '../../ui/edit-forms/profile-form/ProfileForm'
+import { ProfileImages } from '@/components/ui/images/ProfileImages'
 
 const MyProfile: FC = () => {
 	const [modalIsOpen, setIsOpen] = React.useState(false)
-	const { user } = useAuth()
 
 	const {
 		myProfile,
@@ -32,34 +32,13 @@ const MyProfile: FC = () => {
 			<ModalEdit modalIsOpen={modalIsOpen} setIsOpen={setIsOpen}>
 				<ProfileForm refetch={refetchProfile} setIsOpen={setIsOpen} />
 			</ModalEdit>
-			<div className={styles.images}>
-				<Image
-					className={styles.cover}
-					src={
-						isLoadingProfile
-							? 'http://localhost:5000/uploads/default/background.jpg'
-							: `http://localhost:5000${myProfile?.backgroundPic}`
-					}
-					alt="2"
-					width={0}
-					height={0}
-					sizes="100vw 100vh"
-					priority
-				/>
 
-				<Image
-					width={0}
-					height={0}
-					sizes="100vw 100vh"
-					src={
-						isLoadingProfile
-							? 'http://localhost:5000/uploads/default/no-avatar.jpg'
-							: `http://localhost:5000${myProfile?.avatar}`
-					}
-					alt="1"
-					className={styles.profilePic}
-				/>
-			</div>
+			<ProfileImages
+				isLoading={isLoadingProfile}
+				backgroundPic={myProfile?.backgroundPic}
+				avatar={myProfile?.avatar}
+			/>
+
 			<div className={styles.profileContainer}>
 				<div className={styles.uInfo}>
 					<div className={styles.center}>
@@ -70,13 +49,13 @@ const MyProfile: FC = () => {
 						</span>
 						<div className={styles.info}>
 							<div className={styles.item}>
-								<Image src={home} alt="home" width={20} height={20} />
+								<Image src={home} alt='home' width={20} height={20} />
 								<span>
 									{isLoadingProfile
 										? 'SKELETON'
 										: myProfile?.city
-										? myProfile.city
-										: 'указать город'}
+											? myProfile.city
+											: 'указать город'}
 								</span>
 							</div>
 						</div>
@@ -89,7 +68,7 @@ const MyProfile: FC = () => {
 				</div>
 				<SubmitPost refetch={refetchPosts} />
 				{posts?.map((post) => (
-					<Post post={post} key={post._id} refetchPosts={refetchPosts} />
+					<Post post={post} key={post._id} />
 				))}
 			</div>
 		</div>

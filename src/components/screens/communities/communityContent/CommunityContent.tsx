@@ -5,12 +5,12 @@ import { useCommunityPosts } from '../../../../hooks/useCommunityPost'
 import { ICommunity } from '../../../../types/community.interface'
 
 const CommunityContent: FC<{
-	community: ICommunity
+	community: ICommunity | undefined
 	isLoading: boolean
 	isCreator: boolean
 }> = ({ community, isLoading, isCreator }) => {
 	const { communityPosts, refetch: refetchPosts } = useCommunityPosts(
-		community._id,
+		community?._id,
 	)
 
 	return (
@@ -22,7 +22,7 @@ const CommunityContent: FC<{
 					isLoading={isLoading}
 				/>
 			)}
-			{communityPosts?.map((post) => (
+			{communityPosts && communityPosts.map((post) => (
 				<Post post={post} key={post._id} isCreator={isCreator} />
 			))}
 		</>

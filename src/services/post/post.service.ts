@@ -10,7 +10,7 @@ export const PostService = {
 		})
 	},
 
-	async getUserPosts(userId: string) {
+	async getUserPosts(userId: string| undefined) {
 		return instance<IPost[]>({
 			url: `${UrlEnums.post}/user/${userId}`,
 			method: 'GET',

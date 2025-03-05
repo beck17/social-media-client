@@ -13,7 +13,9 @@ export interface IUser {
 	createdAt?: string
 	updatedAt?: string
 	postCount?: number
-	friends?: IUser[]
+	friends: IUser[]
+	requestFriends: IUser[]
+	outgoingRequestsFriends: IUser[]
 	communities?: ICommunity[]
 }
 

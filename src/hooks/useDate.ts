@@ -15,6 +15,6 @@ export const useDateDay = (createdAt: string) => {
 	return dayjs(createdAt, 'D M', 'ru').format('D.MM')
 }
 
-export const useDateWithYear = (createdAt: string) => {
+export const useDateWithYear = (createdAt: string | undefined) => {
 	return dayjs(createdAt, 'D MMMM YYYY').format('D MMMM YYYY')
 }
