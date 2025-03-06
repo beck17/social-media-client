@@ -2,9 +2,9 @@ import styles from '@/assets/styles/screens/Profile.module.scss'
 import Image from 'next/image'
 import home from '@/assets/img/home.svg'
 import Button from '@/components/ui/button/Button'
-import { getActionsButton } from '@/components/ui/button/ActionsButton'
 import { useCreateConversation } from '@/hooks/useCreateConversation'
 import { IUser } from '@/types/user.interface'
+import { getFriendAction } from '@/lib/get-friend-action'
 
 interface Props {
 	profileId: string
@@ -14,6 +14,7 @@ interface Props {
 
 export const ProfileInfo: React.FC<Props> = ({ profileId, userProfile, isLoading }) => {
 	const createConversationHandler = useCreateConversation(profileId)
+	const {text, actionHandler} = getFriendAction(profileId)
 
 	const userFullName = isLoading
 		? 'SKELETON'
@@ -43,7 +44,9 @@ export const ProfileInfo: React.FC<Props> = ({ profileId, userProfile, isLoading
 					<Button onClick={() => createConversationHandler(profileId)}>
 						Написать
 					</Button>
-					{getActionsButton(profileId)}
+					<Button onClick={actionHandler}>
+						{text}
+					</Button>
 				</div>
 			</div>
 		</div>

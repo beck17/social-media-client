@@ -1,11 +1,14 @@
 import React, { FC } from 'react'
 
+import { useCommunityPosts } from '@/hooks/useCommunityPost'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
+
 import Modal from '../modal/Modal'
 import CommunityPostForm from '../edit-forms/communityPost-form/CommunityPostForm'
 import CommunityPostRemoveForm from '../edit-forms/communityPost-form/CommunityPostRemoveForm'
 
-import { useCommunityPosts } from '../../../hooks/useCommunityPost'
 import styles from './Select.module.scss'
+
 
 const CommunityPostActions: FC<{ postId: string; communityId?: string }> = ({
 	postId,
@@ -17,14 +20,9 @@ const CommunityPostActions: FC<{ postId: string; communityId?: string }> = ({
 
 	const { refetch } = useCommunityPosts(communityId)
 
-	const postActionRef = React.useRef()
+	const postActionRef = React.useRef<HTMLDivElement>(null)
 
-	const handleOutsideClick = (event) => {
-		const path = event.path || (event.composedPath && event.composedPath())
-		if (!path.includes(postActionRef.current)) {
-			setIsOpenPopup(false)
-		}
-	}
+	useOutsideClick(postActionRef, () => setIsOpenPopup(false))
 
 	const handleUpdatePost = () => {
 		setIsOpenPopup(false)
@@ -35,10 +33,6 @@ const CommunityPostActions: FC<{ postId: string; communityId?: string }> = ({
 		setIsOpenPopup(false)
 		setRemoveIsOpen((prev) => !prev)
 	}
-
-	React.useEffect(() => {
-		document.body.addEventListener('click', handleOutsideClick)
-	}, [])
 
 	return (
 		<div className={styles.sort} ref={postActionRef}>

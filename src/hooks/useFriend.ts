@@ -9,6 +9,7 @@ export const useIsFriend = (friendId: string) => {
 		() => UserService.isFriend(friendId),
 		{
 			select: ({ data }) => data,
+
 		},
 	)
 

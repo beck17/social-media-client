@@ -13,9 +13,10 @@ import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 import { CommunityService } from '../../../../services/community/community.service'
 import Button from '../../../ui/button/Button'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 const CommunityActions: FC<{
-	communityId: string | undefined
+	communityId: string
 	refetch: any
 	isCreator: boolean
 }> = ({ communityId, refetch, isCreator }) => {
@@ -26,7 +27,7 @@ const CommunityActions: FC<{
 	const [editModalIsOpen, setEditIsOpen] = React.useState(false)
 	const [removeModalIsOpen, setRemoveIsOpen] = React.useState(false)
 
-	const communityActionRef = React.useRef()
+	const communityActionRef = React.useRef<HTMLDivElement>(null)
 
 	const { isSubscribed, isSubscribedLoading, isSubscribedRefetch } =
 		useIsSubscribed(id)
@@ -50,12 +51,7 @@ const CommunityActions: FC<{
 
 	const buttonTitle = isSubscribed ? 'Отписаться' : 'Подписаться'
 
-	const handleOutsideClick = (event) => {
-		const path = event.path || (event.composedPath && event.composedPath())
-		if (!path.includes(communityActionRef.current)) {
-			setIsOpenPopup(false)
-		}
-	}
+	useOutsideClick(communityActionRef, () => setIsOpenPopup(false))
 
 	const handleUpdateCommunity = () => {
 		setIsOpenPopup(false)
@@ -67,9 +63,6 @@ const CommunityActions: FC<{
 		setRemoveIsOpen((prev) => !prev)
 	}
 
-	React.useEffect(() => {
-		document.body.addEventListener('click', handleOutsideClick)
-	}, [])
 
 	if (!isCreator) {
 		return (

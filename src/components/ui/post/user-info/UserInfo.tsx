@@ -2,20 +2,22 @@ import React, { FC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useAuth } from '../../../../hooks/useAuth'
-import { useDate } from '../../../../hooks/useDate'
+import { useAuth } from '@/hooks/useAuth'
+import { useDate } from '@/hooks/useDate'
 
 import PostActions from '../../select/PostActions'
 
-import { IPost } from '../../../../types/post.interface'
+import { IPost } from '@/types/post.interface'
+
 import styles from './UserInfo.module.scss'
+
 
 const UserInfo: FC<{ post: IPost }> = ({ post }) => {
 	const postCreated = useDate(post.createdAt)
 
 	const { user } = useAuth()
 	const postOwnerName = `${post.user.firstName} ${post.user.lastName}`
-	const isUserPost: boolean = post.user._id === user._id
+	const isUserPost: boolean = post.user._id === user?._id
 
 	const profileLink: string = isUserPost
 		? '/profile'

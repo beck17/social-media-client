@@ -1,19 +1,19 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { useCreateConversation } from '@/hooks/useCreateConversation'
-
-import Button from '../../../ui/button/Button'
+import { FriendActions } from '@/components/screens/friends/friend-actions/FriendActions'
 
 import { IUser } from '@/types/user.interface'
 
 import styles from '@/assets/styles/screens/Friends.module.scss'
-import { getActionsButton } from '@/components/ui/button/ActionsButton'
 
 
-const FriendItem: FC<{ user: IUser }> = ({ user }) => {
-	const createConversationHandler = useCreateConversation(user._id)
+interface Props {
+	user: IUser
+}
+
+const FriendItem: FC<Props> = ({ user }) => {
 
 	return (
 		<div className={styles.item}>
@@ -29,12 +29,7 @@ const FriendItem: FC<{ user: IUser }> = ({ user }) => {
 				<Link href={`/profile/${user._id}`}>
 					<span>{user.firstName} {user.lastName} </span>
 				</Link>
-				<div className={styles.buttons}>
-					<Button onClick={() => createConversationHandler(user._id)}>
-						Написать
-					</Button>
-					{getActionsButton(user._id)}
-				</div>
+				<FriendActions friendId={user._id} />
 			</div>
 		</div>
 	)

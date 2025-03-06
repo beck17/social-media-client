@@ -1,51 +1,40 @@
 import React, { FC } from 'react'
 
+import { useAllPost } from '@/hooks/usePost'
+
 import Modal from '../modal/Modal'
 import PostForm from '../edit-forms/post-form/PostForm'
 import RemoveForm from '../edit-forms/remove-form/RemoveForm'
 
-import { useAllPost } from '../../../hooks/usePost'
-
 import styles from './Select.module.scss'
+import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
-const PostActions: FC<{ postId }> = ({ postId }) => {
+
+const PostActions: FC<{ postId: string }> = ({ postId }) => {
 	const [isOpenPopup, setIsOpenPopup] = React.useState(false)
 	const [editModalIsOpen, setEditIsOpen] = React.useState(false)
 	const [removeModalIsOpen, setRemoveIsOpen] = React.useState(false)
 
-	const { refetch } = useAllPost()
+	const { refetch: refetchPosts } = useAllPost()
 
-	const postActionRef = React.useRef()
+	const postActionRef = React.useRef<HTMLDivElement>(null)
 
-	const handleOutsideClick = (event) => {
-		const path = event.path || (event.composedPath && event.composedPath())
-		if (!path.includes(postActionRef.current)) {
-			setIsOpenPopup(false)
-		}
-	}
+	useOutsideClick(postActionRef, () => setIsOpenPopup(false))
 
-	const handleUpdatePost = () => {
-		setIsOpenPopup(false)
-		setEditIsOpen((prev) => !prev)
-	}
 
-	const handleRemovePost = () => {
-		setIsOpenPopup(false)
-		setRemoveIsOpen((prev) => !prev)
-	}
+	const handleUpdatePost = () => closePopupOpenModal(setIsOpenPopup, setEditIsOpen)
+	const handleRemovePost = () => closePopupOpenModal(setIsOpenPopup, setRemoveIsOpen)
 
-	React.useEffect(() => {
-		document.body.addEventListener('click', handleOutsideClick)
-	}, [])
 
 	return (
 		<div className={styles.sort} ref={postActionRef}>
 			<Modal modalIsOpen={editModalIsOpen} setIsOpen={setEditIsOpen}>
-				<PostForm refetch={refetch} setIsOpen={setEditIsOpen} postId={postId} />
+				<PostForm refetch={refetchPosts} setIsOpen={setEditIsOpen} postId={postId} />
 			</Modal>
 			<Modal modalIsOpen={removeModalIsOpen} setIsOpen={setRemoveIsOpen}>
 				<RemoveForm
-					refetch={refetch}
+					refetch={refetchPosts}
 					setIsOpen={setRemoveIsOpen}
 					postId={postId}
 				/>

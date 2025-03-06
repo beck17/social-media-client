@@ -9,19 +9,15 @@ import styles from '@/assets/styles/screens/Friends.module.scss'
 
 
 const Friends: FC = () => {
-	const { isLoading, myProfile } = useProfile()
+	const { myProfile } = useProfile()
 
 	return (
 		<div className={styles.friends}>
 			<div className={styles.container}>
 				<Input placeholder='Найти друга...' />
-				{isLoading ? (
-					<p>Тут нужно добавить скелетон!!!</p>
-				) : (
-					myProfile?.friends && myProfile.friends.map((friend) => (
-						<FriendItem key={friend._id} user={friend} />
-					))
-				)}
+				{myProfile?.friends && myProfile.friends.map((friend) => (
+					<FriendItem key={friend._id} user={friend} />
+				))}
 			</div>
 		</div>
 	)
