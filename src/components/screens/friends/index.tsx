@@ -11,11 +11,14 @@ import styles from '@/assets/styles/screens/Friends.module.scss'
 const Friends: FC = () => {
 	const { myProfile } = useProfile()
 
+	console.log(myProfile)
+
 	return (
 		<div className={styles.friends}>
 			<div className={styles.container}>
 				<Input placeholder='Найти друга...' />
 				{myProfile?.friends && myProfile.friends.map((friend) => (
+
 					<FriendItem key={friend._id} user={friend} />
 				))}
 			</div>

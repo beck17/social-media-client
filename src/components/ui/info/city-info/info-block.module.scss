@@ -1,0 +1,11 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #bdbdbd;
+  margin-bottom: 4px;
+
+  .city {
+    font-size: 14px;
+  }
+}

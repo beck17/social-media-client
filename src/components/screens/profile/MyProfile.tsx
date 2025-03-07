@@ -1,17 +1,17 @@
-import Image from 'next/image'
 import React, { FC } from 'react'
-import home from '@/assets/img/home.svg'
 
 import styles from '@/assets/styles/screens/Profile.module.scss'
-import { useProfile } from '../../../hooks/useProfile'
-import { useUserPost } from '../../../hooks/usePost'
+import home from '@/assets/img/home.svg'
+
+import { useProfile } from '@/hooks/useProfile'
+import { useUserPost } from '@/hooks/usePost'
 import Post from '../../ui/post/Post'
 import SubmitPost from '../feed/submitPost/SubmitPost'
-import { useAuth } from '../../../hooks/useAuth'
 import Button from '../../ui/button/Button'
 import ModalEdit from '../../ui/modal/Modal'
 import ProfileForm from '../../ui/edit-forms/profile-form/ProfileForm'
 import { ProfileImages } from '@/components/ui/images/ProfileImages'
+import { InfoBlock } from '@/components/ui/info/city-info/InfoBlock'
 
 const MyProfile: FC = () => {
 	const [modalIsOpen, setIsOpen] = React.useState(false)
@@ -42,22 +42,13 @@ const MyProfile: FC = () => {
 			<div className={styles.profileContainer}>
 				<div className={styles.uInfo}>
 					<div className={styles.center}>
-						<span>
+						<span className={styles.name}>
 							{isLoadingProfile
 								? 'СКЕЛЕТОН'
 								: `${myProfile?.firstName} ${myProfile?.lastName}`}
 						</span>
 						<div className={styles.info}>
-							<div className={styles.item}>
-								<Image src={home} alt='home' width={20} height={20} />
-								<span>
-									{isLoadingProfile
-										? 'SKELETON'
-										: myProfile?.city
-											? myProfile.city
-											: 'указать город'}
-								</span>
-							</div>
+							<InfoBlock src={home} text={myProfile?.city} />
 						</div>
 						<div className={styles.buttons}>
 							<Button onClick={() => setIsOpen((prev) => !prev)}>
