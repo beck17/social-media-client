@@ -1,11 +1,15 @@
-import React, { FC } from 'react'
+import React, { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react'
 import cn from 'clsx'
 
-// import Input from '../input/Input'
-// import Button from '../button/Button'
 import styles from './Modal.module.scss'
 
-const ModalEdit: FC<{ modalIsOpen: any; setIsOpen: any; children: any }> = ({
+
+interface Props {
+	modalIsOpen: boolean
+	setIsOpen: Dispatch<SetStateAction<boolean>>
+}
+
+const ModalEdit: FC<PropsWithChildren<Props>> = ({
 	modalIsOpen,
 	setIsOpen,
 	children,
