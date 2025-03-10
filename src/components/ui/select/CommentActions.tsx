@@ -13,10 +13,11 @@ import styles from '@/components/ui/select/Select.module.scss'
 
 interface Props {
 	commentId: string
+	text: string
 	refetch: () => void
 }
 
-export const CommentActions: FC<Props> = ({ commentId, refetch }) => {
+export const CommentActions: FC<Props> = ({ commentId, refetch, text }) => {
 	const [isOpenPopup, setIsOpenPopup] = React.useState<boolean>(false)
 	const [modalEditIsOpen, setEditIsOpen] = useState<boolean>(false)
 	const [removeModalIsOpen, setRemoveIsOpen] = useState<boolean>(false)
@@ -32,6 +33,7 @@ export const CommentActions: FC<Props> = ({ commentId, refetch }) => {
 		<div className={styles.sort} ref={postActionRef}>
 			<Modal modalIsOpen={modalEditIsOpen} setIsOpen={setEditIsOpen}>
 				<CommentForm
+					text={text}
 					refetch={refetch}
 					setIsOpen={setEditIsOpen}
 					commentId={commentId}

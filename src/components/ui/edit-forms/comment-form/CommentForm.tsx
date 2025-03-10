@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction } from 'react'
+import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useUpdateComment } from '@/hooks/useComment'
@@ -10,16 +10,20 @@ import styles from '../EditForm.module.scss'
 
 
 interface Props {
+	text: string,
+	commentId: string
 	refetch: () => void,
 	setIsOpen: Dispatch<SetStateAction<boolean>>
-	commentId: string
 }
 
 const CommentForm: FC<Props> = ({
+																	text,
+																	commentId,
 																	refetch,
 																	setIsOpen,
-																	commentId,
 																}) => {
+	const [inputText, setInputText] = useState<string>(text)
+
 	const {
 		register,
 		handleSubmit,
@@ -33,9 +37,15 @@ const CommentForm: FC<Props> = ({
 		<div className={styles.formEdit}>
 			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 				<Input
-					{...register('text')}
+					{...register('text', {
+						required: 'Это поле обязательное',
+					})}
 					error={errors.text?.message}
 					placeholder='Текст'
+					value={inputText}
+					onChange={(e) => {
+						setInputText(e.target.value as string)
+					}}
 				/>
 
 				<Button>Сохранить</Button>
