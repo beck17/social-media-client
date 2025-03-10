@@ -1,27 +1,38 @@
-import React, { FC, useState } from 'react'
+import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import Image from 'next/image'
 import { useMutation } from 'react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { UserService } from '../../../../services/user.service'
+import { UserService } from '@/services/user.service'
 
-import { IUserUpdate } from '../../../../types/user.interface'
+import { useUploadFile } from '../../uploadField/useUploadFile'
+import { useUploadBackground } from '@/hooks/useUploadBackground'
 
 import Input from '../../input/Input'
 import Button from '../../button/Button'
 
 import photo from '@/assets/img/photo.svg'
 
-import styles from '../EditForm.module.scss'
-import { useUploadFile } from '../../uploadField/useUploadFile'
-import { useUploadBackground } from '../../../../hooks/useUploadBackground'
+import { IUserUpdate } from '@/types/user.interface'
 
-const ProfileForm: FC<{ refetch: any; setIsOpen: any }> = ({
-	refetch,
-	setIsOpen,
-}) => {
-	const [avatarPic, setAvatarPic] = useState()
-	const [backgroundPicPhoto, setBackgroundPic] = useState()
+import styles from '../EditForm.module.scss'
+
+
+interface Props {
+	refetch: () => void,
+	setIsOpen: Dispatch<SetStateAction<boolean>>
+}
+
+interface ImageInterface {
+	image?: string
+}
+
+const ProfileForm: FC<Props> = ({
+																	refetch,
+																	setIsOpen,
+																}) => {
+	const [avatarPic, setAvatarPic] = useState<ImageInterface>()
+	const [backgroundPicPhoto, setBackgroundPic] = useState<ImageInterface>()
 
 	const { uploadFile } = useUploadFile(setAvatarPic)
 	const { uploadBackground } = useUploadBackground(setBackgroundPic)
@@ -46,12 +57,12 @@ const ProfileForm: FC<{ refetch: any; setIsOpen: any }> = ({
 	)
 
 	const onSubmit: SubmitHandler<IUserUpdate> = async ({
-		backgroundPic = backgroundPicPhoto?.image,
-		avatar = avatarPic?.image,
-		lastName,
-		firstName,
-		city,
-	}) => {
+																												backgroundPic = backgroundPicPhoto?.image,
+																												avatar = avatarPic?.image,
+																												lastName,
+																												firstName,
+																												city,
+																											}) => {
 		const data = { avatar, lastName, firstName, city, backgroundPic }
 		await mutateAsync(data)
 	}
@@ -60,42 +71,46 @@ const ProfileForm: FC<{ refetch: any; setIsOpen: any }> = ({
 		<div className={styles.formEdit}>
 			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 				<Input
-					placeholder="Имя"
+					placeholder='Имя'
 					{...register('firstName')}
 					error={errors.firstName?.message}
 				/>
 				<Input
-					placeholder="Фамилия"
+					placeholder='Фамилия'
 					{...register('lastName')}
 					error={errors.lastName?.message}
 				/>
 				<Input
-					placeholder="Город"
+					placeholder='Город'
 					{...register('city')}
 					error={errors.city?.message}
 				/>
+
 				<div className={styles.buttons}>
 					<input
-						type="file"
-						id="avatar"
+						type='file'
+						id='avatar'
 						onChange={uploadFile}
 						style={{ display: 'none' }}
 					/>
-					<label htmlFor="avatar">
+
+					<label htmlFor='avatar'>
 						<div className={styles.file}>
-							<Image src={photo} alt="фото" width={25} height={25} />
+							<Image src={photo} alt='фото' width={25} height={25} />
 							<span>Добавить аватар</span>
 						</div>
 					</label>
+
 					<input
-						type="file"
-						id="backgroundPic"
+						type='file'
+						id='backgroundPic'
 						onChange={uploadBackground}
 						style={{ display: 'none' }}
 					/>
-					<label htmlFor="backgroundPic">
+
+					<label htmlFor='backgroundPic'>
 						<div className={styles.file}>
-							<Image src={photo} alt="фото" width={25} height={25} />
+							<Image src={photo} alt='фото' width={25} height={25} />
 							<span style={{ alignItems: 'center' }}>Добавить ковер</span>
 						</div>
 					</label>

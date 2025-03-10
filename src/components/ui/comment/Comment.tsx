@@ -1,24 +1,23 @@
 import { FC } from 'react'
 import Image from 'next/image'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
-
-import { CommentPostService } from '@/services/post/comment.service'
+import { useForm } from 'react-hook-form'
 
 import { useProfile } from '@/hooks/useProfile'
+import { useNewComment } from '@/hooks/useComment'
 
 import CommentItem from './CommentItem'
 import Button from '../button/Button'
 import Input from '../input/Input'
 
 import { IComment, ICommentRequest } from '@/types/comment.interface'
+
 import styles from './Comment.module.scss'
 
 
 interface Props {
 	comments?: IComment[]
 	postId: string
-	refetch: any
+	refetch: () => void
 	postUserId: string
 }
 
@@ -34,21 +33,7 @@ const Comments: FC<Props> = ({ comments, postUserId, postId, refetch }) => {
 		mode: 'onChange',
 	})
 
-	const { mutateAsync } = useMutation(
-		'create a new comment',
-		(data: ICommentRequest) =>
-			CommentPostService.createPostComment({ ...data, postId }),
-		{
-			onSuccess(data) {
-				reset()
-				refetch()
-			},
-		},
-	)
-
-	const onSubmitForm: SubmitHandler<ICommentRequest> = async (data) => {
-		await mutateAsync(data)
-	}
+	const { onSubmitForm } = useNewComment(postId, reset, refetch)
 
 	return (
 		<div className={styles.comments}>

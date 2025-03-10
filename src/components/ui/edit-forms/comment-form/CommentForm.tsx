@@ -1,16 +1,25 @@
-import React, { FC } from 'react'
-import styles from '../EditForm.module.scss'
+import React, { Dispatch, FC, SetStateAction } from 'react'
+import { useForm } from 'react-hook-form'
+
+import { useUpdateComment } from '@/hooks/useComment'
+
 import Input from '../../input/Input'
 import Button from '../../button/Button'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
-import { CommentPostService } from '../../../../services/post/comment.service'
 
-const CommentForm: FC<{
-	refetch: any
-	setIsOpen: any
+import styles from '../EditForm.module.scss'
+
+
+interface Props {
+	refetch: () => void,
+	setIsOpen: Dispatch<SetStateAction<boolean>>
 	commentId: string
-}> = ({ refetch, setIsOpen, commentId }) => {
+}
+
+const CommentForm: FC<Props> = ({
+																	refetch,
+																	setIsOpen,
+																	commentId,
+																}) => {
 	const {
 		register,
 		handleSubmit,
@@ -18,21 +27,7 @@ const CommentForm: FC<{
 		reset,
 	} = useForm<{ text: string }>()
 
-	const { mutateAsync } = useMutation(
-		'update comment',
-		(text: string) => CommentPostService.updatePostComment(text, commentId),
-		{
-			onSuccess(data) {
-				refetch()
-				reset()
-				setIsOpen((prev) => !prev)
-			},
-		},
-	)
-
-	const onSubmit: SubmitHandler<{ text: string }> = async ({ text }) => {
-		await mutateAsync(text)
-	}
+	const { onSubmit } = useUpdateComment(commentId, refetch, reset, setIsOpen)
 
 	return (
 		<div className={styles.formEdit}>
@@ -40,7 +35,7 @@ const CommentForm: FC<{
 				<Input
 					{...register('text')}
 					error={errors.text?.message}
-					placeholder="Текст"
+					placeholder='Текст'
 				/>
 
 				<Button>Сохранить</Button>

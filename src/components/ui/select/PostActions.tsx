@@ -1,20 +1,21 @@
 import React, { FC } from 'react'
 
 import { useAllPost } from '@/hooks/usePost'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
+
+import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
 
 import Modal from '../modal/Modal'
 import PostForm from '../edit-forms/post-form/PostForm'
 import RemoveForm from '../edit-forms/remove-form/RemoveForm'
 
 import styles from './Select.module.scss'
-import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
-import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 
 const PostActions: FC<{ postId: string }> = ({ postId }) => {
-	const [isOpenPopup, setIsOpenPopup] = React.useState(false)
-	const [editModalIsOpen, setEditIsOpen] = React.useState(false)
-	const [removeModalIsOpen, setRemoveIsOpen] = React.useState(false)
+	const [isOpenPopup, setIsOpenPopup] = React.useState<boolean>(false)
+	const [editModalIsOpen, setEditIsOpen] = React.useState<boolean>(false)
+	const [removeModalIsOpen, setRemoveIsOpen] = React.useState<boolean>(false)
 
 	const { refetch: refetchPosts } = useAllPost()
 
@@ -32,6 +33,7 @@ const PostActions: FC<{ postId: string }> = ({ postId }) => {
 			<Modal modalIsOpen={editModalIsOpen} setIsOpen={setEditIsOpen}>
 				<PostForm refetch={refetchPosts} setIsOpen={setEditIsOpen} postId={postId} />
 			</Modal>
+
 			<Modal modalIsOpen={removeModalIsOpen} setIsOpen={setRemoveIsOpen}>
 				<RemoveForm
 					refetch={refetchPosts}

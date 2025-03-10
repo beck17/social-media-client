@@ -1,18 +1,17 @@
 import React, { FC, useState } from 'react'
 import Image from 'next/image'
-import { useMutation } from 'react-query'
 
 import { useAuth } from '@/hooks/useAuth'
 import { useDate } from '@/hooks/useDate'
 
-import { CommentPostService } from '@/services/post/comment.service'
+import { RemoveCommentForm } from '@/components/ui/edit-forms/comment-form/CommentRemoveForm'
 
 import Modal from '../modal/Modal'
 import CommentForm from '../edit-forms/comment-form/CommentForm'
 
-import trash from '../../../assets/img/trash.svg'
-import edit from '../../../assets/img/edit.svg'
-import noPhoto from '../../../assets/img/no-photo.svg'
+import trash from '@/assets/img/trash.svg'
+import edit from '@/assets/img/edit.svg'
+import noPhoto from '@/assets/img/no-photo.svg'
 
 import { IComment } from '@/types/comment.interface'
 
@@ -22,26 +21,19 @@ import styles from './Comment.module.scss'
 interface Props {
 	comment: IComment
 	postUserId: string
-	refetchComment: any
+	refetchComment: () => void
 }
 
-const CommentItem: FC<Props> = ({ comment, postUserId, refetchComment }) => {
-	const [modalIsOpen, setIsOpen] = useState(false)
+const CommentItem: FC<Props> = ({
+																	comment,
+																	postUserId,
+																	refetchComment,
+																}) => {
+
+	const [modalIsOpen, setIsOpen] = useState<boolean>(false)
+	const [removeModalIsOpen, setRemoveIsOpen] = useState<boolean>(false)
+
 	const { user } = useAuth()
-
-	const { mutateAsync } = useMutation(
-		`delete comment ${comment._id}`,
-		(id: string) => CommentPostService.deletePostComment(id),
-		{
-			onSuccess(data) {
-				refetchComment()
-			},
-		},
-	)
-
-	const removeCommentHandler = async (id: string) => {
-		await mutateAsync(id)
-	}
 
 	return (
 		<div className={styles.comment}>
@@ -52,16 +44,27 @@ const CommentItem: FC<Props> = ({ comment, postUserId, refetchComment }) => {
 					commentId={comment._id}
 				/>
 			</Modal>
+
+			<Modal modalIsOpen={removeModalIsOpen} setIsOpen={setRemoveIsOpen}>
+				<RemoveCommentForm
+					refetch={refetchComment}
+					setIsOpen={setRemoveIsOpen}
+					commentId={comment._id}
+				/>
+			</Modal>
+
 			<Image
 				src={process.env.BASE_URL + `${comment.user.avatar}`}
-				alt="аватар"
+				alt='аватар'
 				width={500}
 				height={500}
 			/>
+
 			<div className={styles.info}>
 				<span>{`${comment.user.firstName} ${comment.user.lastName}`}</span>
 				<p>{comment.text}</p>
 			</div>
+
 			<div className={styles.detail}>
 				<span className={styles.date}>{useDate(comment.createdAt)}</span>
 				{postUserId === user?._id || comment.user._id === user?._id ? (
@@ -70,7 +73,7 @@ const CommentItem: FC<Props> = ({ comment, postUserId, refetchComment }) => {
 							<Image
 								className={styles.img}
 								src={edit}
-								alt="Редактировать"
+								alt='Редактировать'
 								width={20}
 								height={20}
 								onClick={() => setIsOpen((prev) => !prev)}
@@ -78,7 +81,7 @@ const CommentItem: FC<Props> = ({ comment, postUserId, refetchComment }) => {
 						) : (
 							<Image
 								src={noPhoto}
-								alt="Ты не должен был это увидеть"
+								alt='Ты не должен был это увидеть'
 								width={20}
 								height={20}
 							/>
@@ -86,23 +89,23 @@ const CommentItem: FC<Props> = ({ comment, postUserId, refetchComment }) => {
 						<Image
 							className={styles.img}
 							src={trash}
-							alt="Удалить"
+							alt='Удалить'
 							width={20}
 							height={20}
-							onClick={() => removeCommentHandler(comment._id)}
+							onClick={() => setRemoveIsOpen((prev) => !prev)}
 						/>
 					</div>
 				) : (
 					<div>
 						<Image
 							src={noPhoto}
-							alt="Ты не должен был это увидеть"
+							alt='Ты не должен был это увидеть'
 							width={20}
 							height={20}
 						/>
 						<Image
 							src={noPhoto}
-							alt="Ты не должен был это увидеть"
+							alt='Ты не должен был это увидеть'
 							width={20}
 							height={20}
 						/>

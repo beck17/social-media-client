@@ -1,18 +1,26 @@
-import React, { FC } from 'react'
+import React, { Dispatch, FC, SetStateAction } from 'react'
+import { useMutation } from 'react-query'
+
+import { PostService } from '@/services/post/post.service'
 
 import Button from '../../button/Button'
 
 import styles from './RemoveForm.module.scss'
-import { useMutation } from 'react-query'
-import { PostService } from '../../../../services/post/post.service'
 
-const RemoveForm: FC<{ refetch: any; postId: string; setIsOpen: any }> = ({
-	refetch,
-	postId,
-	setIsOpen,
-}) => {
+
+interface Props {
+	postId: string
+	refetch: () => void
+	setIsOpen: Dispatch<SetStateAction<boolean>>
+}
+
+const RemoveForm: FC<Props> = ({
+																 refetch,
+																 postId,
+																 setIsOpen,
+															 }) => {
 	const { mutateAsync: mutateDelete } = useMutation(
-		'delete post',
+		`delete post ${postId}`,
 		(postId: string) => PostService.deletePost(postId),
 		{
 			onSuccess(data) {
@@ -21,7 +29,7 @@ const RemoveForm: FC<{ refetch: any; postId: string; setIsOpen: any }> = ({
 		},
 	)
 
-	const deletePostHandler = async (postId) => {
+	const deletePostHandler = async (postId: string) => {
 		await mutateDelete(postId)
 	}
 
