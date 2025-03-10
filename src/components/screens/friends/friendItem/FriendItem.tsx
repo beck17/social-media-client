@@ -25,7 +25,7 @@ const FriendItem: FC<Props> = ({ user }) => {
 						className={styles.userImg}
 						width={1000}
 						height={1000}
-						src={`http://localhost:5000${user.avatar}`}
+						src={process.env.BASE_URL + `${user.avatar}`}
 						alt='0-'
 					/>
 				</Link>

@@ -10,38 +10,25 @@ import Button from '../../ui/button/Button'
 import logo from '@/assets/img/logo.jpg'
 
 import styles from './Navbar.module.scss'
+import { NavbarLogo } from '@/components/ui/navbar/NavbarLogo'
+import { NavbarName } from '@/components/ui/navbar/NavbarName'
+import { NameLoader } from '@/components/ui/skeletons/NameLoader'
+
+
 
 const Navbar: FC = () => {
 	const { logout } = useActions()
 	const { myProfile, isLoading } = useProfile()
 
+	const fullName = `${myProfile?.firstName} ${myProfile?.lastName}`
+
 	return (
 		<header className={styles.headerMain}>
 			<div className={styles.container}>
 				<div className={styles.items}>
-					<Link href='/profile' className={styles.user}>
-						<Image
-							src={
-								isLoading
-									? 'http://localhost:5000/uploads/default/no-avatar.jpg'
-									: `http://localhost:5000${myProfile?.avatar}`
-							}
-							alt='avatar'
-							width={500}
-							height={500}
-						/>
-						<span>
-						{isLoading
-							? 'тут должен быть скелетон'
-							: `${myProfile?.firstName} ${myProfile?.lastName}`}
-					</span>
-					</Link>
+					<NavbarName isLoading={isLoading} avatar={myProfile?.avatar} name={fullName} id={myProfile?._id} />
 
-					<Link href='/feed' className={styles.center}>
-						<Image src={logo} alt='logo' width={50} height={50} />
-
-						<span>NETLY</span>
-					</Link>
+					<NavbarLogo />
 
 					<div className={styles.right}>
 						<Button onClick={() => logout()}>Выйти</Button>

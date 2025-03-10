@@ -22,7 +22,7 @@ const CommunityInfo: FC<{ post: IPost; isCreator?: boolean }> = ({
 		<div className={styles.user}>
 			<div className={styles.userInfo}>
 				<Image
-					src={`http://localhost:5000${post.community?.communityAvatar}`}
+					src={process.env.BASE_URL + `${post.community?.communityAvatar}`}
 					alt="аватар"
 					width={500}
 					height={500}

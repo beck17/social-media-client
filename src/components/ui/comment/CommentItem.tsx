@@ -53,7 +53,7 @@ const CommentItem: FC<Props> = ({ comment, postUserId, refetchComment }) => {
 				/>
 			</Modal>
 			<Image
-				src={`http://localhost:5000${comment.user.avatar}`}
+				src={process.env.BASE_URL + `${comment.user.avatar}`}
 				alt="аватар"
 				width={500}
 				height={500}

@@ -11,7 +11,7 @@ export const getFriendAction = (id: string) => {
 	} = useFriendActions(id)
 
 	if (isFriend) {
-		return { text: 'Удалить из друзей', actionHandler: () => removeFromFriendsHandler(id) }
+		return { text: 'Удалить', actionHandler: () => removeFromFriendsHandler(id) }
 	}
 
 	if (isSubscribe) {

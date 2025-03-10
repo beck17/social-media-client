@@ -35,7 +35,7 @@ const Community: FC = () => {
 			<div className={styles.images}>
 				<Image
 					className={styles.cover}
-					src={`http://localhost:5000${avatarPath.background}`}
+					src={process.env.BASE_URL + `${avatarPath.background}`}
 					alt="2"
 					width={0}
 					height={0}
@@ -47,7 +47,7 @@ const Community: FC = () => {
 					width={0}
 					height={0}
 					sizes="100vw 100vh"
-					src={`http://localhost:5000${avatarPath.avatar}`}
+					src={process.env.BASE_URL + `${avatarPath.avatar}`}
 					alt="1"
 					className={styles.profilePic}
 				/>

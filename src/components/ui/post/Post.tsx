@@ -2,22 +2,23 @@ import { FC, useState } from 'react'
 import Image from 'next/image'
 import { useMutation } from 'react-query'
 
-import { LikePostService } from '../../../services/post/like.service'
+import { LikePostService } from '@/services/post/like.service'
 
-import { usePostComments } from '../../../hooks/useComment'
-import { useLike } from '../../../hooks/useLike'
+import { usePostComments } from '@/hooks/useComment'
+import { useLike } from '@/hooks/useLike'
 
 import UserInfo from './user-info/UserInfo'
+import CommunityInfo from './user-info/CommunityInfo'
 import Comments from '../comment/Comment'
 
-import { IPost } from '../../../types/post.interface'
+import { IPost } from '@/types/post.interface'
 
 import likeRed from '@/assets/img/like-red.svg'
 import like from '@/assets/img/like.svg'
 import commentsImg from '@/assets/img/comments.svg'
 
 import styles from './Post.module.scss'
-import CommunityInfo from './user-info/CommunityInfo'
+
 
 const Post: FC<{ post: IPost; isCreator?: boolean }> = ({ post, isCreator }) => {
 	const [commentOpen, setCommentOpen] = useState<boolean>(false)
@@ -56,7 +57,7 @@ const Post: FC<{ post: IPost; isCreator?: boolean }> = ({ post, isCreator }) => 
 					<p>{post.text}</p>
 					{post.image && (
 						<Image
-							src={`http://localhost:5000${post.image}`}
+							src={process.env.BASE_URL + `${post.image}`}
 							width={1000}
 							height={1000}
 							alt="Фото"

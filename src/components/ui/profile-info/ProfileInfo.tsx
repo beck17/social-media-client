@@ -5,50 +5,39 @@ import Button from '@/components/ui/button/Button'
 import { useCreateConversation } from '@/hooks/useCreateConversation'
 import { IUser } from '@/types/user.interface'
 import { getFriendAction } from '@/lib/get-friend-action'
+import { useDateWithYear } from '@/hooks/useDate'
+import { FriendActions } from '@/components/screens/friends/friend-actions/FriendActions'
+import React from 'react'
+import { getQuantityFriends } from '@/lib/get-quantity-friends'
+import { useUserProfile } from '@/hooks/useProfile'
 
 interface Props {
 	profileId: string
 	userProfile: IUser | undefined
 	isLoading: boolean
+	refetchUserProfile: any
 }
 
-export const ProfileInfo: React.FC<Props> = ({ profileId, userProfile, isLoading }) => {
-	const createConversationHandler = useCreateConversation(profileId)
-	const {text, actionHandler} = getFriendAction(profileId)
+export const ProfileInfo: React.FC<Props> = ({ profileId, userProfile, isLoading, refetchUserProfile }) => {
 
 	const userFullName = isLoading
 		? 'SKELETON'
 		: `${userProfile?.firstName} ${userProfile?.lastName}`
 
-	const userCity = isLoading
-		? 'SKELETON'
-		: userProfile?.city
-			? userProfile.city
-			: 'не указан'
+	const quantityFriends = getQuantityFriends(userProfile?.friends.length)
 
 	return (
 		<div className={styles.uInfo}>
-			<div className={styles.center}>
-						<span>
-							{userFullName}
-						</span>
-				<div className={styles.info}>
-					<div className={styles.item}>
-						<Image src={home} alt='home' width={16} height={16} />
-						<span>
-							{userCity}
-						</span>
-					</div>
-				</div>
-				<div className={styles.buttons}>
-					<Button onClick={() => createConversationHandler(profileId)}>
-						Написать
-					</Button>
-					<Button onClick={actionHandler}>
-						{text}
-					</Button>
-				</div>
+			<div className={styles.title}>
+				<span>{userFullName}</span>
+				<span className={styles.info}>
+						{quantityFriends}
+					</span>
+				<span className={styles.info}>
+						{useDateWithYear(userProfile?.createdAt) + 'г.'}
+					</span>
 			</div>
+			<FriendActions refetchUserProfile={refetchUserProfile} friendId={profileId} />
 		</div>
 	)
 }

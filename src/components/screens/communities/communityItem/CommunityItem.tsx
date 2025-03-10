@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import styles from '../CommunityItems.module.scss'
 import CommunityActions from './CommunityActions'
-import { ICommunity } from '../../../../types/community.interface'
+import { ICommunity } from '@/types/community.interface'
 
 const CommunityItem: FC<{ community: ICommunity }> = ({ community }) => {
 	return (
@@ -14,7 +14,7 @@ const CommunityItem: FC<{ community: ICommunity }> = ({ community }) => {
 					<Image
 						width={1000}
 						height={1000}
-						src={`http://localhost:5000${community.communityAvatar}`}
+						src={process.env.BASE_URL + `${community.communityAvatar}`}
 						alt="0-"
 					/>
 				</Link>

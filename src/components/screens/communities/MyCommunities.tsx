@@ -5,12 +5,12 @@ import CommunityItem from './communityItem/CommunityItem'
 
 import styles from './CommunityItems.module.scss'
 import CommunityBlock from './communityItem/CommunityBlock'
-import { useGetUserCommunities } from '../../../hooks/useCommunity'
-import { useAuth } from '../../../hooks/useAuth'
+import { useGetUserCommunities } from '@/hooks/useCommunity'
+import { useAuth } from '@/hooks/useAuth'
 
 const MyCommunities: FC = () => {
 	const { user } = useAuth()
-	const { communities, isLoading } = useGetUserCommunities(user._id)
+	const { communities, isLoading } = useGetUserCommunities(user?._id)
 	const communitiesCount = communities?.length
 	return (
 		<div className={styles.community}>

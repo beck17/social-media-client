@@ -22,7 +22,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
 		>
 			<div className={styles.messageInfo}>
 				<Image
-					src={`http://localhost:5000${message.userFrom.avatar}`}
+					src={process.env.BASE_URL + `${message.userFrom.avatar}`}
 					alt="photo"
 					width={400}
 					height={400}

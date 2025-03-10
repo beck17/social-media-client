@@ -23,8 +23,8 @@ const ChatInfo: FC = () => {
 				<Image
 					src={
 						isLoading
-							? 'http://localhost:5000/uploads/default/no-avatar.jpg'
-							: `http://localhost:5000${userProfile?.avatar}`
+							? process.env.BASE_URL + `/uploads/default/no-avatar.jpg`
+							: process.env.BASE_URL + `${userProfile?.avatar}`
 					}
 					alt="avatar photo"
 					width={400}

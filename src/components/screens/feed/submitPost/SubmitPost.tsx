@@ -51,8 +51,8 @@ const SubmitPost: FC<{ refetch: any }> = ({ refetch }) => {
 					<Image
 						src={
 							isLoading
-								? 'http://localhost:5000/uploads/default/no-avatar.jpg'
-								: `http://localhost:5000${myProfile?.avatar}`
+								? process.env.BASE_URL + `/uploads/default/no-avatar.jpg`
+								: process.env.BASE_URL + `${myProfile?.avatar}`
 						}
 						alt="avatar"
 						width={500}

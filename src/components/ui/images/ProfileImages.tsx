@@ -16,12 +16,15 @@ export const ProfileImages: React.FC<Props> = ({
 																								 avatar,
 																							 }) => {
 	const backgroundPicSrc = isLoading
-		? 'http://localhost:5000/uploads/default/background.jpg'
-		: `http://localhost:5000${backgroundPic}`
+		? process.env.BASE_URL + `/uploads/default/background.jpg`
+		: process.env.BASE_URL + `${backgroundPic}`
 
 	const avatarSrc = isLoading
-		? 'http://localhost:5000/uploads/default/no-avatar.jpg'
-		: `http://localhost:5000${avatar}`
+		? process.env.BASE_URL + `/uploads/default/no-avatar.jpg`
+		: process.env.BASE_URL + `${avatar}`
+
+	console.log(isLoading,backgroundPic, avatar)
+
 
 	return (
 		<div className={styles.images}>

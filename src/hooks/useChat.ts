@@ -3,7 +3,6 @@ import { IConversation, IMessageFields } from '@/types/conversation.interface'
 import { io, Socket } from 'socket.io-client'
 import { DefaultEventsMap } from '@socket.io/component-emitter'
 
-const SERVER_URL = 'http://localhost:8080'
 
 export const useChat = (conversationId: string) => {
 	const [conversation, setConversation] = useState<IConversation>(
@@ -17,7 +16,7 @@ export const useChat = (conversationId: string) => {
 
 	useEffect(() => {
 		if (!conversationId) return
-		const newSocket = io(SERVER_URL, {
+		const newSocket = io(process.env.WEBSOCKET_URL as string, {
 			query: { conversationId },
 		})
 

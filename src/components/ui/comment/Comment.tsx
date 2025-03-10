@@ -54,7 +54,7 @@ const Comments: FC<Props> = ({ comments, postUserId, postId, refetch }) => {
 		<div className={styles.comments}>
 			<form onSubmit={handleSubmit(onSubmitForm)} className={styles.write}>
 				<Image
-					src={`http://localhost:5000${myProfile?.avatar}`}
+					src={process.env.BASE_URL + `${myProfile?.avatar}`}
 					width={500}
 					height={500}
 					alt='аватар'

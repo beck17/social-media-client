@@ -19,21 +19,18 @@ const UserInfo: FC<{ post: IPost }> = ({ post }) => {
 	const postOwnerName = `${post.user.firstName} ${post.user.lastName}`
 	const isUserPost: boolean = post.user._id === user?._id
 
-	const profileLink: string = isUserPost
-		? '/profile'
-		: `/profile/${post.user._id}`
 
 	return (
 		<div className={styles.user}>
 			<div className={styles.userInfo}>
 				<Image
-					src={`http://localhost:5000${post.user.avatar}`}
+					src={process.env.BASE_URL + `${post.user.avatar}`}
 					alt="аватар"
 					width={500}
 					height={500}
 				/>
 				<div className={styles.details}>
-					<Link href={profileLink} className={styles.name}>
+					<Link href={`/profile/${post.user._id}`} className={styles.name}>
 						{postOwnerName}
 					</Link>
 					<span className={styles.date}>{postCreated}</span>

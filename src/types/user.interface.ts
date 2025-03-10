@@ -7,16 +7,16 @@ export interface IUser {
 	phoneNumber: number
 	password: string
 	birthday?: string
-	city?: string
+	city: string
 	avatar: string
 	backgroundPic: string
-	createdAt?: string
-	updatedAt?: string
-	postCount?: number
+	createdAt: string
+	updatedAt: string
+	postCount: number
 	friends: IUser[]
 	requestFriends: IUser[]
 	outgoingRequestsFriends: IUser[]
-	communities?: ICommunity[]
+	communities: ICommunity[]
 }
 
 export interface IUserState {
