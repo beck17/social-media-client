@@ -63,7 +63,6 @@ const Community: FC = () => {
 					</span>
 				</div>
 				<CommunityActions
-					communityId={community?._id}
 					refetch={refetch}
 					isCreator={isCreator}
 				/>

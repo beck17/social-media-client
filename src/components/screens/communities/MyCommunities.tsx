@@ -11,7 +11,7 @@ import { useAuth } from '@/hooks/useAuth'
 const MyCommunities: FC = () => {
 	const { user } = useAuth()
 	const { communities, isLoading } = useGetUserCommunities(user?._id)
-	const communitiesCount = communities?.length
+	const communitiesCount = communities?.length || 0
 	return (
 		<div className={styles.community}>
 			<div className={styles.container}>

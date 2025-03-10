@@ -1,27 +1,35 @@
 import React, { FC } from 'react'
-import styles from '../../../ui/select/Select.module.scss'
-import Modal from '../../../ui/modal/Modal'
-import CommunityPostForm from '../../../ui/edit-forms/communityPost-form/CommunityPostForm'
-import CommunityPostRemoveForm from '../../../ui/edit-forms/communityPost-form/CommunityPostRemoveForm'
-import CommunityEditForm from '../communityForm/CommunityEditForm'
-import CommunityRemoveForm from '../communityForm/CommunityRemoveForm'
+import { useRouter } from 'next/router'
+import { useMutation } from 'react-query'
+
+import { CommunityService } from '@/services/community/community.service'
+
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 import {
 	useAllCommunity,
 	useIsSubscribed,
-} from '../../../../hooks/useCommunity'
-import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
-import { CommunityService } from '../../../../services/community/community.service'
-import Button from '../../../ui/button/Button'
-import { useOutsideClick } from '@/hooks/useOutsideClick'
+} from '@/hooks/useCommunity'
 
-const CommunityActions: FC<{
-	communityId: string
-	refetch: any
+import CommunityEditForm from '../communityForm/CommunityEditForm'
+import CommunityRemoveForm from '../communityForm/CommunityRemoveForm'
+
+import Modal from '../../../ui/modal/Modal'
+import Button from '../../../ui/button/Button'
+
+import styles from '../../../ui/select/Select.module.scss'
+
+
+interface Props {
+	refetch: () => void,
 	isCreator: boolean
-}> = ({ communityId, refetch, isCreator }) => {
+}
+
+const CommunityActions: FC<Props> = ({
+																			 refetch,
+																			 isCreator,
+																		 }) => {
 	const router = useRouter()
-	const id = router.query.id as string
+	const communityId = router.query.id as string
 
 	const [isOpenPopup, setIsOpenPopup] = React.useState(false)
 	const [editModalIsOpen, setEditIsOpen] = React.useState(false)
@@ -30,7 +38,7 @@ const CommunityActions: FC<{
 	const communityActionRef = React.useRef<HTMLDivElement>(null)
 
 	const { isSubscribed, isSubscribedLoading, isSubscribedRefetch } =
-		useIsSubscribed(id)
+		useIsSubscribed(communityId)
 	const { refetch: refetchAllCommunities } = useAllCommunity()
 
 	const { mutateAsync } = useMutation(

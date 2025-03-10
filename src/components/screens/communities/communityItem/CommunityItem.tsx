@@ -2,11 +2,11 @@ import React, { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import styles from '../CommunityItems.module.scss'
-import CommunityActions from './CommunityActions'
-import { ICommunity } from '@/types/community.interface'
+import { ICommunityResponse } from '@/types/community.interface'
 
-const CommunityItem: FC<{ community: ICommunity }> = ({ community }) => {
+import styles from '../CommunityItems.module.scss'
+
+const CommunityItem: FC<{ community: ICommunityResponse }> = ({ community }) => {
 	return (
 		<div className={styles.item}>
 			<div className={styles.item1}>
