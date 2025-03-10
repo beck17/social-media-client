@@ -4,7 +4,12 @@ import 'dayjs/locale/ru'
 dayjs.locale('ru')
 
 export const useDate = (createdAt: string) => {
-	return dayjs(createdAt, 'D MMMM HH:m', 'ru').format('D MMMM HH:mm')
+	const currentYear = String(new Date().getFullYear())
+	const createdAtYear = createdAt.slice(0, 4)
+
+	if (currentYear === createdAtYear) return dayjs(createdAt, 'D MMMM HH:m', 'ru').format('D MMMM HH:mm')
+
+	return dayjs(createdAt, 'D MMMM YYYY').format('D MMMM YYYY')
 }
 
 export const useDateTime = (createdAt: string) => {
