@@ -17,11 +17,11 @@ export const CommunityService = {
 		})
 	},
 
-	async createCommunity({ name, description }: ICommunityCreate) {
+	async createCommunity(data: ICommunityCreate) {
 		return instance<ICommunity>({
 			url: `${UrlEnums.community}`,
 			method: 'POST',
-			data: { name, description },
+			data: data,
 		})
 	},
 

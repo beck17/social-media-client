@@ -11,7 +11,7 @@ export const useUploadBackground = (
 	folder?: string,
 ) => {
 	const { mutateAsync } = useMutation(
-		'upload file',
+		'upload background file',
 		(data: FormData) => MediaService.upload(data, folder),
 		{
 			onSuccess: ({ data }) => onChange(data),

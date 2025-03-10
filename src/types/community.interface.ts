@@ -18,6 +18,8 @@ export interface ICommunity {
 export interface ICommunityCreate {
 	name: string
 	description: string
+	communityAvatar?: string
+	communityBackgroundPic?: string
 }
 
 export interface ICommunityResponse {

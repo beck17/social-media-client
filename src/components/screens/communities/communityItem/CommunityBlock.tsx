@@ -1,13 +1,15 @@
 import React, { FC } from 'react'
+import Link from 'next/link'
+
+import CommunityForm from '../../../ui/edit-forms/community-form/CommunityForm'
+import Modal from '../../../ui/modal/Modal'
 import Button from '../../../ui/button/Button'
 
 import styles from '../CommunityItems.module.scss'
-import Link from 'next/link'
-import Modal from '../../../ui/modal/Modal'
-import CommunityForm from '../../../ui/edit-forms/community-form/CommunityForm'
+
 
 const CommunityBlock: FC<{ count: number }> = ({ count }) => {
-	const [isOpenModal, setIsOpenModal] = React.useState(false)
+	const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false)
 
 	return (
 		<div className={styles.communityBlock}>
