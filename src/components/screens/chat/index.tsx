@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { useChat } from '@/hooks/useChat'
@@ -37,6 +37,13 @@ const Chat: FC = () => {
 		setMessage('')
 	}
 
+	const pressKeyHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') {
+			e.preventDefault()
+			addMessageHandler()
+		}
+	}
+
 	return (
 		<div className={styles.chat}>
 			<div className={styles.container}>
@@ -44,9 +51,11 @@ const Chat: FC = () => {
 				<Messages />
 				<div style={{ display: 'flex', gap: '10px' }}>
 					<Input
+						autoFocus
+						onKeyDown={pressKeyHandler}
 						value={message}
 						onChange={(e) => setMessage(e.target.value)}
-						placeholder="Введите сообщение..."
+						placeholder='Введите сообщение...'
 					/>
 					<Button onClick={addMessageHandler}>Отправить</Button>
 				</div>
