@@ -3,6 +3,8 @@ import { CommentPostService } from '@/services/post/comment.service'
 import { ICommentRequest } from '@/types/comment.interface'
 import { SubmitHandler, UseFormReset } from 'react-hook-form'
 import { Dispatch, SetStateAction } from 'react'
+import toast from 'react-hot-toast'
+import { emptyValue } from '@/lib/empty-value'
 
 export const usePostComments = (id: string) => {
 	const { isLoading, data, refetch } = useQuery(
@@ -19,7 +21,7 @@ export const usePostComments = (id: string) => {
 export const useUpdateComment = (
 	commentId: string,
 	refetch: () => void,
-	reset: UseFormReset<{text: string}>,
+	reset: UseFormReset<{ text: string }>,
 	setIsOpen: Dispatch<SetStateAction<boolean>>,
 ) => {
 	const { mutateAsync } = useMutation(
@@ -35,10 +37,11 @@ export const useUpdateComment = (
 	)
 
 	const onSubmit: SubmitHandler<{ text: string }> = async ({ text }) => {
+		if (text.trim() === '') return emptyValue('Это поле обязательное')
 		await mutateAsync(text)
 	}
 
-	return {onSubmit}
+	return { onSubmit }
 }
 
 export const useNewComment = (
@@ -47,7 +50,7 @@ export const useNewComment = (
 	refetch: () => void,
 ) => {
 	const { mutateAsync } = useMutation(
-		'create a new comment',
+		`create a new comment ${postId}`,
 		(data: ICommentRequest) =>
 			CommentPostService.createPostComment({ ...data, postId }),
 		{
@@ -59,6 +62,7 @@ export const useNewComment = (
 	)
 
 	const onSubmitForm: SubmitHandler<ICommentRequest> = async (data) => {
+		if (data.text.trim() === '') return emptyValue('Это поле обязательное')
 		await mutateAsync(data)
 	}
 

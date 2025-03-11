@@ -45,10 +45,7 @@ const Comments: FC<Props> = ({ comments, postUserId, postId, refetch }) => {
 					alt='аватар'
 				/>
 				<Input
-					{...register('text', {
-						required: 'Это поле обязательное',
-					})}
-					error={errors.text?.message}
+					{...register('text')}
 					placeholder='Введите комментарий...'
 				/>
 				<Button>Отправить</Button>

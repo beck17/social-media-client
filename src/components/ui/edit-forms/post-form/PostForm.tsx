@@ -1,27 +1,33 @@
-import React, { FC, useState } from 'react'
+import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import Image from 'next/image'
 
-import { PostService } from '../../../../services/post/post.service'
+import { PostService } from '@/services/post/post.service'
 
 import { useUploadFile } from '../../uploadField/useUploadFile'
 
 import Input from '../../input/Input'
 import Button from '../../button/Button'
 
-import { IPostUpdate } from '../../../../types/post.interface'
+import { IPostUpdate } from '@/types/post.interface'
 
 import photo from '@/assets/img/photo.svg'
 
 import styles from '../EditForm.module.scss'
 
-const PostForm: FC<{ refetch: any; setIsOpen: any; postId: string }> = ({
-	refetch,
-	setIsOpen,
-	postId,
-}) => {
-	const [photoPic, setPhotoPic] = useState()
+interface Props {
+	postId: string
+	refetch: () => void;
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const PostForm: FC<Props> = ({
+															 refetch,
+															 setIsOpen,
+															 postId,
+														 }) => {
+	const [photoPic, setPhotoPic] = useState<{ image?: string }>()
 	const { uploadFile } = useUploadFile(setPhotoPic)
 
 	const {
@@ -32,7 +38,7 @@ const PostForm: FC<{ refetch: any; setIsOpen: any; postId: string }> = ({
 	} = useForm<IPostUpdate>()
 
 	const { mutateAsync } = useMutation(
-		'update post',
+		`update post ${postId}`,
 		(data: IPostUpdate) => PostService.updatePost(data, postId),
 		{
 			onSuccess(data) {
@@ -44,9 +50,9 @@ const PostForm: FC<{ refetch: any; setIsOpen: any; postId: string }> = ({
 	)
 
 	const onSubmit: SubmitHandler<IPostUpdate> = async ({
-		image = photoPic?.image,
-		text,
-	}) => {
+																												image = photoPic?.image,
+																												text,
+																											}) => {
 		const data = { text, image }
 
 		await mutateAsync(data)
@@ -58,18 +64,18 @@ const PostForm: FC<{ refetch: any; setIsOpen: any; postId: string }> = ({
 				<Input
 					{...register('text')}
 					error={errors.text?.message}
-					placeholder="Текст"
+					placeholder='Текст'
 				/>
 				<div className={styles.buttons}>
 					<input
-						type="file"
-						id="avatar"
+						type='file'
+						id='avatar'
 						onChange={uploadFile}
 						style={{ display: 'none' }}
 					/>
-					<label htmlFor="avatar">
+					<label htmlFor='avatar'>
 						<div className={styles.file}>
-							<Image src={photo} alt="фото" width={25} height={25} />
+							<Image src={photo} alt='фото' width={25} height={25} />
 							<span>Загрузить новое фото</span>
 						</div>
 					</label>

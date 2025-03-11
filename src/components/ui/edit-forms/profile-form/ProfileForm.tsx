@@ -16,9 +16,13 @@ import photo from '@/assets/img/photo.svg'
 import { IUserUpdate } from '@/types/user.interface'
 
 import styles from '../EditForm.module.scss'
+import { emptyValue } from '@/lib/empty-value'
 
 
 interface Props {
+	firstName: string
+	lastName: string
+	city: string
 	refetch: () => void,
 	setIsOpen: Dispatch<SetStateAction<boolean>>
 }
@@ -28,11 +32,19 @@ interface ImageInterface {
 }
 
 const ProfileForm: FC<Props> = ({
+																	firstName,
+																	lastName,
+																	city,
 																	refetch,
 																	setIsOpen,
 																}) => {
 	const [avatarPic, setAvatarPic] = useState<ImageInterface>()
 	const [backgroundPicPhoto, setBackgroundPic] = useState<ImageInterface>()
+
+	const [firstNameInput, setFirstNameInput] = useState<string>(firstName)
+	const [lastNameInput, setLastNameInput] = useState<string>(lastName)
+	const [cityInput, setCityInput] = useState<string>(city)
+
 
 	const { uploadFile } = useUploadFile(setAvatarPic)
 	const { uploadBackground } = useUploadBackground(setBackgroundPic)
@@ -64,6 +76,10 @@ const ProfileForm: FC<Props> = ({
 																												city,
 																											}) => {
 		const data = { avatar, lastName, firstName, city, backgroundPic }
+
+		if (lastName?.trim() === '' || firstName?.trim() === '' || city?.trim() === '') {
+			return emptyValue('Поля не должны быть пустыми!')
+		}
 		await mutateAsync(data)
 	}
 
@@ -73,17 +89,20 @@ const ProfileForm: FC<Props> = ({
 				<Input
 					placeholder='Имя'
 					{...register('firstName')}
-					error={errors.firstName?.message}
+					value={firstNameInput}
+					onChange={(e) => setFirstNameInput(e.target.value as string)}
 				/>
 				<Input
 					placeholder='Фамилия'
 					{...register('lastName')}
-					error={errors.lastName?.message}
+					value={lastNameInput}
+					onChange={(e) => setLastNameInput(e.target.value as string)}
 				/>
 				<Input
 					placeholder='Город'
 					{...register('city')}
-					error={errors.city?.message}
+					value={cityInput}
+					onChange={(e) => setCityInput(e.target.value as string)}
 				/>
 
 				<div className={styles.buttons}>
