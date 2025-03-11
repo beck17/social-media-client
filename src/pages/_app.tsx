@@ -7,6 +7,7 @@ import { store } from '../store/store'
 import '@/assets/styles/globals.scss'
 import { TypeComponentAuthFields } from '../providers/auth-provider/authPage.types'
 import AuthProvider from '../providers/auth-provider/AuthProvider'
+import { Toaster } from 'react-hot-toast'
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -17,14 +18,15 @@ const queryClient = new QueryClient({
 })
 
 export default function App({
-	Component,
-	pageProps,
-}: AppProps & TypeComponentAuthFields) {
+															Component,
+															pageProps,
+														}: AppProps & TypeComponentAuthFields) {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Provider store={store}>
 				<AuthProvider>
 					<Component {...pageProps} />
+					<Toaster />
 				</AuthProvider>
 			</Provider>
 		</QueryClientProvider>
