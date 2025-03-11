@@ -50,24 +50,24 @@ const Post: FC<{ post: IPost; isCreator?: boolean }> = ({ post, isCreator }) => 
 		<UserInfo post={post} />
 	)
 	return (
-		<div className={styles.post}>
+		<div className={styles.post} >
 			<div className={styles.container}>
 				{infoComponent}
-				<div className={styles.content}>
+				<div className={styles.content} onDoubleClick={() => toggleLikeHandler(post._id)}>
 					<p>{post.text}</p>
 					{post.image && (
 						<Image
 							src={process.env.BASE_URL + `${post.image}`}
 							width={1000}
 							height={1000}
-							alt="Фото"
+							alt='Фото'
 						/>
 					)}
 				</div>
 				<div className={styles.info}>
 					<div className={styles.item}>
 						<div onClick={() => toggleLikeHandler(post._id)}>
-							<Image src={likeSvgPic} alt="лайк" width={25} height={25} />
+							<Image src={likeSvgPic} alt='лайк' width={25} height={25} />
 						</div>
 						{likeCount}
 					</div>
@@ -75,7 +75,7 @@ const Post: FC<{ post: IPost; isCreator?: boolean }> = ({ post, isCreator }) => 
 						className={styles.item}
 						onClick={() => setCommentOpen((prev) => !prev)}
 					>
-						<Image src={commentsImg} alt="Коммент" width={25} height={25} />
+						<Image src={commentsImg} alt='Коммент' width={25} height={25} />
 						{commentCount}
 					</div>
 				</div>
