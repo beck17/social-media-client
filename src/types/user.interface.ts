@@ -23,6 +23,7 @@ export interface IUserState {
 	_id: string
 	firstName: string
 	lastName: string
+	city: string
 	phoneNumber: number
 }
 

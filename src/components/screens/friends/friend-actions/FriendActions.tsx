@@ -9,38 +9,41 @@ import { useOutsideClick } from '@/hooks/useOutsideClick'
 import ProfileForm from '@/components/ui/edit-forms/profile-form/ProfileForm'
 import ModalEdit from '@/components/ui/modal/Modal'
 import { useAuth } from '@/hooks/useAuth'
+import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
 
 
 interface Props {
 	friendId: string
-	refetchUserProfile: any
+	refetchUserProfile: () => void
 }
 
 export const FriendActions: FC<Props> = ({ friendId, refetchUserProfile }) => {
 	const { user } = useAuth()
+	const isMyProfile = user?._id === friendId
 
 	const [isOpenPopup, setIsOpenPopup] = React.useState(false)
 	const [modalIsOpen, setIsOpenModal] = React.useState(false)
 
 	const popupRef = React.useRef<HTMLDivElement>(null)
 
-	const { text, actionHandler } = getFriendAction(friendId)
-
 	const createConversationHandler = useCreateConversation(friendId)
+
+	const { text, actionHandler } = getFriendAction(friendId)
 
 	useOutsideClick(popupRef, () => setIsOpenPopup(false))
 
-	const isMyProfile = user?._id === friendId
-
-	const openModalHandler = () => {
-		setIsOpenModal(true)
-		setIsOpenPopup(false)
-	}
+	const handleUpdatePost = () => closePopupOpenModal(setIsOpenPopup, setIsOpenModal)
 
 	return (
 		<div className={styles.sort} ref={popupRef}>
 			<ModalEdit modalIsOpen={modalIsOpen} setIsOpen={setIsOpenModal}>
-				<ProfileForm refetch={refetchUserProfile} setIsOpen={setIsOpenModal} />
+				<ProfileForm
+					firstName={user.firstName}
+					lastName={user.lastName}
+					city={user.city}
+					refetch={refetchUserProfile}
+					setIsOpen={setIsOpenModal}
+				/>
 			</ModalEdit>
 
 			<div className={styles.sort__label}>
@@ -51,7 +54,7 @@ export const FriendActions: FC<Props> = ({ friendId, refetchUserProfile }) => {
 					{
 						isMyProfile ? (
 							<ul>
-								<li onClick={openModalHandler}>Редактировать</li>
+								<li onClick={handleUpdatePost}>Редактировать</li>
 							</ul>
 						) : (
 							<ul>

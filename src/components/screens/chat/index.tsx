@@ -29,7 +29,7 @@ const Chat: FC = () => {
 	const { sendMessage } = useChat(String(id))
 
 	const addMessageHandler = () => {
-		if (message === '') {
+		if (message.trim() === '') {
 			toast.error('Нельзя отправлять пустое сообщение', {
 				duration: 2000,
 				style: {

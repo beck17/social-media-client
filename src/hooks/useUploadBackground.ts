@@ -4,6 +4,7 @@ import { useMutation } from 'react-query'
 import { MediaService } from '@/services/media.service'
 
 import { errorCatch } from '@/api/api.helper'
+import { successUpload } from '@/lib/success-upload'
 
 
 export const useUploadBackground = (
@@ -14,7 +15,10 @@ export const useUploadBackground = (
 		'upload background file',
 		(data: FormData) => MediaService.upload(data, folder),
 		{
-			onSuccess: ({ data }) => onChange(data),
+			onSuccess: ({ data }) => {
+				successUpload('Фото успешно загруженно')
+				onChange(data)
+			},
 			onError: (error: any) => {
 				alert({
 					message: errorCatch(error),

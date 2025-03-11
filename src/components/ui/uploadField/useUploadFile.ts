@@ -2,6 +2,8 @@ import { useMutation } from 'react-query'
 import { MediaService } from '../../../services/media.service'
 import { errorCatch } from '../../../api/api.helper'
 import { ChangeEvent } from 'react'
+import { emptyValue } from '@/lib/empty-value'
+import { successUpload } from '@/lib/success-upload'
 
 export const useUploadFile = (
 	onChange: (...event: any) => void,
@@ -11,7 +13,10 @@ export const useUploadFile = (
 		'upload file',
 		(data: FormData) => MediaService.upload(data, folder),
 		{
-			onSuccess: ({ data }) => onChange(data),
+			onSuccess: ({ data }) => {
+				successUpload('Фото успешно загруженно')
+				onChange(data)
+			},
 			onError: (error: any) => {
 				alert({
 					message: errorCatch(error),

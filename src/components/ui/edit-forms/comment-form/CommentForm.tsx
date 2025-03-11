@@ -37,10 +37,7 @@ const CommentForm: FC<Props> = ({
 		<div className={styles.formEdit}>
 			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 				<Input
-					{...register('text', {
-						required: 'Это поле обязательное',
-					})}
-					error={errors.text?.message}
+					{...register('text')}
 					placeholder='Текст'
 					value={inputText}
 					onChange={(e) => {
