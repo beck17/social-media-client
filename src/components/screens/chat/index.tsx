@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useRouter } from 'next/router'
+import toast from 'react-hot-toast'
 
 import { useChat } from '@/hooks/useChat'
 import { useAuth } from '@/hooks/useAuth'
@@ -28,6 +29,18 @@ const Chat: FC = () => {
 	const { sendMessage } = useChat(String(id))
 
 	const addMessageHandler = () => {
+		if (message === '') {
+			toast.error('Нельзя отправлять пустое сообщение', {
+				duration: 2000,
+				style: {
+					borderRadius: '10px',
+					background: '#15151c',
+					color: '#fff',
+				},
+			})
+			return null
+		}
+
 		sendMessage({
 			text: message,
 			conversationId: String(id),
