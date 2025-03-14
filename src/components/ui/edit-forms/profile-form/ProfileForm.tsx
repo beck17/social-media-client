@@ -23,7 +23,7 @@ interface Props {
 	firstName: string
 	lastName: string
 	city: string
-	refetch: () => void,
+	refetch?: () => void,
 	setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
@@ -62,7 +62,9 @@ const ProfileForm: FC<Props> = ({
 		{
 			onSuccess(data) {
 				reset()
-				refetch()
+				if (refetch) {
+					refetch()
+				}
 				setIsOpen((prev) => !prev)
 			},
 		},

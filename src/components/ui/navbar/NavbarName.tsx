@@ -8,14 +8,14 @@ interface Props {
 	id: string | undefined
 	isLoading: boolean
 	avatar: string | undefined
-	name: string |undefined
+	name: string | undefined
 }
 
 export const NavbarName: FC<Props> = ({
-	id,
-	isLoading,
-	avatar,
-	name,
+																				id,
+																				isLoading,
+																				avatar,
+																				name,
 																			}) => {
 	if (isLoading) {
 		return (

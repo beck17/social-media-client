@@ -18,6 +18,7 @@
 
       .friend {
         display: flex;
+        align-items: center;
         gap: 12px;
 
         .userImg {
@@ -25,24 +26,6 @@
           object-fit: cover;
           width: 100px;
           height: 100px;
-        }
-
-        .info {
-          display: flex;
-          flex-direction: column;
-          margin-top: 16px;
-          justify-content: flex-start;
-
-
-          a {
-            margin-bottom: 12px;
-            color: #bdbdbd;
-            font-size: 18px;
-          }
-
-          a:hover {
-            color: #7a7b8a;
-          }
         }
       }
     }

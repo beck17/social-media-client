@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import FriendItem from '../friends/friendItem/FriendItem'
+import FriendItem from '@/components/ui/friendItem/FriendItem'
 import Input from '../../ui/input/Input'
 
 import styles from '@/assets/styles/screens/Friends.module.scss'

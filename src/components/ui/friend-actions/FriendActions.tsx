@@ -4,7 +4,7 @@ import { useCreateConversation } from '@/hooks/useCreateConversation'
 
 import { getFriendAction } from '@/lib/get-friend-action'
 
-import styles from '../../../ui/select/Select.module.scss'
+import styles from '../select/Select.module.scss'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import ProfileForm from '@/components/ui/edit-forms/profile-form/ProfileForm'
 import ModalEdit from '@/components/ui/modal/Modal'
@@ -14,7 +14,7 @@ import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
 
 interface Props {
 	friendId: string
-	refetchUserProfile: () => void
+	refetchUserProfile?: () => void
 }
 
 export const FriendActions: FC<Props> = ({ friendId, refetchUserProfile }) => {
