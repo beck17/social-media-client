@@ -10,6 +10,7 @@ import Post from '@/components/ui/post/Post'
 
 import styles from '@/assets/styles/screens/Profile.module.scss'
 import PostLoader from '@/components/ui/loaders/post-loader/PostLoader'
+import { FriendActions } from '@/components/ui/friend-actions/FriendActions'
 
 
 const Profile: FC = () => {
@@ -33,23 +34,26 @@ const Profile: FC = () => {
 				backgroundPic={userProfile?.backgroundPic}
 			/>
 
-			<div className={styles.profileContainer}>
+			<div className={styles.uInfo}>
 				<ProfileInfo
 					refetchUserProfile={refetchUserProfile}
 					profileId={profileId}
 					userProfile={userProfile}
 					isLoading={isLoadingProfile}
+					style={{ left: '100px' }}
 				/>
+				<FriendActions refetchUserProfile={refetchUserProfile} friendId={profileId} />
 
-				<div className={styles.postsContainer}>
-					{isLoadingPosts ? (
-						<PostLoader />
-					) : (
-						posts?.map((post) => (
-							<Post post={post} key={post._id} />
-						))
-					)}
-				</div>
+			</div>
+
+			<div className={styles.postsContainer}>
+				{isLoadingPosts ? (
+					<PostLoader />
+				) : (
+					posts?.map((post) => (
+						<Post post={post} key={post._id} />
+					))
+				)}
 			</div>
 		</div>
 	)

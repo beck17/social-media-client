@@ -1,20 +1,24 @@
 import React, { FC, useState } from 'react'
 import Image from 'next/image'
+import { useMutation } from 'react-query'
+import { SubmitHandler, useForm } from 'react-hook-form'
+
+import { PostService } from '@/services/post/post.service'
+
+import { useProfile } from '@/hooks/useProfile'
+import { useUploadFile } from '../../../ui/uploadField/useUploadFile'
 
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'
 
-import styles from './SubmitPost.module.scss'
-import { useProfile } from '../../../../hooks/useProfile'
-import { IPostResponse } from '../../../../types/post.interface'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { PostService } from '../../../../services/post/post.service'
-import photo from '../../../../assets/img/photo.svg'
-import { useUploadFile } from '../../../ui/uploadField/useUploadFile'
-import { useMutation } from 'react-query'
+import { IPostResponse } from '@/types/post.interface'
 
-const SubmitPost: FC<{ refetch: any }> = ({ refetch }) => {
-	const [image1, setImage] = useState()
+import photo from '../../../../assets/img/photo.svg'
+import styles from './SubmitPost.module.scss'
+
+
+const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
+	const [image1, setImage] = useState<{ image: string }>()
 	const { myProfile, isLoading } = useProfile()
 	const { uploadFile } = useUploadFile(setImage)
 
@@ -37,11 +41,12 @@ const SubmitPost: FC<{ refetch: any }> = ({ refetch }) => {
 	)
 
 	const onSubmitPost: SubmitHandler<IPostResponse> = async ({
-		image = image1?.image,
-		text,
-	}) => {
+																															image = image1?.image,
+																															text,
+																														}) => {
 		const data = { image, text }
 		await mutateAsync(data)
+		setImage({ image: '' })
 	}
 
 	return (
@@ -54,12 +59,12 @@ const SubmitPost: FC<{ refetch: any }> = ({ refetch }) => {
 								? process.env.BASE_URL + `/uploads/default/no-avatar.jpg`
 								: process.env.BASE_URL + `${myProfile?.avatar}`
 						}
-						alt="avatar"
+						alt='avatar'
 						width={500}
 						height={500}
 					/>
 					<Input
-						placeholder="Что у вас нового?"
+						placeholder='Что у вас нового?'
 						{...register('text', {
 							required: 'Это поле обязательное',
 						})}
@@ -68,14 +73,14 @@ const SubmitPost: FC<{ refetch: any }> = ({ refetch }) => {
 				</div>
 				<div className={styles.buttons}>
 					<input
-						type="file"
-						id="file"
+						type='file'
+						id='file'
 						onChange={uploadFile}
 						style={{ display: 'none' }}
 					/>
-					<label htmlFor="file">
+					<label htmlFor='file'>
 						<div className={styles.file}>
-							<Image src={photo} alt="фото" width={25} height={25} />
+							<Image src={photo} alt='фото' width={25} height={25} />
 							<span>Добавить фото</span>
 						</div>
 					</label>

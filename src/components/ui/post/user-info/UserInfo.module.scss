@@ -5,15 +5,15 @@
 
 
   img {
-    width: 25px;
-    height: 25px;
+    width: 32px;
+    height: 32px;
     cursor: pointer;
   }
 
 
   .userInfo {
     display: flex;
-    gap: 20px;
+    gap: 8px;
 
 
     img {
@@ -26,6 +26,7 @@
     .details {
       display: flex;
       flex-direction: column;
+      gap: 4px;
 
       .name {
         font-weight: 500;
@@ -33,6 +34,7 @@
 
       .date {
         font-size: 12px;
+        color: #8a8a8a;
       }
     }
   }

@@ -2,14 +2,13 @@ import React, { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { FriendActions } from '@/components/screens/friends/friend-actions/FriendActions'
+import { FriendActions } from '@/components/ui/friend-actions/FriendActions'
 
 import { IUser } from '@/types/user.interface'
 
 import styles from '@/assets/styles/screens/Friends.module.scss'
-import home from '@/assets/img/home.svg'
-import cake from '@/assets/img/cake.svg'
-import { InfoBlock } from '@/components/ui/info/city-info/InfoBlock'
+
+import { ProfileInfo } from '@/components/ui/profile-info/ProfileInfo'
 
 
 interface Props {
@@ -29,17 +28,10 @@ const FriendItem: FC<Props> = ({ user }) => {
 						alt='0-'
 					/>
 				</Link>
-				<div className={styles.info}>
-					<Link href={`/profile/${user._id}`}>
-						<span>{user.firstName} {user.lastName} </span>
-					</Link>
-					{user.city && <InfoBlock src={home} text={user.city} />}
-					{user.birthday && <InfoBlock src={cake} text={user.birthday} />}
-				</div>
+				<ProfileInfo profileId={user._id} userProfile={user} />
 			</div>
 			<FriendActions friendId={user._id} />
 		</div>
-
 	)
 }
 
