@@ -12,7 +12,7 @@ import { ICommunity } from '../../../../types/community.interface'
 import { ICommunityPostCreate } from '../../../../types/community-post.interface'
 
 import photo from '../../../../assets/img/photo.svg'
-import styles from '../../feed/submitPost/SubmitPost.module.scss'
+import styles from '@/components/ui/submitPost/SubmitPost.module.scss'
 
 const SubmitCommunityPost: FC<{
 	refetch: any

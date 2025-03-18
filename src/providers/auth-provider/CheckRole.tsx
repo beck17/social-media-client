@@ -1,20 +1,20 @@
-import React, { FC, PropsWithChildren } from 'react'
-import { useAuth } from '@/hooks/useAuth'
+import React, { FC, PropsWithChildren, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/hooks/useAuth'
 
 const CheckRole: FC<PropsWithChildren> = ({ children }) => {
-	const { user } = useAuth()
-
+	const { user, isLoading } = useAuth()
 	const router = useRouter()
 
-	const pushing = async () => {
-		await router.replace('/')
-	}
+	useEffect(() => {
+		if (!isLoading && !user && router.pathname !== '/') {
+			router.replace('/')
+		}
+	}, [user, isLoading, router])
 
-	if (user) return <>{children}</>
+	if (isLoading) return <div>Loading...</div>
 
-	router.pathname !== '/' && pushing()
-	return null
+	return user ? <>{children}</> : null
 }
 
 export default CheckRole

@@ -6,14 +6,14 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { PostService } from '@/services/post/post.service'
 
 import { useProfile } from '@/hooks/useProfile'
-import { useUploadFile } from '../../../ui/uploadField/useUploadFile'
+import { useUploadFile } from '../uploadField/useUploadFile'
 
-import Input from '../../../ui/input/Input'
-import Button from '../../../ui/button/Button'
+import Input from '../input/Input'
+import Button from '../button/Button'
 
 import { IPostResponse } from '@/types/post.interface'
 
-import photo from '../../../../assets/img/photo.svg'
+import photo from '../../../assets/img/photo.svg'
 import styles from './SubmitPost.module.scss'
 
 
@@ -65,10 +65,7 @@ const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
 					/>
 					<Input
 						placeholder='Что у вас нового?'
-						{...register('text', {
-							required: 'Это поле обязательное',
-						})}
-						error={errors.text?.message}
+						{...register('text')}
 					/>
 				</div>
 				<div className={styles.buttons}>
