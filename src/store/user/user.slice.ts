@@ -23,7 +23,6 @@ export const userSlice = createSlice({
 				state.isLoading = false
 			})
 			.addCase(register.rejected, (state: IInitialState) => {
-				state.user = null
 				state.isLoading = false
 			})
 
@@ -36,7 +35,6 @@ export const userSlice = createSlice({
 				state.isLoading = false
 			})
 			.addCase(login.rejected, (state: IInitialState) => {
-				state.user = null
 				state.isLoading = false
 			})
 

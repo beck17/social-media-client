@@ -14,10 +14,11 @@ import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
 
 interface Props {
 	friendId: string
-	refetchUserProfile?: () => void
+	refetch?: () => void
 }
 
-export const FriendActions: FC<Props> = ({ friendId, refetchUserProfile }) => {
+export const FriendActions: FC<Props> = ({ friendId, refetch }) => {
+
 	const { user } = useAuth()
 	const isMyProfile = user?._id === friendId
 
@@ -41,7 +42,7 @@ export const FriendActions: FC<Props> = ({ friendId, refetchUserProfile }) => {
 					firstName={user.firstName}
 					lastName={user.lastName}
 					city={user.city}
-					refetch={refetchUserProfile}
+					refetch={refetch}
 					setIsOpen={setIsOpenModal}
 				/>
 			</ModalEdit>
