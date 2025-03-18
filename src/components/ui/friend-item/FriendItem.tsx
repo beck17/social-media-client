@@ -16,6 +16,7 @@ interface Props {
 }
 
 const FriendItem: FC<Props> = ({ user }) => {
+
 	return (
 		<div className={styles.item}>
 			<div className={styles.friend}>

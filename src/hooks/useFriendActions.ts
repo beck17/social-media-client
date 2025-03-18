@@ -3,11 +3,13 @@ import { useMutation } from 'react-query'
 import { UserService } from '@/services/user.service'
 
 import { useIsFriend, useIsSubscribe } from '@/hooks/useFriend'
+import { useProfile } from '@/hooks/useProfile'
 
 
 export const useFriendActions = (id: string) => {
 	const { isFriend, isFriendRefetch } = useIsFriend(id)
 	const { isSubscribe, isSubscribeRefetch } = useIsSubscribe(id)
+	const { refetch } = useProfile()
 
 	const { mutateAsync: sendFriendRequest } = useMutation(
 		`send request to friendship ${id}`,
@@ -15,6 +17,7 @@ export const useFriendActions = (id: string) => {
 		{
 			onSuccess(data) {
 				isFriendRefetch()
+				refetch()
 				isSubscribeRefetch()
 			},
 		},
@@ -26,6 +29,7 @@ export const useFriendActions = (id: string) => {
 		{
 			onSuccess(data) {
 				isFriendRefetch()
+				refetch()
 				isSubscribeRefetch()
 			},
 		},
@@ -37,6 +41,7 @@ export const useFriendActions = (id: string) => {
 		{
 			onSuccess(data) {
 				isFriendRefetch()
+				refetch()
 				isSubscribeRefetch()
 			},
 		},
