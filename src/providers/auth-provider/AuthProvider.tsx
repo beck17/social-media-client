@@ -1,34 +1,37 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
-
 import { getAccessToken } from '@/services/auth/auth.helper'
-import { useAuth } from '@/hooks/useAuth'
 import { useActions } from '@/hooks/useActions'
-
 import Layout from '../../components/layout/Layout'
-
+import { useAuth } from '@/hooks/useAuth'
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
-	const { user } = useAuth()
-
+	const { user, isLoading } = useAuth()
 	const { checkAuth, logout } = useActions()
-
 	const { pathname } = useRouter()
+	const [isChecked, setIsChecked] = React.useState(false)
 
 	useEffect(() => {
 		const accessToken = getAccessToken()
-		if (accessToken) checkAuth()
+		if (accessToken && !isChecked) {
+			checkAuth()
+			setIsChecked(true)
+		} else {
+			setIsChecked(true)
+		}
 	}, [])
 
 	useEffect(() => {
 		const refreshToken = Cookies.get('refreshToken')
-		if (!refreshToken && user) logout()
-	}, [pathname])
+		if (isChecked && !refreshToken && user) {
+			logout()
+		}
+	}, [pathname, isChecked, user])
 
-	if (pathname === '/') return <>{children}</>
+	if (!isChecked) return <div>Loading...</div>
 
-	return <Layout>{children}</Layout>
+	return pathname === '/' ? <>{children}</> : <Layout>{children}</Layout>
 }
 
 export default AuthProvider

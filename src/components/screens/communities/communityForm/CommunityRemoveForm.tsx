@@ -1,15 +1,21 @@
-import React, { FC } from 'react'
+import React, { Dispatch, FC, SetStateAction } from 'react'
 import { useMutation } from 'react-query'
-import styles from '../../../ui/edit-forms/remove-form/RemoveForm.module.scss'
-import Button from '../../../ui/button/Button'
-import { CommunityService } from '../../../../services/community/community.service'
 import { useRouter } from 'next/router'
 
-const CommunityRemoveForm: FC<{
+import { CommunityService } from '@/services/community/community.service'
+
+import Button from '../../../ui/button/Button'
+
+import styles from '../../../ui/edit-forms/remove-form/RemoveForm.module.scss'
+
+
+interface Props {
 	communityId: string
-	setIsOpen: any
-	refetch: any
-}> = ({ communityId, setIsOpen, refetch }) => {
+	setIsOpen: Dispatch<SetStateAction<boolean>>
+	refetch: () => void
+}
+
+const CommunityRemoveForm: FC<Props> = ({ communityId, setIsOpen, refetch }) => {
 	const router = useRouter()
 
 	const { mutateAsync } = useMutation(
@@ -18,13 +24,13 @@ const CommunityRemoveForm: FC<{
 		{
 			onSuccess(data) {
 				refetch()
-				router.push('/my-communities')
 			},
 		},
 	)
 
-	const deletePostHandler = async (communityId) => {
+	const deletePostHandler = async (communityId: string) => {
 		await mutateAsync(communityId)
+		await router.push('/my-communities')
 	}
 
 	return (

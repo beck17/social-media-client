@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { useAllPost } from '../../../hooks/usePost'
 
-import SubmitPost from './submitPost/SubmitPost'
+import SubmitPost from '@/components/ui/submitPost/SubmitPost'
 import Post from '../../ui/post/Post'
 import PostLoader from '../../ui/loaders/post-loader/PostLoader'
 

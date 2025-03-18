@@ -33,8 +33,9 @@ export interface ITokens {
 }
 
 export interface IInitialState {
-	user: IUserState
+	user: IUserState | null
 	isLoading: boolean
+	initialized: boolean
 }
 
 export interface IUserNames {
