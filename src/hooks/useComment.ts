@@ -4,7 +4,7 @@ import { ICommentRequest } from '@/types/comment.interface'
 import { SubmitHandler, UseFormReset } from 'react-hook-form'
 import { Dispatch, SetStateAction } from 'react'
 import toast from 'react-hot-toast'
-import { emptyValue } from '@/lib/empty-value'
+import { toastError } from '@/lib/toast-error'
 
 export const usePostComments = (id: string) => {
 	const { isLoading, data, refetch } = useQuery(
@@ -37,7 +37,7 @@ export const useUpdateComment = (
 	)
 
 	const onSubmit: SubmitHandler<{ text: string }> = async ({ text }) => {
-		if (text.trim() === '') return emptyValue('Это поле обязательное')
+		if (text.trim() === '') return toastError('Это поле обязательное')
 		await mutateAsync(text)
 	}
 
@@ -62,7 +62,7 @@ export const useNewComment = (
 	)
 
 	const onSubmitForm: SubmitHandler<ICommentRequest> = async (data) => {
-		if (data.text.trim() === '') return emptyValue('Это поле обязательное')
+		if (data.text.trim() === '') return toastError('Это поле обязательное')
 		await mutateAsync(data)
 	}
 

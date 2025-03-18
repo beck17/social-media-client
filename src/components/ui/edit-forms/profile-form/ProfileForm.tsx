@@ -16,7 +16,7 @@ import photo from '@/assets/img/photo.svg'
 import { IUserUpdate } from '@/types/user.interface'
 
 import styles from '../EditForm.module.scss'
-import { emptyValue } from '@/lib/empty-value'
+import { toastError } from '@/lib/toast-error'
 
 
 interface Props {
@@ -80,7 +80,7 @@ const ProfileForm: FC<Props> = ({
 		const data = { avatar, lastName, firstName, city, backgroundPic }
 
 		if (lastName?.trim() === '' || firstName?.trim() === '' || city?.trim() === '') {
-			return emptyValue('Поля не должны быть пустыми!')
+			return toastError('Поля не должны быть пустыми!')
 		}
 		await mutateAsync(data)
 	}

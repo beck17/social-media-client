@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast'
 
-export const emptyValue = (errorText: string) => {
+export const toastError = (errorText: string) => {
 
 	toast.error(errorText, {
 		duration: 2000,
@@ -8,6 +8,7 @@ export const emptyValue = (errorText: string) => {
 			borderRadius: '10px',
 			background: '#15151c',
 			color: '#fff',
+			whiteSpace: 'nowrap',
 		},
 	})
 
