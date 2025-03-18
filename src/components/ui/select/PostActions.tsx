@@ -23,7 +23,6 @@ const PostActions: FC<{ postId: string }> = ({ postId }) => {
 
 	useOutsideClick(postActionRef, () => setIsOpenPopup(false))
 
-
 	const handleUpdatePost = () => closePopupOpenModal(setIsOpenPopup, setEditIsOpen)
 	const handleRemovePost = () => closePopupOpenModal(setIsOpenPopup, setRemoveIsOpen)
 

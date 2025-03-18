@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast'
 
-export const successUpload = (message: string) => {
+export const toastSuccess = (message: string) => {
 
 	toast.success(message, {
 		duration: 2000,

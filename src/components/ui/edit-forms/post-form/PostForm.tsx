@@ -1,20 +1,22 @@
-import React, { Dispatch, FC, SetStateAction, useState } from 'react'
+import React, { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
 import Image from 'next/image'
 
-import { PostService } from '@/services/post/post.service'
-
 import { useUploadFile } from '../../uploadField/useUploadFile'
+import { useUpdatePost } from '@/hooks/usePost'
 
-import Input from '../../input/Input'
+import { validatePost } from '@/lib/validate-fields'
+import { toastError } from '@/lib/toast-error'
+
 import Button from '../../button/Button'
+import Input from '../../input/Input'
 
 import { IPostUpdate } from '@/types/post.interface'
 
 import photo from '@/assets/img/photo.svg'
 
 import styles from '../EditForm.module.scss'
+
 
 interface Props {
 	postId: string
@@ -27,43 +29,47 @@ const PostForm: FC<Props> = ({
 															 setIsOpen,
 															 postId,
 														 }) => {
-	const [photoPic, setPhotoPic] = useState<{ image?: string }>()
-	const { uploadFile } = useUploadFile(setPhotoPic)
+	const [imageState, setImageState] = useState<{ image?: string }>()
+	const { uploadFile } = useUploadFile(setImageState)
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-		reset,
+		reset: resetForm,
 	} = useForm<IPostUpdate>()
 
-	const { mutateAsync } = useMutation(
-		`update post ${postId}`,
-		(data: IPostUpdate) => PostService.updatePost(data, postId),
-		{
-			onSuccess(data) {
-				refetch()
-				reset()
+	const { updatePost } = useUpdatePost(postId, refetch)
+
+	const onSubmitHandler: SubmitHandler<IPostUpdate> = useCallback(
+		async ({ text, image = imageState?.image }) => {
+			try {
+				const data = { text, image }
+				validatePost(data)
+
+				await updatePost(data)
+
 				setIsOpen((prev) => !prev)
-			},
-		},
-	)
 
-	const onSubmit: SubmitHandler<IPostUpdate> = async ({
-																												image = photoPic?.image,
-																												text,
-																											}) => {
-		const data = { text, image }
+			} catch (error) {
 
-		await mutateAsync(data)
-	}
+				if (error instanceof Error) {
+					toastError(error.message)
+				} else {
+					toastError('Произошла неизвестная ошибка')
+				}
+
+			} finally {
+				resetForm()
+				setImageState({ image: undefined })
+			}
+		}, [updatePost, resetForm, imageState])
 
 	return (
 		<div className={styles.formEdit}>
-			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+			<form className={styles.form} onSubmit={handleSubmit(onSubmitHandler)}>
 				<Input
 					{...register('text')}
-					error={errors.text?.message}
 					placeholder='Текст'
 				/>
 				<div className={styles.buttons}>

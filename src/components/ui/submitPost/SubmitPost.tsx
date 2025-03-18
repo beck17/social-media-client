@@ -1,64 +1,71 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useCallback, useMemo, useState } from 'react'
 import Image from 'next/image'
-import { useMutation } from 'react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
-
-import { PostService } from '@/services/post/post.service'
 
 import { useProfile } from '@/hooks/useProfile'
 import { useUploadFile } from '../uploadField/useUploadFile'
 
 import Input from '../input/Input'
 import Button from '../button/Button'
+import { FileUploadButton } from '../file-upload-button/FileUploadButton'
 
 import { IPostResponse } from '@/types/post.interface'
 
-import photo from '../../../assets/img/photo.svg'
 import styles from './SubmitPost.module.scss'
+import { toastError } from '@/lib/toast-error'
+import { useCreatePost } from '@/hooks/usePost'
+import { validatePost } from '@/lib/validate-fields'
 
 
 const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
-	const [image1, setImage] = useState<{ image: string }>()
-	const { myProfile, isLoading } = useProfile()
-	const { uploadFile } = useUploadFile(setImage)
+	const [imageState, setImageState] = useState<{ image: string | undefined }>()
+	const { uploadFile } = useUploadFile(setImageState)
+
+	const { myProfile, isLoading: isProfileLoading } = useProfile()
 
 	const {
 		register,
-		reset,
-		formState: { errors },
+		reset: resetForm,
 		handleSubmit,
 	} = useForm<IPostResponse>()
 
-	const { mutateAsync } = useMutation(
-		'add post',
-		(data: IPostResponse) => PostService.createPost(data),
-		{
-			onSuccess(data) {
-				reset()
-				refetch()
-			},
+	const { createPost } = useCreatePost(refetch)
+
+	const onSubmitHandler: SubmitHandler<IPostResponse> = useCallback(
+		async ({ text, image = imageState?.image }) => {
+			try {
+				const data = { text, image }
+				validatePost(data)
+
+				await createPost(data)
+
+			} catch (error) {
+
+				if (error instanceof Error) {
+					toastError(error.message)
+				} else {
+					toastError('Произошла неизвестная ошибка')
+				}
+
+			} finally {
+				resetForm()
+				setImageState({ image: undefined })
+			}
 		},
+		[createPost, resetForm, imageState],
 	)
 
-	const onSubmitPost: SubmitHandler<IPostResponse> = async ({
-																															image = image1?.image,
-																															text,
-																														}) => {
-		const data = { image, text }
-		await mutateAsync(data)
-		setImage({ image: '' })
-	}
+	const avatarUrl = useMemo(() => {
+		if (isProfileLoading) return '/uploads/default/no-avatar.jpg'
+		return myProfile?.avatar ? `${myProfile.avatar}` : '/uploads/default/no-avatar.jpg'
+	}, [isProfileLoading, myProfile])
 
 	return (
-		<form className={styles.submitPost} onSubmit={handleSubmit(onSubmitPost)}>
+		<form className={styles.submitPost} onSubmit={handleSubmit(onSubmitHandler)}>
 			<div className={styles.container}>
 				<div className={styles.input}>
 					<Image
-						src={
-							isLoading
-								? process.env.BASE_URL + `/uploads/default/no-avatar.jpg`
-								: process.env.BASE_URL + `${myProfile?.avatar}`
-						}
+						src={process.env.BASE_URL + avatarUrl}
 						alt='avatar'
 						width={500}
 						height={500}
@@ -69,18 +76,7 @@ const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
 					/>
 				</div>
 				<div className={styles.buttons}>
-					<input
-						type='file'
-						id='file'
-						onChange={uploadFile}
-						style={{ display: 'none' }}
-					/>
-					<label htmlFor='file'>
-						<div className={styles.file}>
-							<Image src={photo} alt='фото' width={25} height={25} />
-							<span>Добавить фото</span>
-						</div>
-					</label>
+					<FileUploadButton onUpload={uploadFile} />
 
 					<Button>Добавить пост</Button>
 				</div>
@@ -89,4 +85,4 @@ const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
 	)
 }
 
-export default SubmitPost
+export default React.memo(SubmitPost)
