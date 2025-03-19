@@ -5,9 +5,16 @@ import { IConversation } from '@/types/conversation.interface'
 
 
 export const ConversationService = {
-	async getConversation(conversationId: string) {
+	async getConversationById(conversationId: string) {
 		return instance<IConversation>({
 			url: `${UrlEnums.conversation}/${conversationId}`,
+			method: 'GET',
+		})
+	},
+
+	async getConversations() {
+		return instance<IConversation[]>({
+			url: `${UrlEnums.conversation}`,
 			method: 'GET',
 		})
 	},

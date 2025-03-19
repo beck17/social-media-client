@@ -4,7 +4,7 @@ import { useAllPost } from '../../../hooks/usePost'
 
 import SubmitPost from '@/components/ui/submitPost/SubmitPost'
 import Post from '../../ui/post/Post'
-import PostLoader from '../../ui/loaders/post-loader/PostLoader'
+import PostLoader from '@/components/ui/skeletons/post-loader/PostLoader'
 
 import styles from '../../../assets/styles/screens/Home.module.scss'
 

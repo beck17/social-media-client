@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 import CommunityContent from './communityContent/CommunityContent'
-import PostLoader from '../../ui/loaders/post-loader/PostLoader'
+import PostLoader from '@/components/ui/skeletons/post-loader/PostLoader'
 import CommunityActions from './communityItem/CommunityActions'
 
 import { useOneCommunity } from '@/hooks/useCommunity'

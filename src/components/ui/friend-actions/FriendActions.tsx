@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { useCreateConversation } from '@/hooks/useCreateConversation'
+import { useCreateConversation } from '@/hooks/useConversation'
 
 import { getFriendAction } from '@/lib/get-friend-action'
 

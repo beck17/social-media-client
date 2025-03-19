@@ -1,29 +1,35 @@
-import {FC} from "react";
+import { FC } from 'react'
 
-import Input from "../../ui/input/Input";
-import ConversationItem from "./conversationItem/ConversationItem";
+import Input from '../../ui/input/Input'
+import ConversationItem from './conversationItem/ConversationItem'
 
 import styles from '@/assets/styles/screens/Conversations.module.scss'
+import { useUserConversations } from '@/hooks/useConversation'
+import ConversationItemSkeleton from '@/components/ui/skeletons/conversation-item-skeleton/ConversationItemSkeleton'
 
 
-const Conversations:FC = () => {
-    return (
-        <div className={styles.conversations}>
-                <div style={{padding: '20px'}}>
-                    <Input placeholder="Поиск..." />
-                </div>
-                <ConversationItem />
-                <ConversationItem />
-                <ConversationItem />
-                <ConversationItem />
-                <ConversationItem />
-                <ConversationItem />
-                <ConversationItem />
-                <ConversationItem />
-                <ConversationItem />
-                <ConversationItem />
-        </div>
-    );
-};
+const Conversations: FC = () => {
+	const { userConversations, isLoading, refetch } = useUserConversations()
 
-export default Conversations;
+	return (
+		<div className={styles.conversations}>
+			<div style={{ padding: '20px' }}>
+				<Input placeholder='Поиск диалога...' />
+			</div>
+
+
+			{isLoading ? (
+				Array(7).fill(0).map((_, i) => (
+					<ConversationItemSkeleton key={i} />
+				))
+			) : (
+				userConversations?.map((conversation) => (
+					<ConversationItem key={conversation._id} conversation={conversation} />
+				))
+			)}
+
+		</div>
+	)
+}
+
+export default Conversations

@@ -4,7 +4,7 @@ import FriendItem from '@/components/ui/friend-item/FriendItem'
 import Input from '../../ui/input/Input'
 import styles from '@/assets/styles/screens/Friends.module.scss'
 import TopFriendBlock from '@/components/ui/top-friend-block/TopFriendBlock'
-import FriendItemSkeleton from '@/components/ui/friend-item/friend-item-skeleton/FriendItemSkeleton'
+import FriendItemSkeleton from '@/components/ui/skeletons/friend-item-skeleton/FriendItemSkeleton'
 import { SectionState, useSectionSwitch } from '@/hooks/useSectionSwitch'
 import { EmptyUsersBlock } from '@/components/ui/empty-users-block/EmptyUsersBlock'
 

@@ -27,7 +27,6 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
 					width={400}
 					height={400}
 				/>
-				<span>{useDateDay(message.createdAt)}</span>
 				<span>{useDateTime(message.createdAt)}</span>
 			</div>
 			<div className={styles.messageContent}>

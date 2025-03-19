@@ -1,7 +1,8 @@
-import { useMutation } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 
 import { ConversationService } from '@/services/messanger/conversation.service'
+import { CommunityService } from '@/services/community/community.service'
 
 
 export const useCreateConversation = (id: string) => {
@@ -20,4 +21,16 @@ export const useCreateConversation = (id: string) => {
 	return async (id: string) => {
 		await createConversation(id)
 	}
+}
+
+export const useUserConversations = () => {
+	const { data, isLoading, refetch } = useQuery(
+		'get all user conversations',
+		() => ConversationService.getConversations(),
+		{
+			select: ({ data }) => data,
+		},
+	)
+
+	return { userConversations: data, isLoading, refetch }
 }

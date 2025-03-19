@@ -5,6 +5,21 @@ export interface IConversation {
 	messages: IMessage[]
 	createdAt: string
 	updatedAt: string
+	lastMessageAt: string
+	lastMessage: ILastMessage
+	participants: IConversationUserInfo[]
+}
+
+export interface IConversationUserInfo {
+	_id: string
+	firstName: string
+	lastName: string
+	avatar: string
+}
+
+export interface ILastMessage {
+	_id: string
+	text: string
 }
 
 export interface IMessage {

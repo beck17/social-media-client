@@ -9,7 +9,7 @@ import { ProfileInfo } from '@/components/ui/profile-info/ProfileInfo'
 import Post from '@/components/ui/post/Post'
 
 import styles from '@/assets/styles/screens/Profile.module.scss'
-import PostLoader from '@/components/ui/loaders/post-loader/PostLoader'
+import PostLoader from '@/components/ui/skeletons/post-loader/PostLoader'
 import { FriendActions } from '@/components/ui/friend-actions/FriendActions'
 
 

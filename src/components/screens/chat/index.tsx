@@ -47,6 +47,7 @@ const Chat: FC = () => {
 			userFrom: String(user?._id),
 			userTo: String(userProfile?._id),
 		})
+
 		setMessage('')
 	}
 
