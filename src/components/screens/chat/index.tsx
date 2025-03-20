@@ -63,7 +63,7 @@ const Chat: FC = () => {
 			<div className={styles.container}>
 				<ChatInfo />
 				<Messages />
-				<div style={{ display: 'flex', gap: '10px' }}>
+				<div className={styles.bottomMenu}>
 					<Input
 						autoFocus
 						onKeyDown={pressKeyHandler}
