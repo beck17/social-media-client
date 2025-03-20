@@ -1,11 +1,16 @@
-.chat{
+.chat {
   //margin: 20px 50px 20px 70px;
   background-color: #1d1d24;
   border-radius: 22px;
 
-  .container{
+  .container {
     padding: 20px;
     background-color: #1d1d24;
     border-radius: 21px;
+
+    .bottomMenu {
+      display: flex;
+      gap: 10px;
+    }
   }
 }

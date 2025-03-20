@@ -8,34 +8,41 @@ export const useChat = (conversationId: string) => {
 	const [conversation, setConversation] = useState<IConversation>(
 		{} as IConversation,
 	)
-
 	const [socket, setSocket] = useState<Socket<
 		DefaultEventsMap,
 		DefaultEventsMap
 	> | null>(null)
 
+
 	useEffect(() => {
 		if (!conversationId) return
+
 		const newSocket = io(process.env.WEBSOCKET_URL as string, {
 			query: { conversationId },
 		})
 
 		setSocket(newSocket)
 
+		newSocket.emit('join-conversation', conversationId);
+
 		return () => {
+			newSocket.emit('leave-conversation', conversationId);
 			newSocket.close()
 		}
 	}, [conversationId, setSocket])
 
+
 	useEffect(() => {
 		if (!socket) return
+
 		socket.emit('message:get', { conversationId })
 
-		socket.on('conversation', (conversation) => {
-			setConversation(conversation)
-		})
+		socket.on(`conversation:${conversationId}`, (conversation) => {
+			setConversation(conversation);
+		});
 
 		return () => {
+			socket.off(`conversation:${conversationId}`);
 			socket.disconnect()
 		}
 	}, [conversationId, socket])
