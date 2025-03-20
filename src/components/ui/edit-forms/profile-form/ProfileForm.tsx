@@ -17,6 +17,8 @@ import { IUserUpdate } from '@/types/user.interface'
 
 import styles from '../EditForm.module.scss'
 import { toastError } from '@/lib/toast-error'
+import { useProfile } from '@/hooks/useProfile'
+import { useUserPost } from '@/hooks/usePost'
 
 
 interface Props {
@@ -24,6 +26,7 @@ interface Props {
 	lastName: string
 	city: string
 	refetch?: () => void,
+	userPostRefetch?: () => void,
 	setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
@@ -36,6 +39,7 @@ const ProfileForm: FC<Props> = ({
 																	lastName,
 																	city,
 																	refetch,
+																	userPostRefetch,
 																	setIsOpen,
 																}) => {
 	const [avatarPic, setAvatarPic] = useState<ImageInterface>()
@@ -48,6 +52,8 @@ const ProfileForm: FC<Props> = ({
 
 	const { uploadFile } = useUploadFile(setAvatarPic)
 	const { uploadBackground } = useUploadBackground(setBackgroundPic)
+
+	const { refetch: refetchProfile } = useProfile()
 
 	const {
 		register,
@@ -62,9 +68,9 @@ const ProfileForm: FC<Props> = ({
 		{
 			onSuccess(data) {
 				reset()
-				if (refetch) {
-					refetch()
-				}
+				refetchProfile()
+				if (refetch) refetch()
+				if (userPostRefetch) userPostRefetch()
 				setIsOpen((prev) => !prev)
 			},
 		},

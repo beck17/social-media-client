@@ -8,7 +8,6 @@ import { NavbarName } from '@/components/ui/navbar/NavbarName'
 
 import Button from '../../ui/button/Button'
 
-
 import styles from './Navbar.module.scss'
 
 

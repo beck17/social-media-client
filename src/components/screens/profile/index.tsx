@@ -42,7 +42,7 @@ const Profile: FC = () => {
 					isLoading={isLoadingProfile}
 					style={{ left: '100px' }}
 				/>
-				<FriendActions refetchUserProfile={refetchUserProfile} friendId={profileId} />
+				<FriendActions refetch={refetchUserProfile} friendId={profileId} />
 
 			</div>
 
