@@ -11,6 +11,8 @@ import ConversationItemSkeleton from '@/components/ui/skeletons/conversation-ite
 const Conversations: FC = () => {
 	const { userConversations, isLoading, refetch } = useUserConversations()
 
+	const skeletonItems = Array(7).fill(0)
+
 	return (
 		<div className={styles.conversations}>
 			<div style={{ padding: '20px' }}>
@@ -19,7 +21,7 @@ const Conversations: FC = () => {
 
 
 			{isLoading ? (
-				Array(7).fill(0).map((_, i) => (
+				skeletonItems.map((_, i) => (
 					<ConversationItemSkeleton key={i} />
 				))
 			) : (

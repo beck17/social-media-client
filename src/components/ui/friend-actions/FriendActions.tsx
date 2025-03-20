@@ -10,11 +10,12 @@ import ProfileForm from '@/components/ui/edit-forms/profile-form/ProfileForm'
 import ModalEdit from '@/components/ui/modal/Modal'
 import { useAuth } from '@/hooks/useAuth'
 import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
+import { useUserPost } from '@/hooks/usePost'
 
 
 interface Props {
 	friendId: string
-	refetch?: () => void
+	refetch: () => void
 }
 
 export const FriendActions: FC<Props> = ({ friendId, refetch }) => {
@@ -24,6 +25,8 @@ export const FriendActions: FC<Props> = ({ friendId, refetch }) => {
 
 	const [isOpenPopup, setIsOpenPopup] = React.useState(false)
 	const [modalIsOpen, setIsOpenModal] = React.useState(false)
+
+	const {refetch: userPostRefetch} = useUserPost(user?._id)
 
 	const popupRef = React.useRef<HTMLDivElement>(null)
 
@@ -43,6 +46,7 @@ export const FriendActions: FC<Props> = ({ friendId, refetch }) => {
 					lastName={user.lastName}
 					city={user.city}
 					refetch={refetch}
+					userPostRefetch={userPostRefetch}
 					setIsOpen={setIsOpenModal}
 				/>
 			</ModalEdit>
