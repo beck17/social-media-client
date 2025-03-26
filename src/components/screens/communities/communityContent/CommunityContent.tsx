@@ -1,14 +1,19 @@
 import React, { FC } from 'react'
+
+import { useCommunityPosts } from '@/hooks/useCommunityPost'
+
 import SubmitCommunityPost from '../submitCommunityPost/SubmitCommunityPost'
 import Post from '../../../ui/post/Post'
-import { useCommunityPosts } from '../../../../hooks/useCommunityPost'
-import { ICommunity } from '../../../../types/community.interface'
 
-const CommunityContent: FC<{
+import { ICommunity } from '@/types/community.interface'
+
+interface Props {
 	community: ICommunity | undefined
 	isLoading: boolean
 	isCreator: boolean
-}> = ({ community, isLoading, isCreator }) => {
+}
+
+const CommunityContent: FC<Props> = ({ community, isLoading, isCreator }) => {
 	const { communityPosts, refetch: refetchPosts } = useCommunityPosts(
 		community?._id,
 	)

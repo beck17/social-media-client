@@ -1,17 +1,16 @@
-import React, { FC, useState } from 'react'
+import React, { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
 import Image from 'next/image'
 
+import { useUpdateCommunityPost } from '@/hooks/useCommunityPost'
 import { useUploadFile } from '../../uploadField/useUploadFile'
 
-import { CommunityPostService } from '../../../../services/community-post/community-post.service'
 
-import {
-	ICommunityPostCreate,
-	ICommunityPostUpdate,
-} from '../../../../types/community-post.interface'
-import { IPostUpdate } from '../../../../types/post.interface'
+import { validatePost } from '@/lib/validate-fields'
+import { toastError } from '@/lib/toast-error'
+
+import { ICommunityPostCreate } from '@/types/community-post.interface'
+import { IPostUpdate } from '@/types/post.interface'
 
 import Input from '../../input/Input'
 import Button from '../../button/Button'
@@ -19,12 +18,15 @@ import Button from '../../button/Button'
 import photo from '@/assets/img/photo.svg'
 import styles from '../EditForm.module.scss'
 
-const CommunityPostForm: FC<{
-	refetch: any
-	setIsOpen: any
+
+interface Props {
 	postId: string
-}> = ({ refetch, setIsOpen, postId }) => {
-	const [photoPic, setPhotoPic] = useState()
+	setIsOpen: Dispatch<SetStateAction<boolean>>
+	refetch: () => void
+}
+
+const CommunityPostForm: FC<Props> = ({ refetch, setIsOpen, postId }) => {
+	const [photoPic, setPhotoPic] = useState<{ image: string | undefined }>()
 	const { uploadFile } = useUploadFile(setPhotoPic)
 
 	const {
@@ -34,46 +36,51 @@ const CommunityPostForm: FC<{
 		reset,
 	} = useForm<ICommunityPostCreate>()
 
-	const { mutateAsync } = useMutation(
-		'update community post',
-		(data: IPostUpdate) =>
-			CommunityPostService.updateCommunityPost(data, postId),
-		{
-			onSuccess(data) {
+	const { updateCommunityPost } = useUpdateCommunityPost(postId)
+
+	const onSubmitHandler: SubmitHandler<IPostUpdate> = useCallback(
+		async ({ text, image = photoPic?.image }) => {
+			try {
+				const data = { text, image }
+				validatePost(data)
+
+				await updateCommunityPost(data)
+
 				refetch()
-				reset()
 				setIsOpen((prev) => !prev)
-			},
-		},
-	)
 
-	const onSubmit: SubmitHandler<ICommunityPostUpdate> = async ({
-		image = photoPic?.image,
-		text,
-	}) => {
-		const data = { text, image }
+			} catch (error) {
 
-		await mutateAsync(data)
-	}
+				if (error instanceof Error) {
+					toastError(error.message)
+				} else {
+					toastError('Произошла неизвестная ошибка')
+				}
+
+			} finally {
+				reset()
+				setPhotoPic({ image: undefined })
+			}
+		}, [updateCommunityPost, reset, setPhotoPic])
 
 	return (
 		<div className={styles.formEdit}>
-			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+			<form className={styles.form} onSubmit={handleSubmit(onSubmitHandler)}>
 				<Input
 					{...register('text')}
 					error={errors.text?.message}
-					placeholder="Текст"
+					placeholder='Текст'
 				/>
 				<div className={styles.buttons}>
 					<input
-						type="file"
-						id="avatar"
+						type='file'
+						id='avatar'
 						onChange={uploadFile}
 						style={{ display: 'none' }}
 					/>
-					<label htmlFor="avatar">
+					<label htmlFor='avatar'>
 						<div className={styles.file}>
-							<Image src={photo} alt="фото" width={25} height={25} />
+							<Image src={photo} alt='фото' width={25} height={25} />
 							<span>Загрузить новое фото</span>
 						</div>
 					</label>

@@ -1,21 +1,23 @@
 import React, { FC } from 'react'
 
 import { useCreateConversation } from '@/hooks/useConversation'
+import { useUserPost } from '@/hooks/usePost'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { useAuth } from '@/hooks/useAuth'
 
 import { getFriendAction } from '@/lib/get-friend-action'
+import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
 
-import styles from '../select/Select.module.scss'
-import { useOutsideClick } from '@/hooks/useOutsideClick'
+
 import ProfileForm from '@/components/ui/edit-forms/profile-form/ProfileForm'
 import ModalEdit from '@/components/ui/modal/Modal'
-import { useAuth } from '@/hooks/useAuth'
-import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
-import { useUserPost } from '@/hooks/usePost'
+
+import styles from '../select/Select.module.scss'
 
 
 interface Props {
 	friendId: string
-	refetch: () => void
+	refetch?: () => void
 }
 
 export const FriendActions: FC<Props> = ({ friendId, refetch }) => {
@@ -26,7 +28,7 @@ export const FriendActions: FC<Props> = ({ friendId, refetch }) => {
 	const [isOpenPopup, setIsOpenPopup] = React.useState(false)
 	const [modalIsOpen, setIsOpenModal] = React.useState(false)
 
-	const {refetch: userPostRefetch} = useUserPost(user?._id)
+	const { refetch: userPostRefetch } = useUserPost(user?._id)
 
 	const popupRef = React.useRef<HTMLDivElement>(null)
 

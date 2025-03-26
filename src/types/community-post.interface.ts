@@ -8,7 +8,7 @@ export interface ICommunityPost {
 	community: ICommunityNames
 	text: string
 	image: string
-	// comments: IComment[]
+	comments: IComment[]
 	createdAt: string
 	updatedAt: string
 }

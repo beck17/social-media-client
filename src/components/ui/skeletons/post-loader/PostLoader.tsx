@@ -1,7 +1,7 @@
 import React from 'react'
 import ContentLoader from 'react-content-loader'
 
-const PostLoader = (props) => (
+const PostLoader = () => (
 	<ContentLoader
 		speed={2}
 		width={720}
@@ -9,7 +9,6 @@ const PostLoader = (props) => (
 		viewBox="0 0 720 700"
 		backgroundColor="#1d1d24"
 		foregroundColor="#5e5e5e"
-		{...props}
 	>
 		<circle cx="41" cy="40" r="20" />
 		<rect x="80" y="21" rx="2" ry="2" width="140" height="13" />

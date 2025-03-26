@@ -3,19 +3,20 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { useUserProfile } from '../../../../hooks/useProfile'
+import { useUserProfile } from '@/hooks/useProfile'
 
 import styles from './ChatInfo.module.scss'
 
+
 const ChatInfo: FC = () => {
 	const router = useRouter()
-	const { withId } = router.query
+	const  withId  = router.query.withId as string
 
 	const { userProfile, isLoading } = useUserProfile(withId)
 
 	return (
 		<div className={styles.chatInfo}>
-			<Link href="/im">Назад</Link>
+			<Link href={'/im'}>Назад</Link>
 			<span>
 				{userProfile?.firstName} {userProfile?.lastName}
 			</span>

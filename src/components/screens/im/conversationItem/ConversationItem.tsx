@@ -17,7 +17,8 @@ interface Props {
 const ConversationItem: FC<Props> = ({ conversation }) => {
 	const { user } = useAuth()
 
-	const participant = conversation.participants.filter((userInfo) => userInfo._id !== user._id)[0]
+	const participant = conversation.participants
+		.filter((userInfo) => userInfo._id !== user._id)[0]
 
 	const fullName = participant.firstName + ' ' + participant.lastName
 	return (

@@ -1,16 +1,24 @@
 import React, { FC } from 'react'
-import styles from './CommunityItems.module.scss'
-import Input from '../../ui/input/Input'
-import CommunityItem from './communityItem/CommunityItem'
+
 import {
 	useAllCommunity,
 	useSearchAllCommunities,
-} from '../../../hooks/useCommunity'
+} from '@/hooks/useCommunity'
+
+import Input from '../../ui/input/Input'
+import CommunityItem from './communityItem/CommunityItem'
+
+import styles from './CommunityItems.module.scss'
+
 
 const AllCommunities: FC = () => {
-	const { communities: allCommunities, isLoading } = useAllCommunity()
-	const { searchCommunities, handleSearch, searchTerm, searchIsLoading } =
-		useSearchAllCommunities()
+	const { communities: allCommunities = [], isLoading } = useAllCommunity()
+	const {
+		searchCommunities = [],
+		handleSearch,
+		searchTerm,
+		searchIsLoading
+	} = useSearchAllCommunities()
 
 	return (
 		<div className={styles.community}>
@@ -25,12 +33,12 @@ const AllCommunities: FC = () => {
 				</div>
 				{searchIsLoading || isLoading ? (
 					<p>Загрузка...</p>
-				) : searchCommunities?.length >= 1 ? (
-					searchCommunities?.map((community) => (
+				) : searchCommunities.length >= 1 ? (
+					searchCommunities.map((community) => (
 						<CommunityItem key={community._id} community={community} />
 					))
-				) : searchTerm === '' ? (
-					allCommunities?.map((community) => (
+				) : searchTerm === '' && allCommunities.length >= 1 ? (
+					allCommunities.map((community) => (
 						<CommunityItem key={community._id} community={community} />
 					))
 				) : (

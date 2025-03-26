@@ -3,12 +3,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import { FriendActions } from '@/components/ui/friend-actions/FriendActions'
+import { ProfileInfo } from '@/components/ui/profile-info/ProfileInfo'
 
 import { IUser } from '@/types/user.interface'
 
 import styles from '@/assets/styles/screens/Friends.module.scss'
-
-import { ProfileInfo } from '@/components/ui/profile-info/ProfileInfo'
 
 
 interface Props {

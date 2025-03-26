@@ -11,7 +11,7 @@ import {
 
 export const CommunityService = {
 	async getAllCommunities() {
-		return instance<ICommunity[]>({
+		return instance<ICommunityResponse[]>({
 			url: `${UrlEnums.community}`,
 			method: 'GET',
 		})
