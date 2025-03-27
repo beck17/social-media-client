@@ -10,25 +10,28 @@ import { useOneCommunity } from '@/hooks/useCommunity'
 import { useDateWithYear } from '@/hooks/useDate'
 import { useAuth } from '@/hooks/useAuth'
 
+import { ICommunity } from '@/types/community.interface'
+
 import styles from './Community.module.scss'
+
 
 const Community: FC = () => {
 	const router = useRouter()
 	const id = router.query.id as string
 
 	const { user } = useAuth()
-	const { community, isLoading, refetch } = useOneCommunity(id)
+	const { community = {} as ICommunity, isLoading, refetch } = useOneCommunity(id)
 
 	const avatarPath = {
 		avatar: isLoading
 			? '/uploads/default/no-avatar.jpg'
-			: community?.communityAvatar,
+			: community.communityAvatar,
 		background: isLoading
 			? '/uploads/default/background.jpg'
-			: community?.communityBackgroundPic,
+			: community.communityBackgroundPic,
 	}
 
-	const isCreator: boolean = user?._id  === community?.creator
+	const isCreator: boolean = user._id === community.creator
 
 	return (
 		<div className={styles.community}>
@@ -36,30 +39,30 @@ const Community: FC = () => {
 				<Image
 					className={styles.cover}
 					src={process.env.BASE_URL + `${avatarPath.background}`}
-					alt="2"
+					alt='2'
 					width={0}
 					height={0}
-					sizes="100vw 100vh"
+					sizes='100vw 100vh'
 					priority
 				/>
 
 				<Image
 					width={0}
 					height={0}
-					sizes="100vw 100vh"
+					sizes='100vw 100vh'
 					src={process.env.BASE_URL + `${avatarPath.avatar}`}
-					alt="1"
+					alt='1'
 					className={styles.profilePic}
 				/>
 			</div>
 			<div className={styles.uInfo}>
 				<div className={styles.title}>
-					<span>{community?.name}</span>
+					<span>{community.name}</span>
 					<span className={styles.info}>
-						{community?.members.length} подписчиков
+						{community.members?.length} подписчиков
 					</span>
 					<span className={styles.info}>
-						{useDateWithYear(community?.createdAt) + 'г.'}
+						{useDateWithYear(community.createdAt) + 'г.'}
 					</span>
 				</div>
 				<CommunityActions

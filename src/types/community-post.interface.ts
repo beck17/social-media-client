@@ -24,12 +24,3 @@ export interface ICommunityPostUpdate {
 	image?: string
 }
 
-// export interface IPostResponse {
-// 	text: string
-// 	image?: string
-// }
-//
-// export interface IPostUpdate {
-// 	text?: string
-// 	image?: string
-// }

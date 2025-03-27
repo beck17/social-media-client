@@ -11,13 +11,15 @@ import styles from '../../../assets/styles/screens/Home.module.scss'
 const Feed: FC = () => {
 	const { posts, isLoading, refetch } = useAllPost()
 
+
+
 	return (
 		<section className={styles.home}>
 			<SubmitPost refetch={refetch} />
 			{isLoading ? (
 				<PostLoader />
 			) : (
-				posts?.map((post) => <Post post={post} key={post._id} />)
+				posts?.map((post) => <Post post={post} key={post._id} refetchPosts={refetch} />)
 			)}
 		</section>
 	)

@@ -8,14 +8,15 @@ import Post from '../../../ui/post/Post'
 import { ICommunity } from '@/types/community.interface'
 
 interface Props {
-	community: ICommunity | undefined
+	community: ICommunity
 	isLoading: boolean
 	isCreator: boolean
 }
 
 const CommunityContent: FC<Props> = ({ community, isLoading, isCreator }) => {
+
 	const { communityPosts, refetch: refetchPosts } = useCommunityPosts(
-		community?._id,
+		community._id,
 	)
 
 	return (
@@ -28,7 +29,7 @@ const CommunityContent: FC<Props> = ({ community, isLoading, isCreator }) => {
 				/>
 			)}
 			{communityPosts && communityPosts.map((post) => (
-				<Post post={post} key={post._id} isCreator={isCreator} />
+				<Post post={post} key={post._id} isCreator={isCreator} refetchPosts={refetchPosts}  />
 			))}
 		</>
 	)
