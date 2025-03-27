@@ -74,11 +74,11 @@ const PostForm: FC<Props> = ({
 				<div className={styles.buttons}>
 					<input
 						type='file'
-						id='avatar'
+						id='image'
 						onChange={uploadFile}
 						style={{ display: 'none' }}
 					/>
-					<label htmlFor='avatar'>
+					<label htmlFor='image'>
 						<div className={styles.file}>
 							<Image src={photo} alt='фото' width={25} height={25} />
 							<span>Загрузить новое фото</span>

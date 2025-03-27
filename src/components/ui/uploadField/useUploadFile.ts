@@ -1,12 +1,12 @@
 import { useMutation } from 'react-query'
 import { MediaService } from '@/services/media.service'
 import { errorCatch } from '@/api/api.helper'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { toastSuccess } from '@/lib/toast-success'
 import { toastError } from '@/lib/toast-error'
 
 export const useUploadFile = (
-	onChange: (...event: any) => void,
+	setImageState: Dispatch<SetStateAction<{ image?: string | undefined } | undefined>>,
 	folder?: string,
 ) => {
 	const { mutateAsync } = useMutation(
@@ -14,7 +14,7 @@ export const useUploadFile = (
 		(data: FormData) => MediaService.upload(data, folder),
 		{
 			onSuccess: ({ data }) => {
-				onChange(data)
+				setImageState(data)
 				toastSuccess('Фото успешно загруженно')
 			},
 			onError: (error) => {
