@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { usePostComments } from '@/hooks/useComment'
 import { useLike, useToggleLike } from '@/hooks/useLike'
 
-import PostInfo from './user-info/PostInfo'
+import PostInfo from '@/components/ui/post/post-info/PostInfo'
 import Comments from '../comment/Comment'
 
 import { IPost } from '@/types/post.interface'
