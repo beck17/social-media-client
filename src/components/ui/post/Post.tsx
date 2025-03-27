@@ -1,14 +1,10 @@
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import Image from 'next/image'
-import { useMutation } from 'react-query'
-
-import { LikePostService } from '@/services/post/like.service'
 
 import { usePostComments } from '@/hooks/useComment'
-import { useLike } from '@/hooks/useLike'
+import { useLike, useToggleLike } from '@/hooks/useLike'
 
-import UserInfo from './user-info/UserInfo'
-import CommunityInfo from './user-info/CommunityInfo'
+import PostInfo from './user-info/PostInfo'
 import Comments from '../comment/Comment'
 
 import { IPost } from '@/types/post.interface'
@@ -20,7 +16,17 @@ import commentsImg from '@/assets/img/comments.svg'
 import styles from './Post.module.scss'
 
 
-const Post: FC<{ post: IPost; isCreator?: boolean }> = ({ post, isCreator }) => {
+interface Props {
+	post: IPost;
+	refetchPosts: () => void
+	isCreator?: boolean;
+}
+
+const Post: FC<Props> = ({
+													 post,
+													 refetchPosts,
+													 isCreator,
+												 }) => {
 	const [commentOpen, setCommentOpen] = useState<boolean>(false)
 
 	const { comments, refetch } = usePostComments(post._id)
@@ -30,29 +36,20 @@ const Post: FC<{ post: IPost; isCreator?: boolean }> = ({ post, isCreator }) => 
 	const likeSvgPic = liked ? likeRed : like
 	const likeCount = count || 0
 
-	const { mutateAsync } = useMutation(
-		`add like on post ${post._id}`,
-		(id: string) => LikePostService.toggleLike(id),
-		{
-			onSuccess(data) {
-				refetchHandler()
-			},
-		},
-	)
+
+	const { toggleLike } = useToggleLike(post._id)
 
 	const toggleLikeHandler = async (id: string) => {
-		await mutateAsync(id)
+		await toggleLike(id)
+		await refetchHandler()
 	}
 
-	const infoComponent = post?.community ? (
-		<CommunityInfo post={post} isCreator={isCreator} />
-	) : (
-		<UserInfo post={post} />
-	)
 	return (
-		<div className={styles.post} >
+		<div className={styles.post}>
 			<div className={styles.container}>
-				{infoComponent}
+				<div>
+					<PostInfo post={post} isCreator={isCreator} refetchPosts={refetchPosts} />
+				</div>
 				<div className={styles.content} onDoubleClick={() => toggleLikeHandler(post._id)}>
 					<p>{post.text}</p>
 					{post.image && (

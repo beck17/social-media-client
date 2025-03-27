@@ -4,7 +4,7 @@ import { IPostUpdate } from '@/types/post.interface'
 import { toastSuccess } from '@/lib/toast-success'
 import { toastError } from '@/lib/toast-error'
 
-export const useCommunityPosts = (communityId: string | undefined) => {
+export const useCommunityPosts = (communityId: string) => {
 	const { data, isLoading, refetch } = useQuery(
 		`get community posts ${communityId}`,
 		() => CommunityPostService.getCommunityPosts(communityId),
@@ -28,9 +28,17 @@ export const useUpdateCommunityPost = (postId: string) => {
 			onError() {
 				toastError('Не удалость обновить пост')
 			},
-		}
+		},
 	)
 
 	return { updateCommunityPost }
+}
 
+export const useDeleteCommunityPost = (postId: string) => {
+	const { mutateAsync: deleteCommunityPost } = useMutation(
+		`delete post ${postId}`,
+		(postId: string) => CommunityPostService.deleteCommunityPost(postId),
+	)
+
+	return { deleteCommunityPost }
 }

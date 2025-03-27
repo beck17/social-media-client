@@ -2,20 +2,20 @@ import React, { FC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useAuth } from '../../../../hooks/useAuth'
-import { useDate } from '../../../../hooks/useDate'
+import { useDate } from '@/hooks/useDate'
 
-import PostActions from '../../select/PostActions'
+import { IPost } from '@/types/post.interface'
 
-import { IPost } from '../../../../types/post.interface'
-import styles from './UserInfo.module.scss'
-import CommunityActions from '../../../screens/communities/communityItem/CommunityActions'
-import CommunityPostActions from '../../select/CommunityPostActions'
+import styles from './PostInfo.module.scss'
 
-const CommunityInfo: FC<{ post: IPost; isCreator?: boolean }> = ({
-	post,
-	isCreator,
-}) => {
+
+interface Props {
+	post: IPost;
+}
+
+const CommunityInfo: FC<Props> = ({
+																		post,
+																	}) => {
 	const postCreated = useDate(post.createdAt)
 
 	return (
@@ -23,7 +23,7 @@ const CommunityInfo: FC<{ post: IPost; isCreator?: boolean }> = ({
 			<div className={styles.userInfo}>
 				<Image
 					src={process.env.BASE_URL + `${post.community?.communityAvatar}`}
-					alt="аватар"
+					alt='аватар'
 					width={500}
 					height={500}
 				/>
@@ -37,12 +37,6 @@ const CommunityInfo: FC<{ post: IPost; isCreator?: boolean }> = ({
 					<span className={styles.date}>{postCreated}</span>
 				</div>
 			</div>
-			{isCreator && (
-				<CommunityPostActions
-					postId={post._id}
-					communityId={post.community?._id}
-				/>
-			)}
 		</div>
 	)
 }

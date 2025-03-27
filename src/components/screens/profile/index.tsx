@@ -17,7 +17,7 @@ const Profile: FC = () => {
 	const router = useRouter()
 	const profileId = router.query.id as string
 
-	const { posts, isLoading: isLoadingPosts } = useUserPost(profileId)
+	const { posts, isLoading: isLoadingPosts, refetch } = useUserPost(profileId)
 
 	const {
 		isLoading: isLoadingProfile,
@@ -51,7 +51,7 @@ const Profile: FC = () => {
 					<PostLoader />
 				) : (
 					posts?.map((post) => (
-						<Post post={post} key={post._id} />
+						<Post post={post} key={post._id} refetchPosts={refetch} />
 					))
 				)}
 			</div>

@@ -3,24 +3,21 @@ import React, { Dispatch, FC, SetStateAction } from 'react'
 import Button from '../../button/Button'
 
 import styles from './RemoveForm.module.scss'
-import { useDeletePost } from '@/hooks/usePost'
 
 
 interface Props {
 	postId: string
-	refetch: () => void
 	setIsOpen: Dispatch<SetStateAction<boolean>>
+	removePost: (postId: string) => Promise<void>
 }
 
 const RemoveForm: FC<Props> = ({
-																 refetch,
 																 postId,
 																 setIsOpen,
+																 removePost,
 															 }) => {
-	const { deletePost } = useDeletePost(postId, refetch)
-
 	const deletePostHandler = async () => {
-		await deletePost(postId)
+		await removePost(postId)
 	}
 
 	return (

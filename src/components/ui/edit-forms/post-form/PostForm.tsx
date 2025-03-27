@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import Image from 'next/image'
 
 import { useUploadFile } from '../../uploadField/useUploadFile'
-import { useUpdatePost } from '@/hooks/usePost'
 
 import { validatePost } from '@/lib/validate-fields'
 import { toastError } from '@/lib/toast-error'
@@ -19,30 +18,28 @@ import styles from '../EditForm.module.scss'
 
 
 interface Props {
-	postId: string
-	refetch: () => void;
-	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	text: string
+	updatePost: (post: IPostUpdate) => Promise<void>
+	setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
 const PostForm: FC<Props> = ({
-															 refetch,
+															 updatePost,
+															 text,
 															 setIsOpen,
-															 postId,
 														 }) => {
+	const [updatedText, setUpdatedText] = useState<string>(text)
 	const [imageState, setImageState] = useState<{ image?: string }>()
 	const { uploadFile } = useUploadFile(setImageState)
 
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
 		reset: resetForm,
 	} = useForm<IPostUpdate>()
 
-	const { updatePost } = useUpdatePost(postId, refetch)
-
 	const onSubmitHandler: SubmitHandler<IPostUpdate> = useCallback(
-		async ({ text, image = imageState?.image }) => {
+		async ({ text = updatedText, image = imageState?.image }) => {
 			try {
 				const data = { text, image }
 				validatePost(data)
@@ -71,6 +68,8 @@ const PostForm: FC<Props> = ({
 				<Input
 					{...register('text')}
 					placeholder='Текст'
+					value={updatedText}
+					onChange={(e) => setUpdatedText(e.target.value)}
 				/>
 				<div className={styles.buttons}>
 					<input

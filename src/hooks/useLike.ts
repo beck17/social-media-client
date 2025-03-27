@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 
 import { LikePostService } from '@/services/post/like.service'
 
@@ -26,4 +26,13 @@ export const useLike = (postId: string) => {
 	}
 
 	return { liked, count, refetchHandler }
+}
+
+export const useToggleLike = (postId: string) => {
+	const { mutateAsync: toggleLike } = useMutation(
+		`add like on post ${postId}`,
+		(postId: string) => LikePostService.toggleLike(postId),
+	)
+
+	return {toggleLike}
 }

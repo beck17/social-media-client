@@ -19,6 +19,6 @@ export interface IPostResponse {
 }
 
 export interface IPostUpdate {
-	text: string
+	text?: string
 	image?: string
 }

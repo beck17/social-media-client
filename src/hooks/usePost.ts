@@ -2,7 +2,6 @@ import { useMutation, useQuery } from 'react-query'
 
 import { PostService } from '@/services/post/post.service'
 import { IPostResponse, IPostUpdate } from '@/types/post.interface'
-import { SubmitHandler } from 'react-hook-form'
 import { toastSuccess } from '@/lib/toast-success'
 import { toastError } from '@/lib/toast-error'
 
@@ -17,6 +16,18 @@ export const useAllPost = () => {
 	)
 
 	return { posts: data, isLoading, refetch }
+}
+
+export const useOnePost = (postId: string) => {
+	const { data, isLoading, refetch } = useQuery(
+		`get one post ${postId}`,
+		() => PostService.getPostById(postId),
+		{
+			select: ({ data }) => data,
+		},
+	)
+
+	return { post: data, isLoading, refetch }
 }
 
 export const useUserPost = (userId: string | undefined) => {
@@ -51,13 +62,12 @@ export const useCreatePost = (refetch: () => void) => {
 }
 
 
-export const useDeletePost = (postId: string, refetch: () => void) => {
+export const useDeletePost = (postId: string,) => {
 	const { mutateAsync: deletePost } = useMutation(
 		`delete post ${postId}`,
 		(postId: string) => PostService.deletePost(postId),
 		{
-			onSuccess(data) {
-				refetch()
+			onSuccess() {
 				toastSuccess('Пост успешно удален')
 			},
 			onError() {
@@ -69,13 +79,12 @@ export const useDeletePost = (postId: string, refetch: () => void) => {
 	return { deletePost }
 }
 
-export const useUpdatePost = (postId: string, refetch: () => void) => {
+export const useUpdatePost = (postId: string) => {
 	const { mutateAsync: updatePost } = useMutation(
 		`update post ${postId}`,
 		(data: IPostUpdate) => PostService.updatePost(data, postId),
 		{
-			onSuccess(data) {
-				refetch()
+			onSuccess() {
 				toastSuccess('Пост успешно обновлен')
 			},
 			onError() {
