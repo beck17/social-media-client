@@ -14,6 +14,6 @@ module.exports = {
 				pathname: '/uploads/**',
 			},
 		],
-		domains: ['localhost'],
+		domains: ['localhost','social-media-server-3gd5.onrender.com'],
 	},
 }

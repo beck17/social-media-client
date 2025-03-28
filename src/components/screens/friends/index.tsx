@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { useProfile } from '@/hooks/useProfile'
 import FriendItem from '@/components/ui/friend-item/FriendItem'
-import Input from '../../ui/input/Input'
 import styles from '@/assets/styles/screens/Friends.module.scss'
 import TopFriendBlock from '@/components/ui/top-friend-block/TopFriendBlock'
 import FriendItemSkeleton from '@/components/ui/skeletons/friend-item-skeleton/FriendItemSkeleton'

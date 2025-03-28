@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import Link from 'next/link'
 
 import styles from './TopFriendBlock.module.scss'
 import Button from '@/components/ui/button/Button'
