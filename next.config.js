@@ -8,6 +8,12 @@ module.exports = {
 	images: {
 		remotePatterns: [
 			{
+				protocol: 'https',
+				hostname: 'social-media-server-3gd5.onrender.com',
+				port: '',
+				pathname: '/uploads/**',
+			},
+			{
 				protocol: 'http',
 				hostname: 'localhost',
 				port: '5000',
@@ -15,5 +21,6 @@ module.exports = {
 			},
 		],
 		domains: ['localhost','social-media-server-3gd5.onrender.com'],
+		unoptimized: false
 	},
 }
