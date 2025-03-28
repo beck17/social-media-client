@@ -18,7 +18,7 @@ import { validatePost } from '@/lib/validate-fields'
 
 
 const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
-	const [imageState, setImageState] = useState<{ image: string | undefined }>()
+	const [imageState, setImageState] = useState<{ image?: string }>()
 	const { uploadFile } = useUploadFile(setImageState)
 
 	const { myProfile, isLoading: isProfileLoading } = useProfile()

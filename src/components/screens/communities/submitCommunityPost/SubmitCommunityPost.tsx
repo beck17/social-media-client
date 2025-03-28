@@ -3,24 +3,29 @@ import Image from 'next/image'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 
+import { CommunityPostService } from '@/services/community-post/community-post.service'
+
+import { useUploadFile } from '../../../ui/uploadField/useUploadFile'
+
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'
 
-import { CommunityPostService } from '../../../../services/community-post/community-post.service'
-import { useUploadFile } from '../../../ui/uploadField/useUploadFile'
-import { ICommunity } from '../../../../types/community.interface'
-import { ICommunityPostCreate } from '../../../../types/community-post.interface'
+import { ICommunity } from '@/types/community.interface'
+import { ICommunityPostCreate } from '@/types/community-post.interface'
 
 import photo from '../../../../assets/img/photo.svg'
 import styles from '@/components/ui/submitPost/SubmitPost.module.scss'
 
-const SubmitCommunityPost: FC<{
-	refetch: any
+
+interface Props {
+	refetch: () => void
 	community?: ICommunity
 	isLoading: boolean
-}> = ({ refetch, community }) => {
-	const [image1, setImage] = useState<{image: string | undefined}>()
-	const { uploadFile } = useUploadFile(setImage)
+}
+
+const SubmitCommunityPost: FC<Props> = ({ refetch, community }) => {
+	const [imageState, setImageState] = useState<{ image?: string }>()
+	const { uploadFile } = useUploadFile(setImageState)
 
 	const {
 		register,
@@ -34,7 +39,7 @@ const SubmitCommunityPost: FC<{
 		(data: ICommunityPostCreate) =>
 			CommunityPostService.createCommunityPost(data),
 		{
-			onSuccess(data) {
+			onSuccess() {
 				reset()
 				refetch()
 			},
@@ -42,10 +47,10 @@ const SubmitCommunityPost: FC<{
 	)
 
 	const onSubmitPost: SubmitHandler<ICommunityPostCreate> = async ({
-		image = image1?.image,
-		text,
-		communityId,
-	}) => {
+																																		 image = imageState?.image,
+																																		 text,
+																																		 communityId,
+																																	 }) => {
 		const data = { image, text, communityId }
 		await mutateAsync(data)
 	}
@@ -55,7 +60,7 @@ const SubmitCommunityPost: FC<{
 			<div className={styles.container}>
 				<div className={styles.input}>
 					<Input
-						placeholder="Введите текст..."
+						placeholder='Введите текст...'
 						{...register('text', {
 							required: 'Это поле обязательное',
 						})}
@@ -64,7 +69,7 @@ const SubmitCommunityPost: FC<{
 					<input
 						style={{ display: 'none' }}
 						value={community?._id}
-						placeholder="Введите текст..."
+						placeholder='Введите текст...'
 						{...register('communityId', {
 							required: 'Это поле обязательное',
 						})}
@@ -72,14 +77,14 @@ const SubmitCommunityPost: FC<{
 				</div>
 				<div className={styles.buttons}>
 					<input
-						type="file"
-						id="file"
+						type='file'
+						id='file'
 						onChange={uploadFile}
 						style={{ display: 'none' }}
 					/>
-					<label htmlFor="file">
+					<label htmlFor='file'>
 						<div className={styles.file}>
-							<Image src={photo} alt="фото" width={25} height={25} />
+							<Image src={photo} alt='фото' width={25} height={25} />
 							<span>Добавить фото</span>
 						</div>
 					</label>
