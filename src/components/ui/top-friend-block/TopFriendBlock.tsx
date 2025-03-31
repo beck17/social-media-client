@@ -11,8 +11,11 @@ interface Props {
 }
 
 const TopFriendBlock: FC<Props> = ({ count, section, toggle }) => {
-	const sectionName = section === 'friends' ? 'друзья' : 'подписчики'
-	const buttonName = section !== 'friends' ? 'друзья' : 'подписчики'
+	const isFriendSection = section === 'friends'
+
+	const sectionName = isFriendSection ? 'друзья' : 'подписчики'
+	const inputText = isFriendSection ? 'Найти друга...' : 'Найти подписчика...'
+
 
 	return (
 		<>
@@ -21,10 +24,10 @@ const TopFriendBlock: FC<Props> = ({ count, section, toggle }) => {
 					Ваши {sectionName} <span>{count}</span>
 				</p>
 				<div className={styles.buttons}>
-					<Button onClick={toggle}>Мои {buttonName}</Button>
+					<Button onClick={toggle}>Мои {sectionName}</Button>
 				</div>
 			</div>
-			{section === 'friends' && <Input placeholder='Найти друга...' />}
+			<Input placeholder={inputText} />
 		</>
 	)
 }
