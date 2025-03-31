@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import styles from './TopFriendBlock.module.scss'
 import Button from '@/components/ui/button/Button'
 import Input from '@/components/ui/input/Input'
+import { FriendsSectionState } from '@/hooks/useSwitchSections'
 
 interface Props {
 	count: number
@@ -11,20 +12,20 @@ interface Props {
 }
 
 const TopFriendBlock: FC<Props> = ({ count, section, toggle }) => {
-	const isFriendSection = section === 'friends'
+	const isFriendSection = section === FriendsSectionState.friends
 
-	const sectionName = isFriendSection ? 'друзья' : 'подписчики'
+	const sectionName = isFriendSection ? 'Мои друзья' : 'Мои подписчики'
+	const buttonText = isFriendSection ? 'Мои подписчики' : 'Мои друзья'
 	const inputText = isFriendSection ? 'Найти друга...' : 'Найти подписчика...'
-
 
 	return (
 		<>
 			<div className={styles.friendBlock}>
 				<p>
-					Ваши {sectionName} <span>{count}</span>
+					{sectionName} <span>{count}</span>
 				</p>
 				<div className={styles.buttons}>
-					<Button onClick={toggle}>Мои {sectionName}</Button>
+					<Button onClick={toggle}>{buttonText}</Button>
 				</div>
 			</div>
 			<Input placeholder={inputText} />

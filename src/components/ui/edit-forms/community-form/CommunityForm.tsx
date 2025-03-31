@@ -1,20 +1,18 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import Image from 'next/image'
-import { useMutation } from 'react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { CommunityService } from '@/services/community/community.service'
 
 import { useUploadBackground } from '@/hooks/useUploadBackground'
 import { useUploadFile } from '@/components/ui/uploadField/useUploadFile'
+import { useCreateCommunity } from '@/hooks/useCommunity'
 
 import Input from '../../input/Input'
 import Button from '../../button/Button'
 
-import photo from '@/assets/img/photo.svg'
-
 import { ICommunityCreate } from '@/types/community.interface'
 
+import photo from '@/assets/img/photo.svg'
 import styles from '../EditForm.module.scss'
 
 
@@ -38,20 +36,11 @@ const CommunityForm: FC<Props> = ({
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
 		reset,
 	} = useForm<ICommunityCreate>()
 
-	const { mutateAsync } = useMutation(
-		'add community',
-		(data: ICommunityCreate) => CommunityService.createCommunity(data),
-		{
-			onSuccess(data) {
-				reset()
-				setIsOpen((prev) => !prev)
-			},
-		},
-	)
+	const { createCommunity } = useCreateCommunity()
+
 
 	const onSubmitCommunity: SubmitHandler<ICommunityCreate> = async ({
 																																			name,
@@ -61,7 +50,10 @@ const CommunityForm: FC<Props> = ({
 																																		}) => {
 		const data = { name, description, communityAvatar, communityBackgroundPic }
 
-		await mutateAsync(data)
+		await createCommunity(data)
+
+		reset()
+		setIsOpen((prev) => !prev)
 	}
 
 	return (
