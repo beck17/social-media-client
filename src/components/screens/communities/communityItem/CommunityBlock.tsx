@@ -1,15 +1,27 @@
 import React, { FC } from 'react'
-import Link from 'next/link'
 
 import CommunityForm from '../../../ui/edit-forms/community-form/CommunityForm'
 import Modal from '../../../ui/modal/Modal'
 import Button from '../../../ui/button/Button'
 
+import { CommunitySectionState } from '@/hooks/useSwitchSections'
+
 import styles from '../CommunityItems.module.scss'
 
 
-const CommunityBlock: FC<{ count: number }> = ({ count }) => {
+interface Props {
+	section: string
+	count: number
+	toggle: () => void
+}
+
+const CommunityBlock: FC<Props> = ({ section, count, toggle }) => {
 	const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false)
+
+	const isMyCommunities = section === CommunitySectionState.myCommunities
+
+	const sectionName = isMyCommunities ? 'Мои сообщества' : 'Все сообщества'
+	const buttonText = isMyCommunities ? 'Все сообщества' : 'Мои сообщества'
 
 	return (
 		<div className={styles.communityBlock}>
@@ -17,12 +29,10 @@ const CommunityBlock: FC<{ count: number }> = ({ count }) => {
 				<CommunityForm setIsOpen={setIsOpenModal} />
 			</Modal>
 			<p>
-				Ваши сообщества <span>{count}</span>
+				{sectionName} <span>{count}</span>
 			</p>
 			<div className={styles.buttons}>
-				<Link href="/all-communities">
-					<Button>Все сообщества</Button>
-				</Link>
+				<Button onClick={toggle}>{buttonText}</Button>
 				<Button onClick={() => setIsOpenModal(!isOpenModal)}>
 					Создать сообщество
 				</Button>

@@ -1,12 +1,12 @@
 import { FC } from 'react'
 
-import styles from './EmptyUsersBlock.module.scss'
+import styles from './EmptyInfoBlock.module.scss'
 
 interface Props {
 	text: string
 }
 
-export const EmptyUsersBlock: FC<Props> = ({text}) => {
+export const EmptyInfoBlock: FC<Props> = ({text}) => {
 
 	return (
 		<div className={styles.block}>

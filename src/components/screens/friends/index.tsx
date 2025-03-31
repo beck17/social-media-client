@@ -4,15 +4,15 @@ import FriendItem from '@/components/ui/friend-item/FriendItem'
 import styles from '@/assets/styles/screens/Friends.module.scss'
 import TopFriendBlock from '@/components/ui/top-friend-block/TopFriendBlock'
 import FriendItemSkeleton from '@/components/ui/skeletons/friend-item-skeleton/FriendItemSkeleton'
-import { SectionState, useSectionSwitch } from '@/hooks/useSectionSwitch'
-import { EmptyUsersBlock } from '@/components/ui/empty-users-block/EmptyUsersBlock'
+import { FriendsSectionState, useSwitchFriendsSection } from '@/hooks/useSwitchSections'
+import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
 
 
 const Friends: FC = () => {
 	const { myProfile, isLoading } = useProfile()
-	const { section, toggle } = useSectionSwitch(SectionState.friends)
+	const { section, toggle } = useSwitchFriendsSection()
 
-	const currentData = section === SectionState.friends
+	const currentData = section === FriendsSectionState.friends
 		? myProfile?.friends
 		: myProfile?.requestFriends
 
@@ -22,13 +22,13 @@ const Friends: FC = () => {
 	))
 
 	const emptyTexts = {
-		[SectionState.friends]: 'У вас нет друзей',
-		[SectionState.subscribers]: 'У вас нет подписчиков'
+		[FriendsSectionState.friends]: 'У вас нет друзей',
+		[FriendsSectionState.subscribers]: 'У вас нет подписчиков',
 	}
 
 	const renderContent = () => {
 		if (isEmpty) {
-			return <EmptyUsersBlock text={emptyTexts[section]} />
+			return <EmptyInfoBlock text={emptyTexts[section]} />
 		}
 
 		return currentData?.map((friend) => (
@@ -44,7 +44,6 @@ const Friends: FC = () => {
 					section={section}
 					toggle={toggle}
 				/>
-
 				{isLoading ? (
 					skeletonItems
 				) : (

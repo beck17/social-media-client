@@ -1,6 +1,7 @@
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { CommunityService } from '@/services/community/community.service'
 import React, { ChangeEvent } from 'react'
+import { ICommunityCreate } from '@/types/community.interface'
 
 export const useAllCommunity = () => {
 	const { data, isLoading, refetch } = useQuery(
@@ -76,4 +77,13 @@ export const useIsSubscribed = (id: string) => {
 		isSubscribedLoading: isLoading,
 		isSubscribedRefetch: refetch,
 	}
+}
+
+export const useCreateCommunity = () => {
+	const { mutateAsync: createCommunity } = useMutation(
+		'create community',
+		(data: ICommunityCreate) => CommunityService.createCommunity(data),
+	)
+
+	return { createCommunity }
 }
