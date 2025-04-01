@@ -26,6 +26,20 @@ export const UserService = {
 		})
 	},
 
+	async searchFriends(search: string) {
+		return instance<IUser[]>({
+			url: `${UrlEnums.user}/searchFriends/${search}`,
+			method: 'GET',
+		})
+	},
+
+	async searchSubscribers(search: string) {
+		return instance<IUser[]>({
+			url: `${UrlEnums.user}/searchSubscribers/${search}`,
+			method: 'GET',
+		})
+	},
+
 	async sendFriendRequest(friendId: string) {
 		return instance<boolean>({
 			url: `${UrlEnums.user}/${friendId}`,

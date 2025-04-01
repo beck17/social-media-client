@@ -1,34 +1,41 @@
 import React, { FC } from 'react'
 
-import styles from './TopFriendBlock.module.scss'
-import Button from '@/components/ui/button/Button'
-import Input from '@/components/ui/input/Input'
 import { FriendsSectionState } from '@/hooks/useSwitchSections'
+
+import Button from '@/components/ui/button/Button'
+
+import styles from './TopFriendBlock.module.scss'
+
 
 interface Props {
 	count: number
-	section: string
+	section: FriendsSectionState
 	toggle: () => void
 }
 
 const TopFriendBlock: FC<Props> = ({ count, section, toggle }) => {
-	const isFriendSection = section === FriendsSectionState.friends
+	const sectionText = {
+		[FriendsSectionState.friends]: {
+			sectionName: 'Мои друзья',
+			buttonText: 'Мои подписчики',
+		},
+		[FriendsSectionState.subscribers]: {
+			sectionName: 'Мои подписчики',
+			buttonText: 'Мои друзья',
+		},
+	}
 
-	const sectionName = isFriendSection ? 'Мои друзья' : 'Мои подписчики'
-	const buttonText = isFriendSection ? 'Мои подписчики' : 'Мои друзья'
-	const inputText = isFriendSection ? 'Найти друга...' : 'Найти подписчика...'
-
+	const currentText = sectionText[section]
 	return (
 		<>
 			<div className={styles.friendBlock}>
 				<p>
-					{sectionName} <span>{count}</span>
+					{currentText.sectionName} <span>{count}</span>
 				</p>
 				<div className={styles.buttons}>
-					<Button onClick={toggle}>{buttonText}</Button>
+					<Button onClick={toggle}>{currentText.buttonText}</Button>
 				</div>
 			</div>
-			<Input placeholder={inputText} />
 		</>
 	)
 }

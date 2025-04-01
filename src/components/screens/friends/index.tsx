@@ -1,54 +1,69 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
+
 import { useProfile } from '@/hooks/useProfile'
-import FriendItem from '@/components/ui/friend-item/FriendItem'
-import styles from '@/assets/styles/screens/Friends.module.scss'
-import TopFriendBlock from '@/components/ui/top-friend-block/TopFriendBlock'
-import FriendItemSkeleton from '@/components/ui/skeletons/friend-item-skeleton/FriendItemSkeleton'
 import { FriendsSectionState, useSwitchFriendsSection } from '@/hooks/useSwitchSections'
-import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
+import { useSearchFriends, useSearchSubscribers } from '@/hooks/useUserSearch'
+
+import TopFriendBlock from '@/components/ui/top-friend-block/TopFriendBlock'
+import { FriendsList } from '@/components/shared/friends-list/FriendsList'
+
+import { IUser } from '@/types/user.interface'
+
+import styles from '@/assets/styles/screens/Friends.module.scss'
 
 
 const Friends: FC = () => {
-	const { myProfile, isLoading } = useProfile()
+	const { myProfile = {} as IUser, isLoading } = useProfile()
 	const { section, toggle } = useSwitchFriendsSection()
 
-	const currentData = section === FriendsSectionState.friends
-		? myProfile?.friends
-		: myProfile?.requestFriends
+	const { searchFriendsActions } = useSearchFriends()
+	const { searchSubscribersActions } = useSearchSubscribers()
 
-	const isEmpty = !currentData || currentData.length === 0
-	const skeletonItems = Array.from({ length: 5 }, (_, i) => (
-		<FriendItemSkeleton key={i} />
-	))
+	const { searchItems: friendsItems = [] } = searchFriendsActions
+	const { searchItems: subscribersItems = [] } = searchSubscribersActions
 
-	const emptyTexts = {
-		[FriendsSectionState.friends]: 'У вас нет друзей',
-		[FriendsSectionState.subscribers]: 'У вас нет подписчиков',
+	const currentData = {
+		[FriendsSectionState.friends]: {
+			items: myProfile.friends,
+			isLoading: isLoading,
+			searchItems: friendsItems,
+			searchActions: searchFriendsActions,
+			placeholderText: 'Найти друга...',
+			emptyInfoText: 'У вас нет друзей',
+		},
+		[FriendsSectionState.subscribers]: {
+			items: myProfile.requestFriends,
+			isLoading: isLoading,
+			searchItems: subscribersItems,
+			searchActions: searchSubscribersActions,
+			placeholderText: 'Найти подписчика...',
+			emptyInfoText: 'У вас нет подписчиков',
+		},
 	}
 
-	const renderContent = () => {
-		if (isEmpty) {
-			return <EmptyInfoBlock text={emptyTexts[section]} />
-		}
+	const currentSection = currentData[section]
 
-		return currentData?.map((friend) => (
-			<FriendItem key={friend._id} user={friend} />
-		))
-	}
+	const itemsCount = useMemo(
+		() => currentSection.items.length || currentSection.searchItems.length,
+		[currentSection.items, currentSection.searchItems],
+	)
+
 
 	return (
 		<div className={styles.friends}>
 			<div className={styles.container}>
 				<TopFriendBlock
-					count={currentData?.length || 0}
+					count={itemsCount}
 					section={section}
 					toggle={toggle}
 				/>
-				{isLoading ? (
-					skeletonItems
-				) : (
-					renderContent()
-				)}
+				<FriendsList
+					items={currentSection.items}
+					isLoadingItems={currentSection.isLoading}
+					searchActions={currentSection.searchActions}
+					placeholderText={currentSection.placeholderText}
+					emptyInfoText={currentSection.emptyInfoText}
+				/>
 			</div>
 		</div>
 	)
