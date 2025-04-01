@@ -44,7 +44,7 @@ const Chat: FC = () => {
 		sendMessage({
 			text: message,
 			conversationId: String(id),
-			userFrom: String(user?._id),
+			userFrom: String(user._id),
 			userTo: String(userProfile?._id),
 		})
 

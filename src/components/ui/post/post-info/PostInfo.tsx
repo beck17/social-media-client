@@ -20,7 +20,7 @@ interface Props {
 
 const PostInfo: FC<Props> = ({ post, isCreator, refetchPosts }) => {
 	const { user } = useAuth()
-	const isUserPost: boolean = post.user._id === user?._id
+	const isUserPost: boolean = post.user._id === user._id
 
 	const isCommunityPost = Boolean(post.community)
 

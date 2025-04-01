@@ -5,7 +5,7 @@ import Input from '../../ui/input/Input'
 
 import styles from '@/assets/styles/screens/Friends.module.scss'
 import { useSearch } from '@/hooks/useSearch'
-import { EmptyUsersBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
+import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
 import FriendItemSkeleton from '@/components/ui/skeletons/friend-item-skeleton/FriendItemSkeleton'
 
 const Search: FC = () => {
@@ -28,7 +28,7 @@ const Search: FC = () => {
 				) : usersLength >= 1 ? (
 					data?.map((user) => <FriendItem key={user._id} user={user} />)
 				) : (
-					<EmptyUsersBlock text='Пользователей не найдено' />
+					<EmptyInfoBlock text='Пользователей не найдено' />
 				)}
 			</div>
 		</div>
