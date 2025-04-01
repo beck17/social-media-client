@@ -4,12 +4,12 @@ import FriendItem from '@/components/ui/friend-item/FriendItem'
 import Input from '../../ui/input/Input'
 
 import styles from '@/assets/styles/screens/Friends.module.scss'
-import { useSearch } from '@/hooks/useSearch'
+import { useSearchProfile } from '@/hooks/useUserSearch'
 import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
 import FriendItemSkeleton from '@/components/ui/skeletons/friend-item-skeleton/FriendItemSkeleton'
 
 const Search: FC = () => {
-	const { isLoading, handleSearch, searchTerm, data } = useSearch()
+	const { isLoading, handleSearch, searchTerm, data } = useSearchProfile()
 
 	const usersLength = data?.length || 0
 

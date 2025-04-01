@@ -27,7 +27,7 @@ export const CommunitiesList: FC<Props> = ({ communities, isLoadingCommunities, 
 
 	const isLoading = isLoadingCommunities || isLoadingSearchCommunities
 
-	const currentData = searchTermCommunities === ''
+	const currentData = searchTermCommunities.trim() === ''
 		? communities
 		: searchCommunities
 

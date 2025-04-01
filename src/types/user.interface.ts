@@ -1,4 +1,5 @@
 import { ICommunity } from '@/types/community.interface'
+import { ChangeEvent } from 'react'
 
 export interface IUser {
 	_id: string
@@ -75,4 +76,11 @@ export interface IUserUpdate {
 	city?: string
 	avatar?: string
 	backgroundPic?: string
+}
+
+export interface IUserSearchActions {
+	handleSearch: (e: ChangeEvent<HTMLInputElement>) => void
+	searchItems: IUser[] | undefined
+	isLoadingSearch: boolean
+	searchTerm: string
 }
