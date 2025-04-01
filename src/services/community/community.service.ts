@@ -53,6 +53,13 @@ export const CommunityService = {
 		})
 	},
 
+	async searchUserCommunities(search: string) {
+		return instance<ICommunityResponse[]>({
+			url: `${UrlEnums.community}/searchCommunities/${search}`,
+			method: 'GET',
+		})
+	},
+
 	async isSubscribed(communityId: string) {
 		return instance<boolean>({
 			url: `${UrlEnums.community}/userSub/${communityId}`,

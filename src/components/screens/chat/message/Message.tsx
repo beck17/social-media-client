@@ -18,7 +18,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
 		<div
 			className={cn({
 				[styles.message]: true,
-				[styles.owner]: message.userFrom._id === user?._id,
+				[styles.owner]: message.userFrom._id === user._id,
 			})}
 		>
 			<div className={styles.messageInfo}>

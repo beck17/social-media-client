@@ -39,7 +39,7 @@ const CommentItem: FC<Props> = ({
 			</div>
 
 			<div className={styles.detail}>
-				{(postUserId === user?._id || comment.user._id === user?._id) && (
+				{(postUserId === user._id || comment.user._id === user._id) && (
 					<CommentActions text={comment.text} commentId={comment._id} refetch={refetchComment} />
 				)}
 			</div>

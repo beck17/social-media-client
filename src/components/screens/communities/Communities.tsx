@@ -1,64 +1,67 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 
-import { useAllCommunity, useGetUserCommunities } from '@/hooks/useCommunity'
 import { useAuth } from '@/hooks/useAuth'
+import { CommunitySectionState, useSwitchCommunitySection } from '@/hooks/useSwitchSections'
+import {
+	useAllCommunity,
+	useGetUserCommunities,
+	useSearchAllCommunities,
+	useSearchUserCommunities,
+} from '@/hooks/useCommunity'
 
-import Input from '../../ui/input/Input'
-import CommunityItem from './communityItem/CommunityItem'
+import { CommunitiesList } from '@/components/screens/communities/communities-list/CommunitiesList'
 import CommunityBlock from './communityItem/CommunityBlock'
 
 import styles from './CommunityItems.module.scss'
-import { CommunitySectionState, useSwitchCommunitySection } from '@/hooks/useSwitchSections'
-import CommunityItemSkeleton from '@/components/ui/skeletons/community-item-skeleton/CommunityItemSkeleton'
-import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
 
 
 const Communities: FC = () => {
 	const { user } = useAuth()
 	const { section, toggle } = useSwitchCommunitySection()
 
-	const { communities: myCommunities = [], isLoading: isLoadingMyCommunities } = useGetUserCommunities(user!._id)
 	const { communities: allCommunities = [], isLoading: isLoadingAllCommunities } = useAllCommunity()
+	const { communities: myCommunities = [], isLoading: isLoadingMyCommunities } = useGetUserCommunities(user._id)
 
-	const isLoading = isLoadingAllCommunities || isLoadingMyCommunities
+	const { searchAllCommunitiesActions } = useSearchAllCommunities()
+	const { searchMyCommunitiesActions } = useSearchUserCommunities()
 
-	const currentData = section === CommunitySectionState.myCommunities
-		? myCommunities
-		: allCommunities
+	const { searchCommunities: searchAllCommunities = [] } = searchAllCommunitiesActions
+	const { searchCommunities: searchMyCommunities = [] } = searchMyCommunitiesActions
 
-	const isEmptyCommunities = currentData.length === 0
-
-	const skeletonItems = Array.from({ length: 5 }, (_, i) => (
-		<CommunityItemSkeleton key={i} />
-	))
-
-	const emptyText = {
-		[CommunitySectionState.myCommunities]: 'У вас нет сообществ',
-		[CommunitySectionState.allCommunities]: 'Сообществ не существует',
+	const sectionData = {
+		[CommunitySectionState.allCommunities]: {
+			communities: allCommunities,
+			isLoading: isLoadingAllCommunities,
+			searchCommunities: searchAllCommunities,
+			searchCommunitiesActions: searchAllCommunitiesActions,
+		},
+		[CommunitySectionState.myCommunities]: {
+			communities: myCommunities,
+			isLoading: isLoadingMyCommunities,
+			searchCommunities: searchMyCommunities,
+			searchCommunitiesActions: searchMyCommunitiesActions,
+		},
 	}
+	const currentSection = sectionData[section]
 
-	const renderContent = () => {
-		if (isEmptyCommunities) {
-			return <EmptyInfoBlock text={emptyText[section]} />
-		}
-
-		return currentData.map((community) => (
-			<CommunityItem key={community._id} community={community} />
-		))
-	}
-
-	const communitiesCount = currentData.length
+	const communitiesCount = useMemo(
+		() => currentSection.communities.length || currentSection.searchCommunities.length,
+		[currentSection.communities, currentSection.searchCommunities],
+	)
 
 	return (
 		<div className={styles.community}>
 			<div className={styles.container}>
-				<CommunityBlock section={section} count={communitiesCount} toggle={toggle} />
-				<Input placeholder='Найти сообщество...' />
-				{isLoading ? (
-					skeletonItems
-				) : (
-					renderContent()
-				)}
+				<CommunityBlock
+					section={section}
+					count={communitiesCount}
+					toggle={toggle}
+				/>
+				<CommunitiesList
+					communities={currentSection.communities}
+					isLoadingCommunities={currentSection.isLoading}
+					searchCommunitiesActions={currentSection.searchCommunitiesActions}
+				/>
 			</div>
 		</div>
 	)
