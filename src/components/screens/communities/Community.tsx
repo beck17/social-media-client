@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 
 import CommunityContent from './communityContent/CommunityContent'
 import PostLoader from '@/components/ui/skeletons/post-loader/PostLoader'
@@ -13,6 +12,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { ICommunity } from '@/types/community.interface'
 
 import styles from './Community.module.scss'
+import { ProfileImages } from '@/components/ui/images/ProfileImages'
 
 
 const Community: FC = () => {
@@ -22,39 +22,24 @@ const Community: FC = () => {
 	const { user } = useAuth()
 	const { community = {} as ICommunity, isLoading, refetch } = useOneCommunity(id)
 
-	const avatarPath = {
-		avatar: isLoading
-			? '/uploads/default/no-avatar.jpg'
-			: community.communityAvatar,
-		background: isLoading
-			? '/uploads/default/background.jpg'
-			: community.communityBackgroundPic,
-	}
+	// const avatarPath = {
+	// 	avatar: isLoading
+	// 		? '/uploads/default/no-avatar.jpg'
+	// 		: community.communityAvatar,
+	// 	background: isLoading
+	// 		? '/uploads/default/background.jpg'
+	// 		: community.communityBackgroundPic,
+	// }
 
 	const isCreator: boolean = user._id === community.creator
 
 	return (
 		<div className={styles.community}>
-			<div className={styles.images}>
-				<Image
-					className={styles.cover}
-					src={process.env.BASE_URL + `${avatarPath.background}`}
-					alt='2'
-					width={0}
-					height={0}
-					sizes='100vw 100vh'
-					priority
-				/>
-
-				<Image
-					width={0}
-					height={0}
-					sizes='100vw 100vh'
-					src={process.env.BASE_URL + `${avatarPath.avatar}`}
-					alt='1'
-					className={styles.profilePic}
-				/>
-			</div>
+			<ProfileImages
+				isLoading={isLoading}
+				backgroundPic={community.communityBackgroundPic}
+				avatar={community.communityAvatar}
+			/>
 			<div className={styles.uInfo}>
 				<div className={styles.title}>
 					<span>{community.name}</span>

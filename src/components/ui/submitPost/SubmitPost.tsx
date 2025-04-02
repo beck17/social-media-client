@@ -76,7 +76,7 @@ const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
 					/>
 				</div>
 				<div className={styles.buttons}>
-					<FileUploadButton onUpload={uploadFile} />
+					<FileUploadButton onUpload={uploadFile} text='Добавить фото' htmlFor='post' />
 
 					<Button>Добавить пост</Button>
 				</div>

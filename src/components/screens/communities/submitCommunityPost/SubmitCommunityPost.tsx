@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react'
-import Image from 'next/image'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 
@@ -12,9 +11,8 @@ import Button from '../../../ui/button/Button'
 
 import { ICommunity } from '@/types/community.interface'
 import { ICommunityPostCreate } from '@/types/community-post.interface'
-
-import photo from '../../../../assets/img/photo.svg'
 import styles from '@/components/ui/submitPost/SubmitPost.module.scss'
+import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
 
 interface Props {
@@ -76,18 +74,7 @@ const SubmitCommunityPost: FC<Props> = ({ refetch, community }) => {
 					/>
 				</div>
 				<div className={styles.buttons}>
-					<input
-						type='file'
-						id='file'
-						onChange={uploadFile}
-						style={{ display: 'none' }}
-					/>
-					<label htmlFor='file'>
-						<div className={styles.file}>
-							<Image src={photo} alt='фото' width={25} height={25} />
-							<span>Добавить фото</span>
-						</div>
-					</label>
+					<FileUploadButton onUpload={uploadFile} text='Добавить фото' htmlFor='communityPost' />
 
 					<Button>Добавить пост</Button>
 				</div>

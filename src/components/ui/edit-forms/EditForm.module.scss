@@ -18,27 +18,18 @@
       align-items: center;
       flex: 1;
 
-      .file {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
+      .button {
         border: none;
         padding: 10px;
         background-color: #28282f;
         color: #bdbdbd;
+        cursor: pointer;
         border-radius: 10px;
         font-size: 16px;
         transition: all 0.3s;
-
-        span {
-          font-weight: 500;
-          font-size: 14px;
-          color: #bdbdbd;
-        }
       }
 
-      .file:hover {
+      .button:hover {
         background-color: #3c3c46;
         color: #bdbdbd;
       }

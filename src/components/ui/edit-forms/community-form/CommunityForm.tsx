@@ -1,10 +1,10 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react'
-import Image from 'next/image'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 
 import { useUploadBackground } from '@/hooks/useUploadBackground'
 import { useUploadFile } from '@/components/ui/uploadField/useUploadFile'
+import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 import { useAllCommunity, useCreateCommunity } from '@/hooks/useCommunity'
 
 import Input from '../../input/Input'
@@ -12,8 +12,8 @@ import Button from '../../button/Button'
 
 import { ICommunityCreate } from '@/types/community.interface'
 
-import photo from '@/assets/img/photo.svg'
 import styles from '../EditForm.module.scss'
+import { useRouter } from 'next/router'
 
 
 interface Props {
@@ -27,10 +27,11 @@ interface StateProps {
 const CommunityForm: FC<Props> = ({
 																		setIsOpen,
 																	}) => {
+	const router = useRouter()
 	const [photoPic, setPhotoPic] = useState<StateProps>()
 	const [backgroundPicPhoto, setBackgroundPic] = useState<StateProps>()
 
-	const {refetch} = useAllCommunity()
+	const { refetch } = useAllCommunity()
 
 	const { uploadFile } = useUploadFile(setPhotoPic)
 	const { uploadBackground } = useUploadBackground(setBackgroundPic)
@@ -52,11 +53,13 @@ const CommunityForm: FC<Props> = ({
 																																		}) => {
 		const data = { name, description, communityAvatar, communityBackgroundPic }
 
-		await createCommunity(data)
+		const createdCommunity = await createCommunity(data)
 
 		refetch()
 		reset()
 		setIsOpen((prev) => !prev)
+
+		await router.push(`/community/${createdCommunity.data._id}`)
 	}
 
 	return (
@@ -76,30 +79,13 @@ const CommunityForm: FC<Props> = ({
 					placeholder='Введите описание сообщества'
 				/>
 				<div className={styles.buttons}>
-					<input
-						type='file'
-						id='avatar'
-						onChange={uploadFile}
-						style={{ display: 'none' }}
-					/>
-					<label htmlFor='avatar'>
-						<div className={styles.file}>
-							<Image src={photo} alt='фото' width={25} height={25} />
-							<span>Загрузить основное фото</span>
-						</div>
-					</label>
-					<input
-						type='file'
-						id='back'
-						onChange={uploadBackground}
-						style={{ display: 'none' }}
-					/>
-					<label htmlFor='back'>
-						<div className={styles.file}>
-							<Image src={photo} alt='фото' width={25} height={25} />
-							<span>Загрузить задний фон</span>
-						</div>
-					</label>
+					<div className={styles.button}>
+						<FileUploadButton onUpload={uploadFile} text='Добавить аватар' htmlFor='communityAvatar' />
+					</div>
+
+					<div className={styles.button}>
+						<FileUploadButton onUpload={uploadBackground} text='Добавить бэкграунд' htmlFor='communityBackground' />
+					</div>
 				</div>
 				<Button>Создать</Button>
 			</form>
