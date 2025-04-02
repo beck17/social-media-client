@@ -18,6 +18,12 @@ export const ConversationService = {
 			method: 'GET',
 		})
 	},
+	async searchUserConversations(searchTerm: string) {
+		return instance<IConversation[]>({
+			url: `${UrlEnums.conversation}/search/${searchTerm}`,
+			method: 'GET',
+		})
+	},
 
 	async createConversation(withUserId: string) {
 		return instance<IConversation>({

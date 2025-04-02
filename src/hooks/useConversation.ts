@@ -2,7 +2,7 @@ import { useMutation, useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 
 import { ConversationService } from '@/services/messanger/conversation.service'
-import { CommunityService } from '@/services/community/community.service'
+import React, { ChangeEvent } from 'react'
 
 
 export const useCreateConversation = (id: string) => {
@@ -33,4 +33,30 @@ export const useUserConversations = () => {
 	)
 
 	return { userConversations: data, isLoading, refetch }
+}
+
+export const useSearchUserConversations = () => {
+	const [searchTerm, setSearchTerm] = React.useState<string>('')
+
+	const { data, isLoading } = useQuery(
+		['search user conversations:', searchTerm],
+		() => ConversationService.searchUserConversations(searchTerm),
+		{
+			select: ({ data }) => data,
+			enabled: !!searchTerm,
+		},
+	)
+
+	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+		setSearchTerm(e.target.value)
+	}
+
+	const searchUserConversationsActions = {
+		handleSearchConversations: handleSearch,
+		searchConversations: data,
+		isLoadingSearchConversations: isLoading,
+		searchTermConversations: searchTerm,
+	}
+
+	return { searchUserConversationsActions }
 }
