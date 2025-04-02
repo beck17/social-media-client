@@ -44,7 +44,7 @@ const Friends: FC = () => {
 	const currentSection = currentData[section]
 
 	const itemsCount = useMemo(
-		() => currentSection.items.length || currentSection.searchItems.length,
+		() => (currentSection.items?.length || currentSection.searchItems?.length) || 0,
 		[currentSection.items, currentSection.searchItems],
 	)
 

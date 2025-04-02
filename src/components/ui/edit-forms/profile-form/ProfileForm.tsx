@@ -1,5 +1,4 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react'
-import Image from 'next/image'
 import { useMutation } from 'react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -11,14 +10,12 @@ import { useUploadBackground } from '@/hooks/useUploadBackground'
 import Input from '../../input/Input'
 import Button from '../../button/Button'
 
-import photo from '@/assets/img/photo.svg'
-
 import { IUserUpdate } from '@/types/user.interface'
 
 import styles from '../EditForm.module.scss'
 import { toastError } from '@/lib/toast-error'
 import { useProfile } from '@/hooks/useProfile'
-import { useUserPost } from '@/hooks/usePost'
+import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
 
 interface Props {
@@ -59,14 +56,13 @@ const ProfileForm: FC<Props> = ({
 		register,
 		reset,
 		handleSubmit,
-		formState: { errors },
 	} = useForm<IUserUpdate>()
 
 	const { mutateAsync } = useMutation(
 		'update user',
 		(data: IUserUpdate) => UserService.updateProfile(data),
 		{
-			onSuccess(data) {
+			onSuccess() {
 				reset()
 				refetchProfile()
 				if (refetch) refetch()
@@ -114,34 +110,15 @@ const ProfileForm: FC<Props> = ({
 				/>
 
 				<div className={styles.buttons}>
-					<input
-						type='file'
-						id='avatar'
-						onChange={uploadFile}
-						style={{ display: 'none' }}
-					/>
+					<div className={styles.button}>
+						<FileUploadButton onUpload={uploadFile} text='Добавить аватар' htmlFor='avatar' />
+					</div>
 
-					<label htmlFor='avatar'>
-						<div className={styles.file}>
-							<Image src={photo} alt='фото' width={25} height={25} />
-							<span>Добавить аватар</span>
-						</div>
-					</label>
-
-					<input
-						type='file'
-						id='backgroundPic'
-						onChange={uploadBackground}
-						style={{ display: 'none' }}
-					/>
-
-					<label htmlFor='backgroundPic'>
-						<div className={styles.file}>
-							<Image src={photo} alt='фото' width={25} height={25} />
-							<span style={{ alignItems: 'center' }}>Добавить ковер</span>
-						</div>
-					</label>
+					<div className={styles.button}>
+						<FileUploadButton onUpload={uploadBackground} text='Добавить бэкграунд' htmlFor='background' />
+					</div>
 				</div>
+
 				<Button>Сохранить</Button>
 			</form>
 		</div>

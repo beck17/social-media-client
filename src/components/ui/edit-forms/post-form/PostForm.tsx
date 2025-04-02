@@ -1,8 +1,8 @@
 import React, { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import Image from 'next/image'
 
 import { useUploadFile } from '../../uploadField/useUploadFile'
+import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
 import { validatePost } from '@/lib/validate-fields'
 import { toastError } from '@/lib/toast-error'
@@ -11,8 +11,6 @@ import Button from '../../button/Button'
 import Input from '../../input/Input'
 
 import { IPostUpdate } from '@/types/post.interface'
-
-import photo from '@/assets/img/photo.svg'
 
 import styles from '../EditForm.module.scss'
 
@@ -72,18 +70,9 @@ const PostForm: FC<Props> = ({
 					onChange={(e) => setUpdatedText(e.target.value)}
 				/>
 				<div className={styles.buttons}>
-					<input
-						type='file'
-						id='image'
-						onChange={uploadFile}
-						style={{ display: 'none' }}
-					/>
-					<label htmlFor='image'>
-						<div className={styles.file}>
-							<Image src={photo} alt='фото' width={25} height={25} />
-							<span>Загрузить новое фото</span>
-						</div>
-					</label>
+					<div className={styles.button}>
+						<FileUploadButton text='Добавить фото' htmlFor='postPhoto' onUpload={uploadFile} />
+					</div>
 					<Button>Сохранить</Button>
 				</div>
 			</form>

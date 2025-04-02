@@ -6,6 +6,7 @@ import { CommunityService } from '@/services/community/community.service'
 import { ICommunityCreate } from '@/types/community.interface'
 
 
+
 export const useAllCommunity = () => {
 	const { data, isLoading, refetch } = useQuery(
 		'get all communities',
@@ -110,6 +111,7 @@ export const useIsSubscribed = (id: string) => {
 }
 
 export const useCreateCommunity = () => {
+
 	const { mutateAsync: createCommunity } = useMutation(
 		'create community',
 		(data: ICommunityCreate) => CommunityService.createCommunity(data),

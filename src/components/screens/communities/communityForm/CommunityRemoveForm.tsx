@@ -22,7 +22,7 @@ const CommunityRemoveForm: FC<Props> = ({ communityId, setIsOpen, refetch }) => 
 		'delete community',
 		(communityId: string) => CommunityService.removeCommunity(communityId),
 		{
-			onSuccess(data) {
+			onSuccess() {
 				refetch()
 			},
 		},
@@ -30,7 +30,7 @@ const CommunityRemoveForm: FC<Props> = ({ communityId, setIsOpen, refetch }) => 
 
 	const deletePostHandler = async (communityId: string) => {
 		await mutateAsync(communityId)
-		await router.push('/my-communities')
+		await router.push('/communities')
 	}
 
 	return (
