@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { useCreateConversation } from '@/hooks/useConversation'
-import { useUserPost } from '@/hooks/usePost'
+import { useUserPost } from '@/hooks/posts/useGetPost'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { useAuth } from '@/hooks/useAuth'
 

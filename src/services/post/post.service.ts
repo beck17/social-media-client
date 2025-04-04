@@ -1,11 +1,18 @@
-import { instance } from '../../api/api.interceptor'
+import { instance } from '@/api/api.interceptor'
 import { UrlEnums } from '@/constants/url.enum'
-import { IPost, IPostResponse, IPostUpdate } from '../../types/post.interface'
+import { IPost, IPostResponse, IPostUpdate } from '@/types/post.interface'
 
 export const PostService = {
 	async getAllPost() {
 		return instance<IPost[]>({
 			url: `${UrlEnums.post}`,
+			method: 'GET',
+		})
+	},
+
+	async getUserFeed() {
+		return instance<IPost[]>({
+			url: `${UrlEnums.post}/feed`,
 			method: 'GET',
 		})
 	},

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 
 import { useUserProfile } from '@/hooks/useProfile'
-import { useUserPost } from '@/hooks/usePost'
+import { useUserPost } from '@/hooks/posts/useGetPost'
 
 import { ProfileImages } from '@/components/ui/images/ProfileImages'
 import { ProfileInfo } from '@/components/ui/profile-info/ProfileInfo'

@@ -13,7 +13,7 @@ import { IPostResponse } from '@/types/post.interface'
 
 import styles from './SubmitPost.module.scss'
 import { toastError } from '@/lib/toast-error'
-import { useCreatePost } from '@/hooks/usePost'
+import { useCreatePost } from '@/hooks/posts/usePostActions'
 import { validatePost } from '@/lib/validate-fields'
 
 
