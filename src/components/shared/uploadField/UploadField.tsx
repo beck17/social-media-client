@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
-import { IUploadFieldInterface } from '../../../types/uploadField.interface'
+
+import { IUploadFieldInterface } from '@/types/uploadField.interface'
+
 
 const UploadField: FC<IUploadFieldInterface> = ({ onChange }) => {
 	return (

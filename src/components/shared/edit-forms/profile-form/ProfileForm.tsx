@@ -4,18 +4,19 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { UserService } from '@/services/user/user.service'
 
-import { useUploadFile } from '../../../../hooks/posts/useUploadFile'
+import { useUploadFile } from '@/hooks/posts/useUploadFile'
 import { useUploadBackground } from '@/hooks/posts/useUploadBackground'
+import { useProfile } from '@/hooks/user/useProfile'
 
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'
 
+import { toastError } from '@/lib/toast-utils/toast-error'
+import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
+
 import { IUserUpdate } from '@/types/user.interface'
 
 import styles from '../EditForm.module.scss'
-import { toastError } from '@/lib/toast-utils/toast-error'
-import { useProfile } from '@/hooks/user/useProfile'
-import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
 
 interface Props {

@@ -4,15 +4,16 @@ import { useMutation } from 'react-query'
 
 import { CommunityPostService } from '@/services/community-post/community-post.service'
 
-import { useUploadFile } from '../../../../hooks/posts/useUploadFile'
+import { useUploadFile } from '@/hooks/posts/useUploadFile'
 
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'
+import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
 import { ICommunity } from '@/types/community.interface'
 import { ICommunityPostCreate } from '@/types/community-post.interface'
+
 import styles from '@/components/shared/submitPost/SubmitPost.module.scss'
-import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
 
 interface Props {

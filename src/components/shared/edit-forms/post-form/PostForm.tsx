@@ -1,7 +1,8 @@
 import React, { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { useUploadFile } from '../../../../hooks/posts/useUploadFile'
+import { useUploadFile } from '@/hooks/posts/useUploadFile'
+
 import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
 import { validatePost } from '@/lib/validate/validate-fields'

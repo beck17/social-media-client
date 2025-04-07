@@ -28,7 +28,6 @@ const Comments: FC<Props> = ({ comments, postUserId, postId, refetch }) => {
 		register,
 		reset,
 		handleSubmit,
-		formState: { errors },
 	} = useForm<ICommentRequest>({
 		mode: 'onChange',
 	})

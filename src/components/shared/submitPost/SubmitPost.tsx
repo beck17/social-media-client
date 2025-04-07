@@ -3,18 +3,19 @@ import Image from 'next/image'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useProfile } from '@/hooks/user/useProfile'
-import { useUploadFile } from '../../../hooks/posts/useUploadFile'
+import { useUploadFile } from '@/hooks/posts/useUploadFile'
+import { useCreatePost } from '@/hooks/posts/usePostActions'
 
 import Input from '../../ui/input/Input'
 import Button from '../../ui/button/Button'
 import { FileUploadButton } from '../../ui/file-upload-button/FileUploadButton'
 
+import { toastError } from '@/lib/toast-utils/toast-error'
+import { validatePost } from '@/lib/validate/validate-fields'
+
 import { IPostResponse } from '@/types/post.interface'
 
 import styles from './SubmitPost.module.scss'
-import { toastError } from '@/lib/toast-utils/toast-error'
-import { useCreatePost } from '@/hooks/posts/usePostActions'
-import { validatePost } from '@/lib/validate/validate-fields'
 
 
 const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {

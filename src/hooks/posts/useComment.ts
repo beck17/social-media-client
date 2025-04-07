@@ -1,10 +1,13 @@
-import { useMutation, useQuery } from 'react-query'
-import { CommentPostService } from '@/services/post/comment.service'
-import { ICommentRequest } from '@/types/comment.interface'
-import { SubmitHandler, UseFormReset } from 'react-hook-form'
 import { Dispatch, SetStateAction } from 'react'
-import toast from 'react-hot-toast'
+import { useMutation, useQuery } from 'react-query'
+import { SubmitHandler, UseFormReset } from 'react-hook-form'
+
+import { CommentPostService } from '@/services/post/comment.service'
+
 import { toastError } from '@/lib/toast-utils/toast-error'
+
+import { ICommentRequest } from '@/types/comment.interface'
+
 
 export const usePostComments = (id: string) => {
 	const { isLoading, data, refetch } = useQuery(
@@ -28,7 +31,7 @@ export const useUpdateComment = (
 		'update comment',
 		(text: string) => CommentPostService.updatePostComment(text, commentId),
 		{
-			onSuccess(data) {
+			onSuccess() {
 				refetch()
 				reset()
 				setIsOpen((prev) => !prev)
@@ -54,7 +57,7 @@ export const useNewComment = (
 		(data: ICommentRequest) =>
 			CommentPostService.createPostComment({ ...data, postId }),
 		{
-			onSuccess(data) {
+			onSuccess() {
 				reset()
 				refetch()
 			},
@@ -77,7 +80,7 @@ export const useRemoveComment = (
 		`delete comment ${commentId}`,
 		(id: string) => CommentPostService.deletePostComment(id),
 		{
-			onSuccess(data) {
+			onSuccess() {
 				refetch()
 			},
 		},

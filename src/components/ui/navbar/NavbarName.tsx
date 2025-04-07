@@ -1,8 +1,9 @@
-import styles from '@/components/layout/navbar/Navbar.module.scss'
+import React, { FC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { FC } from 'react'
-import { NameLoader } from '@/components/skeletons/NameLoader'
+
+import styles from '@/components/layout/navbar/Navbar.module.scss'
+
 
 interface Props {
 	id: string

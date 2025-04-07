@@ -1,11 +1,15 @@
 import { FC, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
-import styles from '@/assets/styles/screens/Auth.module.scss'
+import { useActions } from '@/hooks/user/useActions'
+
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { IPhonePassword } from '../../../../types/user.interface'
-import { useActions } from '../../../../hooks/user/useActions'
+
+import { IPhonePassword } from '@/types/user.interface'
+
+import styles from '@/assets/styles/screens/Auth.module.scss'
+
 
 interface Props {
 	togglePage?: () => void

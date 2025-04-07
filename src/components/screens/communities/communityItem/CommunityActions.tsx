@@ -37,7 +37,7 @@ const CommunityActions: FC<Props> = ({
 
 	const communityActionRef = React.useRef<HTMLDivElement>(null)
 
-	const { isSubscribed, isSubscribedLoading, isSubscribedRefetch } =
+	const { isSubscribed, isSubscribedRefetch } =
 		useIsSubscribed(communityId)
 	const { refetch: refetchAllCommunities } = useAllCommunity()
 
@@ -45,7 +45,7 @@ const CommunityActions: FC<Props> = ({
 		`toggle subscribe community ${communityId}`,
 		(id: string) => CommunityService.toggleSubscribe(id),
 		{
-			onSuccess(data) {
+			onSuccess() {
 				refetch()
 			},
 		},
