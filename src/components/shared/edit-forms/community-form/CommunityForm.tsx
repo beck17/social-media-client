@@ -7,8 +7,8 @@ import { useUploadFile } from '@/components/ui/uploadField/useUploadFile'
 import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 import { useAllCommunity, useCreateCommunity } from '@/hooks/useCommunity'
 
-import Input from '../../input/Input'
-import Button from '../../button/Button'
+import Input from '../../../ui/input/Input'
+import Button from '../../../ui/button/Button'
 
 import { ICommunityCreate } from '@/types/community.interface'
 

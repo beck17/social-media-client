@@ -5,8 +5,8 @@ import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
 
 import Modal from '@/components/ui/modal/Modal'
-import CommentForm from '@/components/ui/edit-forms/comment-form/CommentForm'
-import { RemoveCommentForm } from '@/components/ui/edit-forms/comment-form/CommentRemoveForm'
+import CommentForm from '@/components/shared/edit-forms/comment-form/CommentForm'
+import { RemoveCommentForm } from '@/components/shared/edit-forms/comment-form/CommentRemoveForm'
 
 import styles from '@/components/ui/select/Select.module.scss'
 

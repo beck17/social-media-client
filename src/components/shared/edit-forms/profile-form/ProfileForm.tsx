@@ -4,11 +4,11 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { UserService } from '@/services/user.service'
 
-import { useUploadFile } from '../../uploadField/useUploadFile'
+import { useUploadFile } from '../../../ui/uploadField/useUploadFile'
 import { useUploadBackground } from '@/hooks/useUploadBackground'
 
-import Input from '../../input/Input'
-import Button from '../../button/Button'
+import Input from '../../../ui/input/Input'
+import Button from '../../../ui/button/Button'
 
 import { IUserUpdate } from '@/types/user.interface'
 

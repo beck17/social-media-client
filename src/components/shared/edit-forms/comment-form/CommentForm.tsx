@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form'
 
 import { useUpdateComment } from '@/hooks/useComment'
 
-import Input from '../../input/Input'
-import Button from '../../button/Button'
+import Input from '../../../ui/input/Input'
+import Button from '../../../ui/button/Button'
 
 import styles from '../EditForm.module.scss'
 

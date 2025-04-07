@@ -1,14 +1,14 @@
 import React, { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { useUploadFile } from '../../uploadField/useUploadFile'
+import { useUploadFile } from '../../../ui/uploadField/useUploadFile'
 import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
 import { validatePost } from '@/lib/validate-fields'
 import { toastError } from '@/lib/toast-error'
 
-import Button from '../../button/Button'
-import Input from '../../input/Input'
+import Button from '../../../ui/button/Button'
+import Input from '../../../ui/input/Input'
 
 import { IPostUpdate } from '@/types/post.interface'
 

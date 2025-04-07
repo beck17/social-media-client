@@ -16,7 +16,7 @@ import { ICommunityUpdate } from '@/types/community.interface'
 
 import photo from '../../../../assets/img/photo.svg'
 
-import styles from '../../../ui/edit-forms/EditForm.module.scss'
+import styles from '@/shared/edit-forms/EditForm.module.scss'
 
 
 interface Props {

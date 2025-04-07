@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import CommunityForm from '../../../ui/edit-forms/community-form/CommunityForm'
+import CommunityForm from '../../../shared/edit-forms/community-form/CommunityForm'
 import Modal from '../../../ui/modal/Modal'
 import Button from '../../../ui/button/Button'
 
