@@ -1,7 +1,7 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useUpdateComment } from '@/hooks/useComment'
+import { useUpdateComment } from '@/hooks/posts/useComment'
 
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'

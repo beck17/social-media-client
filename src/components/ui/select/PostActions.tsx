@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 
-import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { useOutsideClick } from '@/hooks/utils/useOutsideClick'
 
-import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
+import { closePopupOpenModal } from '@/lib/utils/close-popup-open-modal'
 
-import Modal from '../modal/Modal'
+import Modal from '@/components/shared/modal/Modal'
 import PostForm from '../../shared/edit-forms/post-form/PostForm'
 import RemoveForm from '../../shared/edit-forms/remove-form/RemoveForm'
 

@@ -1,20 +1,20 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 
-import { useUserProfile } from '@/hooks/useProfile'
+import { useUserProfile } from '@/hooks/user/useProfile'
 import { useUserPost } from '@/hooks/posts/useGetPost'
 
 import { CoverWithAvatar } from '@/components/ui/images/CoverWithAvatar'
 import { ProfileInfo } from '@/components/ui/profile-info/ProfileInfo'
-import Post from '@/components/ui/post/Post'
+import Post from '@/components/shared/post/Post'
 
 import styles from '@/assets/styles/screens/Profile.module.scss'
-import PostLoader from '@/components/ui/skeletons/post-loader/PostLoader'
+import PostLoader from '@/components/skeletons/post-loader/PostLoader'
 import { FriendActions } from '@/components/ui/friend-actions/FriendActions'
 import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
 import { IUser } from '@/types/user.interface'
-import { InfoSkeleton } from '@/components/ui/skeletons/info-item-skeleton/InfoItemSkeleton'
-import { CoverWithAvatarSkeleton } from '@/components/ui/skeletons/cover-with-avatar-skeleton/CoverWithAvatarSkeleton'
+import { InfoSkeleton } from '@/components/skeletons/info-item-skeleton/InfoItemSkeleton'
+import { CoverWithAvatarSkeleton } from '@/components/skeletons/cover-with-avatar-skeleton/CoverWithAvatarSkeleton'
 
 
 const Profile: FC = () => {

@@ -1,9 +1,9 @@
 import styles from './ProfileInfo.module.scss'
 
 import { IUser } from '@/types/user.interface'
-import { useDateWithYear } from '@/hooks/useDate'
+import { useDateWithYear } from '@/hooks/utils/useDate'
 import React from 'react'
-import { getQuantityFriends } from '@/lib/get-quantity-friends'
+import { getQuantityFriends } from '@/lib/utils/get-quantity-friends'
 import Link from 'next/link'
 import cn from 'clsx'
 

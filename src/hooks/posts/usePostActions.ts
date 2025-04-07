@@ -1,8 +1,8 @@
 import { useMutation } from 'react-query'
 import { IPostResponse, IPostUpdate } from '@/types/post.interface'
 import { PostService } from '@/services/post/post.service'
-import { toastSuccess } from '@/lib/toast-success'
-import { toastError } from '@/lib/toast-error'
+import { toastSuccess } from '@/lib/toast-utils/toast-success'
+import { toastError } from '@/lib/toast-utils/toast-error'
 
 export const useCreatePost = (refetch: () => void) => {
 	const { mutateAsync: createPost } = useMutation(

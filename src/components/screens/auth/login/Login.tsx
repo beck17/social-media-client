@@ -5,7 +5,7 @@ import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { IPhonePassword } from '../../../../types/user.interface'
-import { useActions } from '../../../../hooks/useActions'
+import { useActions } from '../../../../hooks/user/useActions'
 
 interface Props {
 	togglePage?: () => void

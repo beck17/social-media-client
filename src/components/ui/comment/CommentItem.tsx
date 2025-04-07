@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
 
-import { useAuth } from '@/hooks/useAuth'
-import { useDate } from '@/hooks/useDate'
+import { useAuth } from '@/hooks/user/useAuth'
+import { useDate } from '@/hooks/utils/useDate'
 
 import { CommentActions } from '@/components/ui/select/CommentActions'
 

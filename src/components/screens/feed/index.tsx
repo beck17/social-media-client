@@ -2,9 +2,9 @@ import React, { FC } from 'react'
 
 import { useUserFeed } from '@/hooks/posts/useGetPost'
 
-import SubmitPost from '@/components/ui/submitPost/SubmitPost'
-import Post from '../../ui/post/Post'
-import PostLoader from '@/components/ui/skeletons/post-loader/PostLoader'
+import SubmitPost from '@/components/shared/submitPost/SubmitPost'
+import Post from '@/components/shared/post/Post'
+import PostLoader from '@/components/skeletons/post-loader/PostLoader'
 
 import styles from '../../../assets/styles/screens/Home.module.scss'
 

@@ -2,8 +2,8 @@ import { FC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useDatePastTime } from '@/hooks/useDate'
-import { useAuth } from '@/hooks/useAuth'
+import { useDatePastTime } from '@/hooks/utils/useDate'
+import { useAuth } from '@/hooks/user/useAuth'
 
 import { IConversation } from '@/types/conversation.interface'
 

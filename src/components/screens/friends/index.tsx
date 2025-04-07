@@ -1,10 +1,10 @@
 import React, { FC, useMemo } from 'react'
 
-import { useProfile } from '@/hooks/useProfile'
-import { FriendsSectionState, useSwitchFriendsSection } from '@/hooks/useSwitchSections'
-import { useSearchFriends, useSearchSubscribers } from '@/hooks/useUserSearch'
+import { useProfile } from '@/hooks/user/useProfile'
+import { FriendsSectionState, useSwitchFriendsSection } from '@/hooks/utils/useSwitchSections'
+import { useSearchFriends, useSearchSubscribers } from '@/hooks/user/useUserSearch'
 
-import TopFriendBlock from '@/components/ui/top-friend-block/TopFriendBlock'
+import TopFriendBlock from '@/components/shared/top-friend-block/TopFriendBlock'
 import { FriendsList } from '@/components/shared/friends-list/FriendsList'
 
 import { IUser } from '@/types/user.interface'

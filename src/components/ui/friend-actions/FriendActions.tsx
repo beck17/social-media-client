@@ -1,16 +1,16 @@
 import React, { FC } from 'react'
 
-import { useCreateConversation } from '@/hooks/useConversation'
+import { useCreateConversation } from '@/hooks/conversations/useConversation'
 import { useUserPost } from '@/hooks/posts/useGetPost'
-import { useOutsideClick } from '@/hooks/useOutsideClick'
-import { useAuth } from '@/hooks/useAuth'
+import { useOutsideClick } from '@/hooks/utils/useOutsideClick'
+import { useAuth } from '@/hooks/user/useAuth'
 
-import { getFriendAction } from '@/lib/get-friend-action'
-import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
+import { getFriendAction } from '@/lib/utils/get-friend-action'
+import { closePopupOpenModal } from '@/lib/utils/close-popup-open-modal'
 
 
 import ProfileForm from '@/components/shared/edit-forms/profile-form/ProfileForm'
-import ModalEdit from '@/components/ui/modal/Modal'
+import ModalEdit from '@/components/shared/modal/Modal'
 
 import styles from '../select/Select.module.scss'
 

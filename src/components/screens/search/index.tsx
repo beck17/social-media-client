@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 
-import FriendItem from '@/components/ui/friend-item/FriendItem'
+import FriendItem from '@/components/shared/friend-item/FriendItem'
 import Input from '../../ui/input/Input'
 
 import styles from '@/assets/styles/screens/Friends.module.scss'
-import { useSearchProfile } from '@/hooks/useUserSearch'
+import { useSearchProfile } from '@/hooks/user/useUserSearch'
 import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
-import FriendItemSkeleton from '@/components/ui/skeletons/friend-item-skeleton/FriendItemSkeleton'
+import FriendItemSkeleton from '@/components/skeletons/friend-item-skeleton/FriendItemSkeleton'
 
 const Search: FC = () => {
 	const { searchUsers = [], isLoading, handleSearch, searchTerm } = useSearchProfile()

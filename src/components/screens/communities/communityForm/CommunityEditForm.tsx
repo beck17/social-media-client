@@ -5,9 +5,9 @@ import Image from 'next/image'
 
 import { CommunityService } from '@/services/community/community.service'
 
-import { useUploadBackground } from '@/hooks/useUploadBackground'
-import { useCommunityPosts } from '@/hooks/useCommunityPost'
-import { useUploadFile } from '@/components/ui/uploadField/useUploadFile'
+import { useUploadBackground } from '@/hooks/posts/useUploadBackground'
+import { useCommunityPosts } from '@/hooks/communities/useCommunityPost'
+import { useUploadFile } from '@/hooks/posts/useUploadFile'
 
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'

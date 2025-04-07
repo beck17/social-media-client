@@ -2,10 +2,10 @@ import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import { useMutation } from 'react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { UserService } from '@/services/user.service'
+import { UserService } from '@/services/user/user.service'
 
-import { useUploadFile } from '../../../ui/uploadField/useUploadFile'
-import { useUploadBackground } from '@/hooks/useUploadBackground'
+import { useUploadFile } from '../../../../hooks/posts/useUploadFile'
+import { useUploadBackground } from '@/hooks/posts/useUploadBackground'
 
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'
@@ -13,8 +13,8 @@ import Button from '../../../ui/button/Button'
 import { IUserUpdate } from '@/types/user.interface'
 
 import styles from '../EditForm.module.scss'
-import { toastError } from '@/lib/toast-error'
-import { useProfile } from '@/hooks/useProfile'
+import { toastError } from '@/lib/toast-utils/toast-error'
+import { useProfile } from '@/hooks/user/useProfile'
 import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
 

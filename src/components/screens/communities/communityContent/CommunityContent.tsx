@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 
-import { useCommunityPosts } from '@/hooks/useCommunityPost'
+import { useCommunityPosts } from '@/hooks/communities/useCommunityPost'
 
 import SubmitCommunityPost from '../submitCommunityPost/SubmitCommunityPost'
-import Post from '../../../ui/post/Post'
+import Post from '@/components/shared/post/Post'
 
 import { ICommunity } from '@/types/community.interface'
 import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'

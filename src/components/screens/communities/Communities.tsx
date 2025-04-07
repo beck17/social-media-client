@@ -1,13 +1,13 @@
 import { FC, useMemo } from 'react'
 
-import { useAuth } from '@/hooks/useAuth'
-import { CommunitySectionState, useSwitchCommunitySection } from '@/hooks/useSwitchSections'
+import { useAuth } from '@/hooks/user/useAuth'
+import { CommunitySectionState, useSwitchCommunitySection } from '@/hooks/utils/useSwitchSections'
 import {
 	useAllCommunity,
 	useGetUserCommunities,
 	useSearchAllCommunities,
 	useSearchUserCommunities,
-} from '@/hooks/useCommunity'
+} from '@/hooks/communities/useCommunity'
 
 import { CommunitiesList } from '@/components/screens/communities/communities-list/CommunitiesList'
 import CommunityBlock from './communityItem/CommunityBlock'

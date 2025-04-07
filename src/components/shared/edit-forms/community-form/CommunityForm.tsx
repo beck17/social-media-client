@@ -2,10 +2,10 @@ import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 
-import { useUploadBackground } from '@/hooks/useUploadBackground'
-import { useUploadFile } from '@/components/ui/uploadField/useUploadFile'
+import { useUploadBackground } from '@/hooks/posts/useUploadBackground'
+import { useUploadFile } from '@/hooks/posts/useUploadFile'
 import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
-import { useAllCommunity, useCreateCommunity } from '@/hooks/useCommunity'
+import { useAllCommunity, useCreateCommunity } from '@/hooks/communities/useCommunity'
 
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'

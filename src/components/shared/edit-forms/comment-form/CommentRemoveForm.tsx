@@ -1,6 +1,6 @@
 import React, { Dispatch, FC, SetStateAction } from 'react'
 
-import { useRemoveComment } from '@/hooks/useComment'
+import { useRemoveComment } from '@/hooks/posts/useComment'
 
 import Button from '../../../ui/button/Button'
 

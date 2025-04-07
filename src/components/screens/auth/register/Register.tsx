@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'
-import { useActions } from '@/hooks/useActions'
+import { useActions } from '@/hooks/user/useActions'
 import { IRegisterUser } from '@/types/user.interface'
 
 import styles from '@/assets/styles/screens/Auth.module.scss'

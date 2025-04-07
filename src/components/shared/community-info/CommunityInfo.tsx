@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useDateWithYear } from '@/hooks/useDate'
+import { useDateWithYear } from '@/hooks/utils/useDate'
 
 import styles from './CommunityInfo.module.scss'
 
