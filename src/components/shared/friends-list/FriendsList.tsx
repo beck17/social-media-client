@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
 import Input from '@/components/ui/input/Input'
-import FriendItem from '@/components/ui/friend-item/FriendItem'
-import FriendItemSkeleton from '@/components/ui/skeletons/friend-item-skeleton/FriendItemSkeleton'
+import FriendItem from '@/components/shared/friend-item/FriendItem'
+import FriendItemSkeleton from '@/components/skeletons/friend-item-skeleton/FriendItemSkeleton'
 
 import { IUser, IUserSearchActions } from '@/types/user.interface'
 

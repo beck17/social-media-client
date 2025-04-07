@@ -1,7 +1,7 @@
 import React, { FC, useRef } from 'react'
 import { useRouter } from 'next/router'
 
-import { useChat } from '@/hooks/useChat'
+import { useChat } from '@/hooks/conversations/useChat'
 
 import Message from '../message/Message'
 

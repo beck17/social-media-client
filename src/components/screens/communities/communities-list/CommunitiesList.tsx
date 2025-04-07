@@ -1,9 +1,9 @@
 import { FC } from 'react'
-import { CommunitySectionState } from '@/hooks/useSwitchSections'
+import { CommunitySectionState } from '@/hooks/utils/useSwitchSections'
 
-import { getEmptyCommunityText } from '@/lib/get-empty-communities-text'
+import { getEmptyCommunityText } from '@/lib/utils/get-empty-communities-text'
 
-import CommunityItemSkeleton from '@/components/ui/skeletons/community-item-skeleton/CommunityItemSkeleton'
+import CommunityItemSkeleton from '@/components/skeletons/community-item-skeleton/CommunityItemSkeleton'
 import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
 import Input from '@/components/ui/input/Input'
 import CommunityItem from '@/components/screens/communities/communityItem/CommunityItem'

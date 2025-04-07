@@ -4,16 +4,16 @@ import { useMutation } from 'react-query'
 
 import { CommunityService } from '@/services/community/community.service'
 
-import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { useOutsideClick } from '@/hooks/utils/useOutsideClick'
 import {
 	useAllCommunity,
 	useIsSubscribed,
-} from '@/hooks/useCommunity'
+} from '@/hooks/communities/useCommunity'
 
 import CommunityEditForm from '../communityForm/CommunityEditForm'
 import CommunityRemoveForm from '../communityForm/CommunityRemoveForm'
 
-import Modal from '../../../ui/modal/Modal'
+import Modal from '@/components/shared/modal/Modal'
 import Button from '../../../ui/button/Button'
 
 import styles from '../../../ui/select/Select.module.scss'
@@ -37,7 +37,7 @@ const CommunityActions: FC<Props> = ({
 
 	const communityActionRef = React.useRef<HTMLDivElement>(null)
 
-	const { isSubscribed, isSubscribedLoading, isSubscribedRefetch } =
+	const { isSubscribed, isSubscribedRefetch } =
 		useIsSubscribed(communityId)
 	const { refetch: refetchAllCommunities } = useAllCommunity()
 
@@ -45,7 +45,7 @@ const CommunityActions: FC<Props> = ({
 		`toggle subscribe community ${communityId}`,
 		(id: string) => CommunityService.toggleSubscribe(id),
 		{
-			onSuccess(data) {
+			onSuccess() {
 				refetch()
 			},
 		},

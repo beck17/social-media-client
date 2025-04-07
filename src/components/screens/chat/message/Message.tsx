@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 import cn from 'clsx'
 import Image from 'next/image'
 
-import { useAuth } from '@/hooks/useAuth'
-import { useDateTime } from '@/hooks/useDate'
+import { useAuth } from '@/hooks/user/useAuth'
+import { useDateTime } from '@/hooks/utils/useDate'
 
 import { IMessage } from '@/types/conversation.interface'
 

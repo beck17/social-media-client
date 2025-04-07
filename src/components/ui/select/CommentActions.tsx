@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react'
 
-import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { useOutsideClick } from '@/hooks/utils/useOutsideClick'
 
-import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
+import { closePopupOpenModal } from '@/lib/utils/close-popup-open-modal'
 
-import Modal from '@/components/ui/modal/Modal'
-import CommentForm from '@/components/ui/edit-forms/comment-form/CommentForm'
-import { RemoveCommentForm } from '@/components/ui/edit-forms/comment-form/CommentRemoveForm'
+import Modal from '@/components/shared/modal/Modal'
+import CommentForm from '@/components/shared/edit-forms/comment-form/CommentForm'
+import { RemoveCommentForm } from '@/components/shared/edit-forms/comment-form/CommentRemoveForm'
 
 import styles from '@/components/ui/select/Select.module.scss'
 

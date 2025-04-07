@@ -2,8 +2,8 @@ import { FC } from 'react'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 
-import { useProfile } from '@/hooks/useProfile'
-import { useNewComment } from '@/hooks/useComment'
+import { useProfile } from '@/hooks/user/useProfile'
+import { useNewComment } from '@/hooks/posts/useComment'
 
 import CommentItem from './CommentItem'
 import Button from '../button/Button'
@@ -28,7 +28,6 @@ const Comments: FC<Props> = ({ comments, postUserId, postId, refetch }) => {
 		register,
 		reset,
 		handleSubmit,
-		formState: { errors },
 	} = useForm<ICommentRequest>({
 		mode: 'onChange',
 	})

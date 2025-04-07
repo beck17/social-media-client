@@ -1,27 +1,21 @@
-import styles from '@/components/layout/navbar/Navbar.module.scss'
+import React, { FC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { FC } from 'react'
-import { NameLoader } from '@/components/ui/skeletons/NameLoader'
+
+import styles from '@/components/layout/navbar/Navbar.module.scss'
+
 
 interface Props {
-	id: string | undefined
-	isLoading: boolean
-	avatar: string | undefined
-	name: string | undefined
+	id: string
+	avatar: string
+	name: string
 }
 
 export const NavbarName: FC<Props> = ({
 																				id,
-																				isLoading,
 																				avatar,
 																				name,
 																			}) => {
-	if (isLoading) {
-		return (
-			<NameLoader />
-		)
-	}
 
 	return (
 		<Link href={`/profile/${id}`} className={styles.user}>

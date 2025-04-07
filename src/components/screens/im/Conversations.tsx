@@ -4,8 +4,8 @@ import Input from '../../ui/input/Input'
 import ConversationItem from './conversationItem/ConversationItem'
 
 import styles from '@/assets/styles/screens/Conversations.module.scss'
-import { useSearchUserConversations, useUserConversations } from '@/hooks/useConversation'
-import ConversationItemSkeleton from '@/components/ui/skeletons/conversation-item-skeleton/ConversationItemSkeleton'
+import { useSearchUserConversations, useUserConversations } from '@/hooks/conversations/useConversation'
+import ConversationItemSkeleton from '@/components/skeletons/conversation-item-skeleton/ConversationItemSkeleton'
 import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
 
 

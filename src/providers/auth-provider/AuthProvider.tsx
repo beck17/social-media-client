@@ -1,13 +1,16 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+
 import { getAccessToken } from '@/services/auth/auth.helper'
-import { useActions } from '@/hooks/useActions'
+
+import { useAuth } from '@/hooks/user/useAuth'
+import { useActions } from '@/hooks/user/useActions'
+
 import Layout from '../../components/layout/Layout'
-import { useAuth } from '@/hooks/useAuth'
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
-	const { user, isLoading } = useAuth()
+	const { user } = useAuth()
 	const { checkAuth, logout } = useActions()
 	const { pathname } = useRouter()
 	const [isChecked, setIsChecked] = React.useState(false)

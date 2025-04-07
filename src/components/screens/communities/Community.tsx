@@ -1,70 +1,79 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 
-import CommunityContent from './communityContent/CommunityContent'
-import PostLoader from '@/components/ui/skeletons/post-loader/PostLoader'
-import CommunityActions from './communityItem/CommunityActions'
+import { useAuth } from '@/hooks/user/useAuth'
+import { useOneCommunity } from '@/hooks/communities/useCommunity'
 
-import { useOneCommunity } from '@/hooks/useCommunity'
-import { useDateWithYear } from '@/hooks/useDate'
-import { useAuth } from '@/hooks/useAuth'
+import CommunityContent from './communityContent/CommunityContent'
+import PostLoader from '@/components/skeletons/post-loader/PostLoader'
+import CommunityActions from './communityItem/CommunityActions'
+import { CoverWithAvatar } from '@/components/ui/images/CoverWithAvatar'
+import { CommunityInfo } from '@/components/shared/community-info/CommunityInfo'
+import { InfoSkeleton } from '@/components/skeletons/info-item-skeleton/InfoItemSkeleton'
+import { CoverWithAvatarSkeleton } from '@/components/skeletons/cover-with-avatar-skeleton/CoverWithAvatarSkeleton'
 
 import { ICommunity } from '@/types/community.interface'
 
 import styles from './Community.module.scss'
-import { ProfileImages } from '@/components/ui/images/ProfileImages'
 
 
 const Community: FC = () => {
+	const { user } = useAuth()
 	const router = useRouter()
 	const id = router.query.id as string
 
-	const { user } = useAuth()
 	const { community = {} as ICommunity, isLoading, refetch } = useOneCommunity(id)
-
-	// const avatarPath = {
-	// 	avatar: isLoading
-	// 		? '/uploads/default/no-avatar.jpg'
-	// 		: community.communityAvatar,
-	// 	background: isLoading
-	// 		? '/uploads/default/background.jpg'
-	// 		: community.communityBackgroundPic,
-	// }
 
 	const isCreator: boolean = user._id === community.creator
 
-	return (
-		<div className={styles.community}>
-			<ProfileImages
-				isLoading={isLoading}
+	const imagesRender = () => {
+		if (isLoading) return <CoverWithAvatarSkeleton />
+
+		return (
+			<CoverWithAvatar
 				backgroundPic={community.communityBackgroundPic}
 				avatar={community.communityAvatar}
 			/>
-			<div className={styles.uInfo}>
-				<div className={styles.title}>
-					<span>{community.name}</span>
-					<span className={styles.info}>
-						{community.members?.length} подписчиков
-					</span>
-					<span className={styles.info}>
-						{useDateWithYear(community.createdAt) + 'г.'}
-					</span>
-				</div>
+		)
+	}
+
+	const infoBlockRender = () => {
+		if (isLoading) return <InfoSkeleton />
+		return (
+			<>
+				<CommunityInfo
+					communityName={community.name}
+					membersCount={community.members.length}
+					communityCreatedAt={community.createdAt}
+				/>
 				<CommunityActions
 					refetch={refetch}
 					isCreator={isCreator}
 				/>
+			</>
+		)
+	}
+
+	const renderData = () => {
+		if (isLoading) return <PostLoader />
+
+		return (
+			<CommunityContent
+				community={community}
+				isLoading={isLoading}
+				isCreator={isCreator}
+			/>
+		)
+	}
+
+	return (
+		<div className={styles.community}>
+			{imagesRender()}
+			<div className={styles.uInfo}>
+				{infoBlockRender()}
 			</div>
 			<div className={styles.communityContainer}>
-				{isLoading ? (
-					<PostLoader />
-				) : (
-					<CommunityContent
-						community={community}
-						isLoading={isLoading}
-						isCreator={isCreator}
-					/>
-				)}
+				{renderData()}
 			</div>
 		</div>
 	)

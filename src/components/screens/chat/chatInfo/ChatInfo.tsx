@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { useUserProfile } from '@/hooks/useProfile'
+import { useUserProfile } from '@/hooks/user/useProfile'
 
 import styles from './ChatInfo.module.scss'
 

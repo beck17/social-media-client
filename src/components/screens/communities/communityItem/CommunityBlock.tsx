@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 
-import CommunityForm from '../../../ui/edit-forms/community-form/CommunityForm'
-import Modal from '../../../ui/modal/Modal'
+import CommunityForm from '../../../shared/edit-forms/community-form/CommunityForm'
+import Modal from '@/components/shared/modal/Modal'
 import Button from '../../../ui/button/Button'
 
-import { CommunitySectionState } from '@/hooks/useSwitchSections'
+import { CommunitySectionState } from '@/hooks/utils/useSwitchSections'
 
 import styles from '../CommunityItems.module.scss'
 

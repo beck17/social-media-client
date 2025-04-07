@@ -2,9 +2,9 @@ import React, { FC, useState } from 'react'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 
-import { useChat } from '@/hooks/useChat'
-import { useAuth } from '@/hooks/useAuth'
-import { useUserProfile } from '@/hooks/useProfile'
+import { useChat } from '@/hooks/conversations/useChat'
+import { useAuth } from '@/hooks/user/useAuth'
+import { useUserProfile } from '@/hooks/user/useProfile'
 
 import Input from '@/components/ui/input/Input'
 import Button from '@/components/ui/button/Button'
