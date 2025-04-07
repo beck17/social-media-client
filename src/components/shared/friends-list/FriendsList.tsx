@@ -35,7 +35,8 @@ export const FriendsList: FC<Props> = ({ items, isLoadingItems, searchActions, p
 	))
 
 	const renderItems = () => {
-		if (currentData.length === 0) {
+		if (isLoading) return skeletonItems
+		if (!currentData.length) {
 			return <EmptyInfoBlock text={emptyInfoText} />
 		}
 
@@ -48,11 +49,7 @@ export const FriendsList: FC<Props> = ({ items, isLoadingItems, searchActions, p
 		<>
 			<Input placeholder={placeholderText} value={searchTerm} onChange={handleSearch} />
 			{
-				isLoading ? (
-					skeletonItems
-				) : (
-					renderItems()
-				)
+				renderItems()
 			}
 		</>
 	)

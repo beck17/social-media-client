@@ -23,6 +23,9 @@ const CommentItem: FC<Props> = ({
 																	refetchComment,
 																}) => {
 	const { user } = useAuth()
+
+	const isUserPost = postUserId === user._id
+	const isUserComment = comment.user._id === user._id
 	return (
 		<div className={styles.comment}>
 			<Image
@@ -39,8 +42,8 @@ const CommentItem: FC<Props> = ({
 			</div>
 
 			<div className={styles.detail}>
-				{(postUserId === user._id || comment.user._id === user._id) && (
-					<CommentActions text={comment.text} commentId={comment._id} refetch={refetchComment} />
+				{(isUserPost || isUserComment) && (
+					<CommentActions text={comment.text} commentId={comment._id} refetch={refetchComment} isUserPost={isUserPost} />
 				)}
 			</div>
 		</div>

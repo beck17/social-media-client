@@ -67,7 +67,7 @@ const PostActions: FC<Props> = ({ postId, text, updatePost, removePost, refetch 
 				<div className={styles.sort__popup}>
 					<ul>
 						<li onClick={handleUpdatePost}>Редактировать</li>
-						<li onClick={handleRemovePost}>Удалить</li>
+						<li onClick={handleRemovePost} className={styles.remove}>Удалить</li>
 					</ul>
 				</div>
 			)}

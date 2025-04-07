@@ -6,7 +6,7 @@ import { getEmptyCommunityText } from '@/lib/utils/get-empty-communities-text'
 import CommunityItemSkeleton from '@/components/skeletons/community-item-skeleton/CommunityItemSkeleton'
 import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
 import Input from '@/components/ui/input/Input'
-import CommunityItem from '@/components/screens/communities/communityItem/CommunityItem'
+import CommunityItem from '@/components/ui/community-item/CommunityItem'
 
 import { ICommunityResponse, ICommunitySearchActions } from '@/types/community.interface'
 

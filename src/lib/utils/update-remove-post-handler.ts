@@ -1,5 +1,5 @@
 import { useDeletePost, useUpdatePost } from '@/hooks/posts/usePostActions'
-import { useDeleteCommunityPost, useUpdateCommunityPost } from '@/hooks/communities/useCommunityPost'
+import { useDeleteCommunityPost, useUpdateCommunityPost } from '@/hooks/communities/useCommunityPostActions'
 
 export const updateRemovePostHandler = (postId: string, isCommunityPost: boolean) => {
 	const { updatePost: update } = useUpdatePost(postId)

@@ -4,7 +4,7 @@ import { useRemoveComment } from '@/hooks/posts/useComment'
 
 import Button from '../../../ui/button/Button'
 
-import styles from '../remove-form/RemoveForm.module.scss'
+import styles from '../RemoveForm.module.scss'
 
 
 interface Props {

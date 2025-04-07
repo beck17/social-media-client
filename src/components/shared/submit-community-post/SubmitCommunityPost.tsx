@@ -1,57 +1,59 @@
 import React, { FC, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
-
-import { CommunityPostService } from '@/services/community-post/community-post.service'
 
 import { useUploadFile } from '@/hooks/posts/useUploadFile'
+import { useCreateCommunityPost } from '@/hooks/communities/useCommunityPostActions'
 
-import Input from '../../../ui/input/Input'
-import Button from '../../../ui/button/Button'
+import { toastPromise } from '@/lib/toast-utils/toast-promise'
+import { validatePost } from '@/lib/validate/validate-fields'
+import { toastError } from '@/lib/toast-utils/toast-error'
+
+import Input from '../../ui/input/Input'
+import Button from '../../ui/button/Button'
 import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
-import { ICommunity } from '@/types/community.interface'
 import { ICommunityPostCreate } from '@/types/community-post.interface'
 
 import styles from '@/components/shared/submitPost/SubmitPost.module.scss'
 
 
 interface Props {
+	id: string
 	refetch: () => void
-	community?: ICommunity
-	isLoading: boolean
 }
 
-const SubmitCommunityPost: FC<Props> = ({ refetch, community }) => {
+const SubmitCommunityPost: FC<Props> = ({ id, refetch }) => {
 	const [imageState, setImageState] = useState<{ image?: string }>()
 	const { uploadFile } = useUploadFile(setImageState)
 
 	const {
 		register,
 		reset,
-		formState: { errors },
 		handleSubmit,
 	} = useForm<ICommunityPostCreate>()
 
-	const { mutateAsync } = useMutation(
-		'add community post',
-		(data: ICommunityPostCreate) =>
-			CommunityPostService.createCommunityPost(data),
-		{
-			onSuccess() {
-				reset()
-				refetch()
-			},
-		},
-	)
+	const { createPost } = useCreateCommunityPost(refetch)
 
 	const onSubmitPost: SubmitHandler<ICommunityPostCreate> = async ({
 																																		 image = imageState?.image,
 																																		 text,
-																																		 communityId,
+																																		 communityId = id,
 																																	 }) => {
-		const data = { image, text, communityId }
-		await mutateAsync(data)
+		try {
+			const data = { image, text, communityId }
+			validatePost(data)
+
+			await toastPromise(createPost(data))
+		} catch (error) {
+			if (error instanceof Error) {
+				toastError(error.message)
+			} else {
+				toastError('Произошла неизвестная ошибка')
+			}
+		} finally {
+			reset()
+			setImageState({ image: undefined })
+		}
 	}
 
 	return (
@@ -60,18 +62,7 @@ const SubmitCommunityPost: FC<Props> = ({ refetch, community }) => {
 				<div className={styles.input}>
 					<Input
 						placeholder='Введите текст...'
-						{...register('text', {
-							required: 'Это поле обязательное',
-						})}
-						error={errors.text?.message}
-					/>
-					<input
-						style={{ display: 'none' }}
-						value={community?._id}
-						placeholder='Введите текст...'
-						{...register('communityId', {
-							required: 'Это поле обязательное',
-						})}
+						{...register('text')}
 					/>
 				</div>
 				<div className={styles.buttons}>

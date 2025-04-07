@@ -1,31 +1,35 @@
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
-
-import { CommunityService } from '@/services/community/community.service'
 
 import { useOutsideClick } from '@/hooks/utils/useOutsideClick'
 import {
 	useAllCommunity,
 	useIsSubscribed,
 } from '@/hooks/communities/useCommunity'
+import { useToggleSubscribeCommunity } from '@/hooks/communities/useCommunityActions'
 
-import CommunityEditForm from '../communityForm/CommunityEditForm'
-import CommunityRemoveForm from '../communityForm/CommunityRemoveForm'
+import CommunityEditForm from '../../shared/edit-forms/community-form/CommunityEditForm'
+import CommunityRemoveForm from '../../shared/edit-forms/remove-form/CommunityRemoveForm'
 
 import Modal from '@/components/shared/modal/Modal'
-import Button from '../../../ui/button/Button'
+import Button from '../button/Button'
 
-import styles from '../../../ui/select/Select.module.scss'
+import { toastPromise } from '@/lib/toast-utils/toast-promise'
+
+import styles from './Select.module.scss'
 
 
 interface Props {
-	refetch: () => void,
+	communityName: string
+	communityDescription: string
 	isCreator: boolean
+	refetch: () => void,
 }
 
 const CommunityActions: FC<Props> = ({
 																			 refetch,
+																			 communityName,
+																			 communityDescription,
 																			 isCreator,
 																		 }) => {
 	const router = useRouter()
@@ -37,29 +41,19 @@ const CommunityActions: FC<Props> = ({
 
 	const communityActionRef = React.useRef<HTMLDivElement>(null)
 
-	const { isSubscribed, isSubscribedRefetch } =
-		useIsSubscribed(communityId)
+	const { isSubscribed, isSubscribedRefetch } = useIsSubscribed(communityId)
 	const { refetch: refetchAllCommunities } = useAllCommunity()
-
-	const { mutateAsync } = useMutation(
-		`toggle subscribe community ${communityId}`,
-		(id: string) => CommunityService.toggleSubscribe(id),
-		{
-			onSuccess() {
-				refetch()
-			},
-		},
-	)
-
-	const toggleSubscribeHandler = async (id: string) => {
-		setIsOpenPopup(false)
-		await mutateAsync(id)
-		await isSubscribedRefetch()
-	}
+	const { toggleSubscribe } = useToggleSubscribeCommunity(communityId, refetch)
 
 	const buttonTitle = isSubscribed ? 'Отписаться' : 'Подписаться'
 
 	useOutsideClick(communityActionRef, () => setIsOpenPopup(false))
+
+	const toggleSubscribeHandler = async (id: string) => {
+		setIsOpenPopup(false)
+		await toastPromise(toggleSubscribe(id))
+		await isSubscribedRefetch()
+	}
 
 	const handleUpdateCommunity = () => {
 		setIsOpenPopup(false)
@@ -88,9 +82,11 @@ const CommunityActions: FC<Props> = ({
 		>
 			<Modal modalIsOpen={editModalIsOpen} setIsOpen={setEditIsOpen}>
 				<CommunityEditForm
-					refetch={refetch}
-					setIsOpen={setEditIsOpen}
 					communityId={communityId}
+					communityName={communityName}
+					communityDescription={communityDescription}
+					setIsOpen={setEditIsOpen}
+					refetch={refetch}
 				/>
 			</Modal>
 			<Modal modalIsOpen={removeModalIsOpen} setIsOpen={setRemoveIsOpen}>
@@ -110,7 +106,7 @@ const CommunityActions: FC<Props> = ({
 							{buttonTitle}
 						</li>
 						<li onClick={handleUpdateCommunity}>Редактировать</li>
-						<li style={{ color: 'indianred' }} onClick={handleRemoveCommunity}>
+						<li className={styles.remove} onClick={handleRemoveCommunity}>
 							Удалить
 						</li>
 					</ul>

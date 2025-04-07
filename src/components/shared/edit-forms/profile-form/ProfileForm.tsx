@@ -1,18 +1,17 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react'
-import { useMutation } from 'react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { UserService } from '@/services/user/user.service'
-
 import { useUploadFile } from '@/hooks/posts/useUploadFile'
-import { useUploadBackground } from '@/hooks/posts/useUploadBackground'
 import { useProfile } from '@/hooks/user/useProfile'
+import { useUpdateProfile } from '@/hooks/user/useProfileActions'
+
 
 import Input from '../../../ui/input/Input'
 import Button from '../../../ui/button/Button'
+import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 
 import { toastError } from '@/lib/toast-utils/toast-error'
-import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
+import { toastPromise } from '@/lib/toast-utils/toast-promise'
 
 import { IUserUpdate } from '@/types/user.interface'
 
@@ -49,7 +48,7 @@ const ProfileForm: FC<Props> = ({
 
 
 	const { uploadFile } = useUploadFile(setAvatarPic)
-	const { uploadBackground } = useUploadBackground(setBackgroundPic)
+	const { uploadFile: uploadFileCover } = useUploadFile(setBackgroundPic)
 
 	const { refetch: refetchProfile } = useProfile()
 
@@ -59,19 +58,14 @@ const ProfileForm: FC<Props> = ({
 		handleSubmit,
 	} = useForm<IUserUpdate>()
 
-	const { mutateAsync } = useMutation(
-		'update user',
-		(data: IUserUpdate) => UserService.updateProfile(data),
-		{
-			onSuccess() {
-				reset()
-				refetchProfile()
-				if (refetch) refetch()
-				if (userPostRefetch) userPostRefetch()
-				setIsOpen((prev) => !prev)
-			},
-		},
-	)
+	const allRefetch = () => {
+		reset()
+		refetchProfile()
+		if (refetch) refetch()
+		if (userPostRefetch) userPostRefetch()
+	}
+
+	const { updateProfile } = useUpdateProfile(allRefetch)
 
 	const onSubmit: SubmitHandler<IUserUpdate> = async ({
 																												backgroundPic = backgroundPicPhoto?.image,
@@ -85,7 +79,10 @@ const ProfileForm: FC<Props> = ({
 		if (lastName?.trim() === '' || firstName?.trim() === '' || city?.trim() === '') {
 			return toastError('Поля не должны быть пустыми!')
 		}
-		await mutateAsync(data)
+
+		await toastPromise(updateProfile(data))
+
+		setIsOpen((prev) => !prev)
 	}
 
 	return (
@@ -116,7 +113,7 @@ const ProfileForm: FC<Props> = ({
 					</div>
 
 					<div className={styles.button}>
-						<FileUploadButton onUpload={uploadBackground} text='Добавить бэкграунд' htmlFor='background' />
+						<FileUploadButton onUpload={uploadFileCover} text='Добавить бэкграунд' htmlFor='cover' />
 					</div>
 				</div>
 

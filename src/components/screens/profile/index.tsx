@@ -10,7 +10,7 @@ import Post from '@/components/shared/post/Post'
 
 import styles from '@/assets/styles/screens/Profile.module.scss'
 import PostLoader from '@/components/skeletons/post-loader/PostLoader'
-import { FriendActions } from '@/components/ui/friend-actions/FriendActions'
+import { FriendActions } from '@/components/ui/select/FriendActions'
 import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'
 import { IUser } from '@/types/user.interface'
 import { InfoSkeleton } from '@/components/skeletons/info-item-skeleton/InfoItemSkeleton'

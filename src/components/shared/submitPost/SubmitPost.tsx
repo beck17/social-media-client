@@ -10,13 +10,13 @@ import Input from '../../ui/input/Input'
 import Button from '../../ui/button/Button'
 import { FileUploadButton } from '../../ui/file-upload-button/FileUploadButton'
 
+import { toastPromise } from '@/lib/toast-utils/toast-promise'
 import { toastError } from '@/lib/toast-utils/toast-error'
 import { validatePost } from '@/lib/validate/validate-fields'
 
 import { IPostResponse } from '@/types/post.interface'
 
 import styles from './SubmitPost.module.scss'
-
 
 const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
 	const [imageState, setImageState] = useState<{ image?: string }>()
@@ -38,8 +38,7 @@ const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
 				const data = { text, image }
 				validatePost(data)
 
-				await createPost(data)
-
+				await toastPromise(createPost(data))
 			} catch (error) {
 
 				if (error instanceof Error) {

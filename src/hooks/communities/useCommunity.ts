@@ -110,11 +110,16 @@ export const useIsSubscribed = (id: string) => {
 	}
 }
 
-export const useCreateCommunity = () => {
+export const useCreateCommunity = (refetch: () => void) => {
 
 	const { mutateAsync: createCommunity } = useMutation(
 		'create community',
 		(data: ICommunityCreate) => CommunityService.createCommunity(data),
+		{
+			onSuccess: () => {
+				refetch()
+			}
+		}
 	)
 
 	return { createCommunity }

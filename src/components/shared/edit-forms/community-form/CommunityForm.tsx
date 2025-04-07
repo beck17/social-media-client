@@ -1,8 +1,6 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-
-import { useUploadBackground } from '@/hooks/posts/useUploadBackground'
 import { useUploadFile } from '@/hooks/posts/useUploadFile'
 import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadButton'
 import { useAllCommunity, useCreateCommunity } from '@/hooks/communities/useCommunity'
@@ -34,7 +32,7 @@ const CommunityForm: FC<Props> = ({
 	const { refetch } = useAllCommunity()
 
 	const { uploadFile } = useUploadFile(setPhotoPic)
-	const { uploadBackground } = useUploadBackground(setBackgroundPic)
+	const { uploadFile: uploadBackground } = useUploadFile(setBackgroundPic)
 
 	const {
 		register,
@@ -42,7 +40,7 @@ const CommunityForm: FC<Props> = ({
 		reset,
 	} = useForm<ICommunityCreate>()
 
-	const { createCommunity } = useCreateCommunity()
+	const { createCommunity } = useCreateCommunity(refetch)
 
 
 	const onSubmitCommunity: SubmitHandler<ICommunityCreate> = async ({
@@ -55,7 +53,6 @@ const CommunityForm: FC<Props> = ({
 
 		const createdCommunity = await createCommunity(data)
 
-		refetch()
 		reset()
 		setIsOpen((prev) => !prev)
 

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import Input from '../../ui/input/Input'
-import ConversationItem from './conversationItem/ConversationItem'
+import ConversationItem from '@/components/ui/conversation-item/ConversationItem'
 
 import styles from '@/assets/styles/screens/Conversations.module.scss'
 import { useSearchUserConversations, useUserConversations } from '@/hooks/conversations/useConversation'

@@ -18,5 +18,5 @@ export const getFriendAction = (id: string) => {
 		return { text: 'Отписаться', actionHandler: () => unSubscribeHandler(id) }
 	}
 
-	return { text: 'Добавить в друзья', actionHandler: () => sendFriendRequestHandler(id) }
+	return { text: 'Добавить', actionHandler: () => sendFriendRequestHandler(id) }
 }

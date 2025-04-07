@@ -9,10 +9,10 @@ import {
 	useSearchUserCommunities,
 } from '@/hooks/communities/useCommunity'
 
-import { CommunitiesList } from '@/components/screens/communities/communities-list/CommunitiesList'
-import CommunityBlock from './communityItem/CommunityBlock'
+import { CommunitiesList } from '@/components/shared/communities-list/CommunitiesList'
+import CommunityBlock from '../../shared/community-block/CommunityBlock'
 
-import styles from './CommunityItems.module.scss'
+import styles from '../community/Community.module.scss'
 
 
 const Communities: FC = () => {

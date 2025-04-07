@@ -4,6 +4,7 @@ import { UserService } from '@/services/user/user.service'
 
 import { useIsFriend, useIsSubscribe } from '@/hooks/friends/useFriend'
 import { useProfile } from '@/hooks/user/useProfile'
+import { toastPromise } from '@/lib/toast-utils/toast-promise'
 
 
 export const useFriendActions = (id: string) => {
@@ -49,15 +50,15 @@ export const useFriendActions = (id: string) => {
 
 
 	const sendFriendRequestHandler = async (id: string) => {
-		await sendFriendRequest(id)
+		await toastPromise(sendFriendRequest(id))
 	}
 
 	const removeFromFriendsHandler = async (id: string) => {
-		await removeFriend(id)
+		await toastPromise(removeFriend(id))
 	}
 
 	const unSubscribeHandler = async (id: string) => {
-		await unSubscribe(id)
+		await toastPromise(unSubscribe(id))
 	}
 
 	return { isFriend, isSubscribe, sendFriendRequestHandler, removeFromFriendsHandler, unSubscribeHandler }

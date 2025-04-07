@@ -13,7 +13,6 @@ interface Props {
 }
 
 export const FileUploadButton: FC<Props> = ({ text, onUpload, htmlFor }) => {
-
 	return (
 		<>
 			<input
