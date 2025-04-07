@@ -9,9 +9,20 @@ import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock
 import FriendItemSkeleton from '@/components/ui/skeletons/friend-item-skeleton/FriendItemSkeleton'
 
 const Search: FC = () => {
-	const { isLoading, handleSearch, searchTerm, data } = useSearchProfile()
+	const { searchUsers = [], isLoading, handleSearch, searchTerm } = useSearchProfile()
 
-	const usersLength = data?.length || 0
+	const usersLength = searchUsers.length
+
+	const skeletonItems = Array(5).fill(0).map((_, index) => (
+		<FriendItemSkeleton key={`skeleton-${index}`} />
+	))
+
+	const renderData = () => {
+		if (isLoading) return skeletonItems
+		if (!usersLength) return <EmptyInfoBlock text='Пользователей не найдено' />
+
+		return searchUsers.map((user) => <FriendItem key={user._id} user={user} />)
+	}
 
 	return (
 		<div className={styles.friends}>
@@ -21,15 +32,7 @@ const Search: FC = () => {
 					onChange={handleSearch}
 					placeholder='Найти пользователя...'
 				/>
-				{isLoading ? (
-					Array(5).fill(0).map((_, index) => (
-						<FriendItemSkeleton key={`skeleton-${index}`} />
-					))
-				) : usersLength >= 1 ? (
-					data?.map((user) => <FriendItem key={user._id} user={user} />)
-				) : (
-					<EmptyInfoBlock text='Пользователей не найдено' />
-				)}
+				{renderData()}
 			</div>
 		</div>
 	)

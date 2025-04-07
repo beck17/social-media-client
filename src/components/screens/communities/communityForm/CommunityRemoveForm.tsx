@@ -6,7 +6,7 @@ import { CommunityService } from '@/services/community/community.service'
 
 import Button from '../../../ui/button/Button'
 
-import styles from '../../../ui/edit-forms/remove-form/RemoveForm.module.scss'
+import styles from '@/shared/edit-forms/remove-form/RemoveForm.module.scss'
 
 
 interface Props {

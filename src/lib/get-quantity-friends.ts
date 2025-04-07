@@ -1,8 +1,4 @@
-export const getQuantityFriends = (count: number | undefined) => {
-	if (typeof count === 'undefined') {
-		return undefined
-	}
-
+export const getQuantityFriends = (count: number) => {
 	const lastChar = count % 10
 	const lastTwoChar = count % 100
 

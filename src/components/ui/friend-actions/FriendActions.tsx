@@ -9,7 +9,7 @@ import { getFriendAction } from '@/lib/get-friend-action'
 import { closePopupOpenModal } from '@/lib/close-popup-open-modal'
 
 
-import ProfileForm from '@/components/ui/edit-forms/profile-form/ProfileForm'
+import ProfileForm from '@/components/shared/edit-forms/profile-form/ProfileForm'
 import ModalEdit from '@/components/ui/modal/Modal'
 
 import styles from '../select/Select.module.scss'

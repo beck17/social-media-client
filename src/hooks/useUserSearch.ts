@@ -20,7 +20,7 @@ export const useSearchProfile = () => {
 		setSearchTerm(e.target.value)
 	}
 
-	return { handleSearch, isLoading, data, searchTerm }
+	return { handleSearch, isLoading, searchUsers: data, searchTerm }
 }
 
 export const useSearchFriends = () => {

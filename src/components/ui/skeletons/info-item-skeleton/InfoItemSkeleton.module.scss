@@ -1,0 +1,66 @@
+.skeletonCard {
+  display: flex;
+  gap: 12px;
+  padding-left: 90px;
+  width: 100%;
+  border-radius: 8px;
+  border-bottom: 1.5px solid #2c2c2c;
+
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    .nameSkeleton,
+    .countSkeleton,
+    .dateSkeleton,
+    .actionsSkeleton {
+      height: 16px;
+      background: #15151c;
+      border-radius: 4px;
+      animation: pulse 1.5s infinite;
+    }
+
+    .countSkeleton {
+      width: 20%;
+    }
+
+    .dateSkeleton {
+      width: 20%;
+      margin-top: 4px;
+    }
+
+    .group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .nameSkeleton {
+        width: 40%;
+      }
+
+      .actionsSkeleton {
+        width: 5%;
+      }
+    }
+  }
+}
+
+.skeletonCard:last-child {
+  border: none;
+}
+
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
