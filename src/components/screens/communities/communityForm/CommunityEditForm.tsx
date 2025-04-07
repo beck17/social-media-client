@@ -16,7 +16,7 @@ import { ICommunityUpdate } from '@/types/community.interface'
 
 import photo from '../../../../assets/img/photo.svg'
 
-import styles from '@/shared/edit-forms/EditForm.module.scss'
+import styles from '../../../shared/edit-forms/EditForm.module.scss'
 
 
 interface Props {
@@ -50,7 +50,7 @@ const CommunityEditForm: FC<Props> = ({ communityId, setIsOpen, refetch }) => {
 		(data: ICommunityUpdate) =>
 			CommunityService.updateCommunity(data, communityId),
 		{
-			onSuccess(data) {
+			onSuccess() {
 				refetch()
 				refetchPosts()
 				reset()

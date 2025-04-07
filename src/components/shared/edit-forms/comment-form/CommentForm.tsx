@@ -27,7 +27,6 @@ const CommentForm: FC<Props> = ({
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
 		reset,
 	} = useForm<{ text: string }>()
 
