@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { FriendActions } from '@/components/ui/friend-actions/FriendActions'
+import { FriendActions } from '@/components/ui/select/FriendActions'
 import { ProfileInfo } from '@/components/ui/profile-info/ProfileInfo'
 
 import { IUser } from '@/types/user.interface'
@@ -22,8 +22,8 @@ const FriendItem: FC<Props> = ({ user }) => {
 				<Link href={`/profile/${user._id}`}>
 					<Image
 						className={styles.userImg}
-						width={1000}
-						height={1000}
+						width={200}
+						height={200}
 						src={process.env.BASE_URL + `${user.avatar}`}
 						alt='0-'
 					/>

@@ -14,10 +14,11 @@ import styles from '@/components/ui/select/Select.module.scss'
 interface Props {
 	commentId: string
 	text: string
+	isUserPost: boolean
 	refetch: () => void
 }
 
-export const CommentActions: FC<Props> = ({ commentId, refetch, text }) => {
+export const CommentActions: FC<Props> = ({ commentId, refetch, text, isUserPost }) => {
 	const [isOpenPopup, setIsOpenPopup] = React.useState<boolean>(false)
 	const [modalEditIsOpen, setEditIsOpen] = useState<boolean>(false)
 	const [removeModalIsOpen, setRemoveIsOpen] = useState<boolean>(false)
@@ -28,6 +29,18 @@ export const CommentActions: FC<Props> = ({ commentId, refetch, text }) => {
 
 	const handleUpdatePost = () => closePopupOpenModal(setIsOpenPopup, setEditIsOpen)
 	const handleRemovePost = () => closePopupOpenModal(setIsOpenPopup, setRemoveIsOpen)
+
+	const renderPopupItems = () => {
+		if (isUserPost) return (
+			<li className={styles.remove} onClick={handleRemovePost}>Удалить</li>
+		)
+		return (
+			<>
+				<li onClick={handleUpdatePost}>Редактировать</li>
+				<li className={styles.remove} onClick={handleRemovePost}>Удалить</li>
+			</>
+		)
+	}
 
 	return (
 		<div className={styles.sort} ref={postActionRef}>
@@ -54,8 +67,7 @@ export const CommentActions: FC<Props> = ({ commentId, refetch, text }) => {
 			{isOpenPopup && (
 				<div className={styles.sort__popup}>
 					<ul>
-						<li onClick={handleUpdatePost}>Редактировать</li>
-						<li onClick={handleRemovePost}>Удалить</li>
+						{renderPopupItems()}
 					</ul>
 				</div>
 			)}

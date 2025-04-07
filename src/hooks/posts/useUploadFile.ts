@@ -1,9 +1,12 @@
-import { useMutation } from 'react-query'
-import { MediaService } from '@/services/post/media.service'
-import { errorCatch } from '@/api/api.helper'
 import { ChangeEvent, Dispatch, SetStateAction } from 'react'
-import { toastSuccess } from '@/lib/toast-utils/toast-success'
+import { useMutation } from 'react-query'
+
+import { MediaService } from '@/services/post/media.service'
+
+import { errorCatch } from '@/api/api.helper'
 import { toastError } from '@/lib/toast-utils/toast-error'
+import { toastPromise } from '@/lib/toast-utils/toast-promise'
+
 
 export const useUploadFile = (
 	setImageState: Dispatch<SetStateAction<{ image?: string | undefined } | undefined>>,
@@ -15,7 +18,6 @@ export const useUploadFile = (
 		{
 			onSuccess: ({ data }) => {
 				setImageState(data)
-				toastSuccess('Фото успешно загруженно')
 			},
 			onError: (error) => {
 				toastError(errorCatch(error))
@@ -30,7 +32,7 @@ export const useUploadFile = (
 		const formData = new FormData()
 		formData.append('media', files[0])
 
-		await mutateAsync(formData)
+		await toastPromise(mutateAsync(formData))
 	}
 
 	return { uploadFile }

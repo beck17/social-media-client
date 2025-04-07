@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 import { useAuth } from '@/hooks/user/useAuth'
 import { useOneCommunity } from '@/hooks/communities/useCommunity'
 
-import CommunityContent from './communityContent/CommunityContent'
+import CommunityContent from '@/components/shared/communityContent/CommunityContent'
 import PostLoader from '@/components/skeletons/post-loader/PostLoader'
-import CommunityActions from './communityItem/CommunityActions'
+import CommunityActions from '../../ui/select/CommunityActions'
 import { CoverWithAvatar } from '@/components/ui/images/CoverWithAvatar'
 import { CommunityInfo } from '@/components/shared/community-info/CommunityInfo'
 import { InfoSkeleton } from '@/components/skeletons/info-item-skeleton/InfoItemSkeleton'
@@ -14,10 +14,10 @@ import { CoverWithAvatarSkeleton } from '@/components/skeletons/cover-with-avata
 
 import { ICommunity } from '@/types/community.interface'
 
-import styles from './Community.module.scss'
+import styles from '../communities/Community.module.scss'
 
 
-const Community: FC = () => {
+const Index: FC = () => {
 	const { user } = useAuth()
 	const router = useRouter()
 	const id = router.query.id as string
@@ -47,6 +47,8 @@ const Community: FC = () => {
 					communityCreatedAt={community.createdAt}
 				/>
 				<CommunityActions
+					communityName={community.name}
+					communityDescription={community.description}
 					refetch={refetch}
 					isCreator={isCreator}
 				/>
@@ -60,7 +62,6 @@ const Community: FC = () => {
 		return (
 			<CommunityContent
 				community={community}
-				isLoading={isLoading}
 				isCreator={isCreator}
 			/>
 		)
@@ -79,4 +80,4 @@ const Community: FC = () => {
 	)
 }
 
-export default Community
+export default Index

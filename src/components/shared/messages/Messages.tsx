@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 import { useChat } from '@/hooks/conversations/useChat'
 
-import Message from '../message/Message'
+import Message from '@/components/ui/message/Message'
 
 import styles from './Messages.module.scss'
 

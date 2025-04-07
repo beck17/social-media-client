@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { useCommunityPosts } from '@/hooks/communities/useCommunityPost'
 
-import SubmitCommunityPost from '../submitCommunityPost/SubmitCommunityPost'
+import SubmitCommunityPost from '@/components/shared/submit-community-post/SubmitCommunityPost'
 import Post from '@/components/shared/post/Post'
 
 import { ICommunity } from '@/types/community.interface'
@@ -10,11 +10,10 @@ import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock
 
 interface Props {
 	community: ICommunity
-	isLoading: boolean
 	isCreator: boolean
 }
 
-const CommunityContent: FC<Props> = ({ community, isLoading, isCreator }) => {
+const CommunityContent: FC<Props> = ({ community, isCreator }) => {
 
 	const { communityPosts = [], refetch: refetchPosts } = useCommunityPosts(
 		community._id,
@@ -34,9 +33,8 @@ const CommunityContent: FC<Props> = ({ community, isLoading, isCreator }) => {
 		<>
 			{isCreator && (
 				<SubmitCommunityPost
+					id={community._id}
 					refetch={refetchPosts}
-					community={community}
-					isLoading={isLoading}
 				/>
 			)}
 			{renderData()}

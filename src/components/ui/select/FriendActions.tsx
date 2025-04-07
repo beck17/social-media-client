@@ -12,7 +12,8 @@ import { closePopupOpenModal } from '@/lib/utils/close-popup-open-modal'
 import ProfileForm from '@/components/shared/edit-forms/profile-form/ProfileForm'
 import ModalEdit from '@/components/shared/modal/Modal'
 
-import styles from '../select/Select.module.scss'
+import styles from './Select.module.scss'
+import cn from 'clsx'
 
 
 interface Props {
@@ -40,6 +41,16 @@ export const FriendActions: FC<Props> = ({ friendId, refetch }) => {
 
 	const handleUpdatePost = () => closePopupOpenModal(setIsOpenPopup, setIsOpenModal)
 
+	const renderPopupItems = () => {
+		if (isMyProfile) return <li onClick={handleUpdatePost}>Редактировать</li>
+		return (
+			<>
+				<li onClick={() => createConversationHandler(friendId)}>Написать</li>
+				<li onClick={actionHandler} className={cn(text === 'Удалить' && styles.remove)}>{text}</li>
+			</>
+		)
+	}
+
 	return (
 		<div className={styles.sort} ref={popupRef}>
 			<ModalEdit modalIsOpen={modalIsOpen} setIsOpen={setIsOpenModal}>
@@ -58,18 +69,9 @@ export const FriendActions: FC<Props> = ({ friendId, refetch }) => {
 			</div>
 			{isOpenPopup && (
 				<div className={styles.sort__popup}>
-					{
-						isMyProfile ? (
-							<ul>
-								<li onClick={handleUpdatePost}>Редактировать</li>
-							</ul>
-						) : (
-							<ul>
-								<li onClick={() => createConversationHandler(friendId)}>Написать</li>
-								<li onClick={actionHandler}>{text}</li>
-							</ul>
-						)
-					}
+					<ul>
+						{renderPopupItems()}
+					</ul>
 				</div>
 			)}
 		</div>

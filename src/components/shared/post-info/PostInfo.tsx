@@ -10,6 +10,7 @@ import styles from './PostInfo.module.scss'
 import PostActions from '@/components/ui/select/PostActions'
 import { useAuth } from '@/hooks/user/useAuth'
 import { updateRemovePostHandler } from '@/lib/utils/update-remove-post-handler'
+import { toastPromise } from '@/lib/toast-utils/toast-promise'
 
 
 interface Props {
@@ -58,12 +59,12 @@ const PostInfo: FC<Props> = ({ post, isCreator, refetchPosts }) => {
 					refetch={refetchPosts}
 					updatePost={
 						async (data) => {
-							await updatePost(data)
+							await toastPromise(updatePost(data))
 						}
 					}
 					removePost={
 						async data => {
-							await deletePost(data)
+							await toastPromise(deletePost(data))
 						}}
 				/>
 			}

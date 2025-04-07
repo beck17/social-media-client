@@ -5,6 +5,7 @@ import { removeFromStorage } from '@/services/auth/auth.helper'
 
 import { errorCatch } from '@/api/api.helper'
 import { IPhonePassword, IRegisterUser, IUserResponse } from '@/types/user.interface'
+import { toastError } from '@/lib/toast-utils/toast-error'
 
 
 export const register = createAsyncThunk<IUserResponse, IRegisterUser>(
@@ -24,6 +25,7 @@ export const login = createAsyncThunk<IUserResponse, IPhonePassword>(
 		try {
 			return await AuthService.login(data)
 		} catch (e) {
+			toastError('Неверный номер или пароль')
 			return thunkApi.rejectWithValue(e)
 		}
 	},

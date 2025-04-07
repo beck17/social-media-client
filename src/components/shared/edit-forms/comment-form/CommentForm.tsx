@@ -32,6 +32,7 @@ const CommentForm: FC<Props> = ({
 
 	const { onSubmit } = useUpdateComment(commentId, refetch, reset, setIsOpen)
 
+
 	return (
 		<div className={styles.formEdit}>
 			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

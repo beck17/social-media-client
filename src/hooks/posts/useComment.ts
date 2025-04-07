@@ -7,6 +7,7 @@ import { CommentPostService } from '@/services/post/comment.service'
 import { toastError } from '@/lib/toast-utils/toast-error'
 
 import { ICommentRequest } from '@/types/comment.interface'
+import { toastPromise } from '@/lib/toast-utils/toast-promise'
 
 
 export const usePostComments = (id: string) => {
@@ -41,7 +42,7 @@ export const useUpdateComment = (
 
 	const onSubmit: SubmitHandler<{ text: string }> = async ({ text }) => {
 		if (text.trim() === '') return toastError('Это поле обязательное')
-		await mutateAsync(text)
+		await toastPromise(mutateAsync(text))
 	}
 
 	return { onSubmit }
@@ -66,7 +67,7 @@ export const useNewComment = (
 
 	const onSubmitForm: SubmitHandler<ICommentRequest> = async (data) => {
 		if (data.text.trim() === '') return toastError('Это поле обязательное')
-		await mutateAsync(data)
+		await toastPromise(mutateAsync(data))
 	}
 
 	return { onSubmitForm }
@@ -87,7 +88,7 @@ export const useRemoveComment = (
 	)
 
 	const removeCommentHandler = async (id: string) => {
-		await mutateAsync(id)
+		await toastPromise(mutateAsync(id))
 	}
 
 	return { removeCommentHandler }

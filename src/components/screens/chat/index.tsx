@@ -9,8 +9,8 @@ import { useUserProfile } from '@/hooks/user/useProfile'
 import Input from '@/components/ui/input/Input'
 import Button from '@/components/ui/button/Button'
 
-import ChatInfo from './chatInfo/ChatInfo'
-import Messages from './messages/Messages'
+import ChatInfo from '@/components/ui/chat-info/ChatInfo'
+import Messages from '@/components/shared/messages/Messages'
 
 import styles from '@/assets/styles/screens/Chat.module.scss'
 

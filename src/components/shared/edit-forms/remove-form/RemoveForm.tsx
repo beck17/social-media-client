@@ -2,7 +2,7 @@ import React, { Dispatch, FC, SetStateAction } from 'react'
 
 import Button from '../../../ui/button/Button'
 
-import styles from './RemoveForm.module.scss'
+import styles from '../RemoveForm.module.scss'
 
 
 interface Props {

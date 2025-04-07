@@ -35,6 +35,12 @@
         }
       }
 
+      @media (max-width: 450px) {
+        .user{
+          display: none;
+        }
+      }
+
       .center {
         display: flex;
         align-items: center;
