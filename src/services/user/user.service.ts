@@ -1,13 +1,20 @@
 import { instance } from '@/api/api.interceptor'
 import { UrlEnums } from '@/constants/url.enum'
 
-import { IUser, IUserUpdate } from '@/types/user.interface'
+import { INameAndAvatar, IUser, IUserUpdate } from '@/types/user.interface'
 
 
 export const UserService = {
 	async getMyProfile() {
 		return instance<IUser>({
 			url: `${UrlEnums.user}/profile`,
+			method: 'GET',
+		})
+	},
+
+	async getNameAndAvatarProfile() {
+		return instance<INameAndAvatar>({
+			url: `${UrlEnums.user}/profile-name`,
 			method: 'GET',
 		})
 	},

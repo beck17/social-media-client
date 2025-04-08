@@ -26,7 +26,7 @@ const Login: FC<Props> = ({ togglePage }) => {
 		handleSubmit,
 	} = useForm<IPhonePassword>()
 
-	const onSubmit: SubmitHandler<IPhonePassword> = (data) => {
+	const onSubmit: SubmitHandler<IPhonePassword> = async (data) => {
 		try {
 			login(data)
 			reset()

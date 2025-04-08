@@ -2,7 +2,7 @@ import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useUploadFile } from '@/hooks/posts/useUploadFile'
-import { useProfile } from '@/hooks/user/useProfile'
+import { useNameAndAvatarProfile } from '@/hooks/user/useProfile'
 import { useUpdateProfile } from '@/hooks/user/useProfileActions'
 
 
@@ -50,7 +50,7 @@ const ProfileForm: FC<Props> = ({
 	const { uploadFile } = useUploadFile(setAvatarPic)
 	const { uploadFile: uploadFileCover } = useUploadFile(setBackgroundPic)
 
-	const { refetch: refetchProfile } = useProfile()
+	const { refetch: refetchProfile } = useNameAndAvatarProfile()
 
 	const {
 		register,

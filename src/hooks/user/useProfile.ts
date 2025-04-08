@@ -15,6 +15,18 @@ export const useProfile = () => {
 	return { isLoading, myProfile: data, refetch }
 }
 
+export const useNameAndAvatarProfile = () => {
+	const { isLoading, data, refetch } = useQuery(
+		'get name and avatar',
+		() => UserService.getNameAndAvatarProfile(),
+		{
+			select: ({ data }) => data,
+		},
+	)
+
+	return { isLoading, nameAndAvatar: data, refetch }
+}
+
 export const useUserProfile = (id: string) => {
 	const { isLoading, data, refetch } = useQuery(
 		`get user profile${id}`,

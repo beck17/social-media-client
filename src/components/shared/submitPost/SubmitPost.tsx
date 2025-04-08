@@ -2,7 +2,7 @@ import React, { FC, useCallback, useMemo, useState } from 'react'
 import Image from 'next/image'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { useProfile } from '@/hooks/user/useProfile'
+import { useNameAndAvatarProfile } from '@/hooks/user/useProfile'
 import { useUploadFile } from '@/hooks/posts/useUploadFile'
 import { useCreatePost } from '@/hooks/posts/usePostActions'
 
@@ -17,12 +17,13 @@ import { validatePost } from '@/lib/validate/validate-fields'
 import { IPostResponse } from '@/types/post.interface'
 
 import styles from './SubmitPost.module.scss'
+import { INameAndAvatar } from '@/types/user.interface'
 
 const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
 	const [imageState, setImageState] = useState<{ image?: string }>()
 	const { uploadFile } = useUploadFile(setImageState)
 
-	const { myProfile, isLoading: isProfileLoading } = useProfile()
+	const { nameAndAvatar = {} as INameAndAvatar, isLoading: isProfileLoading } = useNameAndAvatarProfile()
 
 	const {
 		register,
@@ -57,8 +58,8 @@ const SubmitPost: FC<{ refetch: () => void }> = ({ refetch }) => {
 
 	const avatarUrl = useMemo(() => {
 		if (isProfileLoading) return '/uploads/default/no-avatar.jpg'
-		return myProfile?.avatar ? `${myProfile.avatar}` : '/uploads/default/no-avatar.jpg'
-	}, [isProfileLoading, myProfile])
+		return `${nameAndAvatar.avatar}`
+	}, [isProfileLoading, nameAndAvatar])
 
 	return (
 		<form className={styles.submitPost} onSubmit={handleSubmit(onSubmitHandler)}>

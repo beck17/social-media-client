@@ -20,6 +20,12 @@ export interface IUser {
 	communities: ICommunity[]
 }
 
+export interface INameAndAvatar {
+	_id: string
+	firstName: string
+	avatar: string
+}
+
 export interface IUserState {
 	_id: string
 	firstName: string

@@ -4,7 +4,7 @@
 }
 
 .normalBlock {
-  height: 65vh;
+  height: 64vh;
 }
 
 .block {
@@ -13,8 +13,14 @@
   align-items: center;
   background-color: #1d1d24;
   border-radius: 20px;
+  padding: 24px;
+  text-align: center;
 
   span {
     color: #afafaf;
+    max-width: 60%;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    hyphens: auto;
   }
 }
