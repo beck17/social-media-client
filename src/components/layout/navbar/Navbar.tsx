@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { useActions } from '@/hooks/user/useActions'
-import { useProfile } from '@/hooks/user/useProfile'
+import { useNameAndAvatarProfile } from '@/hooks/user/useProfile'
 
 import { NavbarLogo } from '@/components/ui/navbar/NavbarLogo'
 import { NavbarName } from '@/components/ui/navbar/NavbarName'
@@ -9,18 +9,18 @@ import { NavbarName } from '@/components/ui/navbar/NavbarName'
 import Button from '../../ui/button/Button'
 
 import styles from './Navbar.module.scss'
-import { IUser } from '@/types/user.interface'
+import { INameAndAvatar } from '@/types/user.interface'
 import { NameLoader } from '@/components/skeletons/NameLoader'
 
 
 const Navbar: FC = () => {
 	const { logout } = useActions()
-	const { myProfile = {} as IUser, isLoading } = useProfile()
+	const { nameAndAvatar = {} as INameAndAvatar, isLoading } = useNameAndAvatarProfile()
 
 	const nameRender = () => {
 		if (isLoading) return <NameLoader />
 
-		return <NavbarName avatar={myProfile.avatar} name={myProfile.firstName} id={myProfile._id} />
+		return <NavbarName avatar={nameAndAvatar.avatar} name={nameAndAvatar.firstName} id={nameAndAvatar._id} />
 	}
 
 

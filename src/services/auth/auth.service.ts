@@ -10,7 +10,6 @@ import {
 	IRegisterUser,
 	IUserResponse,
 } from '@/types/user.interface'
-import { toastSuccess } from '@/lib/toast-utils/toast-success'
 
 
 export const AuthService = {
@@ -21,8 +20,6 @@ export const AuthService = {
 			data,
 		})
 		if (response.data.accessToken) saveToStorage(response.data)
-
-		toastSuccess('Вы успешно совершили вход')
 
 		return response.data
 	},
