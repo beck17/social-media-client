@@ -10,8 +10,6 @@
       display: flex;
       justify-content: space-between;
       border-bottom: 1.5px solid #2c2c2c;
-
-
       gap: 15px;
       margin-top: 20px;
       padding-bottom: 10px;
@@ -33,5 +31,11 @@
     .item:last-child {
       border: none;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .friends {
+    margin: 0 20px;
   }
 }

@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import { ICommunityResponse } from '@/types/community.interface'
 
-import styles from '../../screens/community/Community.module.scss'
+import styles from '../../screens/communities/Communities.module.scss'
 
 const CommunityItem: FC<{ community: ICommunityResponse }> = ({ community }) => {
 	return (

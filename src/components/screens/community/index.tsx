@@ -14,10 +14,10 @@ import { CoverWithAvatarSkeleton } from '@/components/skeletons/cover-with-avata
 
 import { ICommunity } from '@/types/community.interface'
 
-import styles from '../communities/Community.module.scss'
+import styles from './Community.module.scss'
 
 
-const Index: FC = () => {
+const Community: FC = () => {
 	const { user } = useAuth()
 	const router = useRouter()
 	const id = router.query.id as string
@@ -80,4 +80,4 @@ const Index: FC = () => {
 	)
 }
 
-export default Index
+export default Community

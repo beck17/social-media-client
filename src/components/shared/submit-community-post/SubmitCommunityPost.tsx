@@ -14,7 +14,7 @@ import { FileUploadButton } from '@/components/ui/file-upload-button/FileUploadB
 
 import { ICommunityPostCreate } from '@/types/community-post.interface'
 
-import styles from '@/components/shared/submitPost/SubmitPost.module.scss'
+import styles from '@/components/shared/submit-post/SubmitPost.module.scss'
 
 
 interface Props {
