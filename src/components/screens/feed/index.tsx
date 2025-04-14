@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { useUserFeed } from '@/hooks/posts/useGetPost'
 
-import SubmitPost from '@/components/shared/submitPost/SubmitPost'
+import SubmitPost from '@/components/shared/submit-post/SubmitPost'
 import Post from '@/components/shared/post/Post'
 import PostLoader from '@/components/skeletons/post-loader/PostLoader'
 import { EmptyInfoBlock } from '@/components/ui/empty-users-block/EmptyInfoBlock'

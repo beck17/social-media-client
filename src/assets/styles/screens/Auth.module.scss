@@ -42,6 +42,36 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .auth {
+    .form {
+      width: 50%;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .auth {
+    .form {
+      width: 60%;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .auth {
+    .form {
+      width: 70%;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .auth {
+    .form {
+      width: 80%;
+    }
+  }
+}
 @media (max-width: 380px) {
   .auth {
     .form {

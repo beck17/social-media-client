@@ -12,7 +12,7 @@ import {
 import { CommunitiesList } from '@/components/shared/communities-list/CommunitiesList'
 import CommunityBlock from '../../shared/community-block/CommunityBlock'
 
-import styles from '../community/Community.module.scss'
+import styles from './Communities.module.scss'
 
 
 const Communities: FC = () => {

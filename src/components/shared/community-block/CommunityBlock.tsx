@@ -6,7 +6,7 @@ import Button from '../../ui/button/Button'
 
 import { CommunitySectionState } from '@/hooks/utils/useSwitchSections'
 
-import styles from '../../screens/community/Community.module.scss'
+import styles from '../../screens/communities/Communities.module.scss'
 
 
 interface Props {

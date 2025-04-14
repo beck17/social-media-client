@@ -2,7 +2,7 @@ import { FC } from 'react'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 
-import { useProfile } from '@/hooks/user/useProfile'
+import { useNameAndAvatarProfile } from '@/hooks/user/useProfile'
 import { useNewComment } from '@/hooks/posts/useComment'
 
 import CommentItem from './CommentItem'
@@ -12,6 +12,7 @@ import Input from '../input/Input'
 import { IComment, ICommentRequest } from '@/types/comment.interface'
 
 import styles from './Comment.module.scss'
+import { AvatarSkeleton } from '@/components/skeletons/avatar-skeleton/AvatarSkeleton'
 
 
 interface Props {
@@ -22,7 +23,7 @@ interface Props {
 }
 
 const Comments: FC<Props> = ({ comments, postUserId, postId, refetch }) => {
-	const { myProfile } = useProfile()
+	const { nameAndAvatar, isLoading } = useNameAndAvatarProfile()
 
 	const {
 		register,
@@ -34,15 +35,23 @@ const Comments: FC<Props> = ({ comments, postUserId, postId, refetch }) => {
 
 	const { onSubmitForm } = useNewComment(postId, reset, refetch)
 
+	const renderImage = () => {
+		if (isLoading) return <AvatarSkeleton />
+
+		return (
+			<Image
+				src={process.env.BASE_URL + `${nameAndAvatar?.avatar}`}
+				width={100}
+				height={100}
+				alt='аватар'
+			/>
+		)
+	}
+
 	return (
 		<div className={styles.comments}>
 			<form onSubmit={handleSubmit(onSubmitForm)} className={styles.write}>
-				<Image
-					src={process.env.BASE_URL + `${myProfile?.avatar}`}
-					width={500}
-					height={500}
-					alt='аватар'
-				/>
+				{renderImage()}
 				<Input
 					{...register('text')}
 					placeholder='Введите комментарий...'

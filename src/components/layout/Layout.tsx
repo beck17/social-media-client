@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren } from 'react'
 
 import Navbar from './navbar/Navbar'
-import LeftSidebar from './leftSidebar/LeftSidebar'
+import LeftSidebar from '@/components/layout/left-sidebar/LeftSidebar'
 
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
