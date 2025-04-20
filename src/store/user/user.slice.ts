@@ -1,11 +1,10 @@
-import { IInitialState } from '@/types/user.interface'
+import { IInitialState, IUserState } from '@/types/user.interface'
 import { createSlice } from '@reduxjs/toolkit'
 import { checkAuth, login, logout, register } from './user.actions'
 
 
 const initialState: IInitialState = {
-	// @ts-ignore
-	user: null,
+	user: {} as IUserState,
 	isLoading: false,
 	initialized: false,
 }
@@ -67,8 +66,7 @@ export const userSlice = createSlice({
 			.addCase(checkAuth.rejected, (state) => {
 				state.isLoading = false
 				state.initialized = true
-				// @ts-ignore
-				state.user = null
+				state.user = {} as IUserState
 			})
 	},
 })

@@ -12,6 +12,28 @@
     gap: 20px;
     width: 70%;
 
+    .select {
+      border: none;
+      outline: none;
+      padding: 10px;
+      border-radius: 25px;
+      background-color: #28282f;
+      color: #d6d6d6;
+      width: 100%;
+      font-size: 16px;
+      font-family: 'Ubuntu', sans-serif;
+    }
+
+    .select::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    @media (max-width: 768px) {
+      .select {
+        padding: 7px;
+      }
+    }
+
     h2{
       text-align: center;
     }

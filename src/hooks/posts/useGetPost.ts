@@ -41,7 +41,7 @@ export const useOnePost = (postId: string) => {
 	return { post: data, isLoading, refetch }
 }
 
-export const useUserPost = (userId: string | undefined) => {
+export const useUserPost = (userId: string) => {
 	const { data, isLoading, refetch } = useQuery(
 		`get user posts${userId}`,
 		() => PostService.getUserPosts(userId),

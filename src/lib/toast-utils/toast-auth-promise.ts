@@ -1,6 +1,7 @@
 import toast from 'react-hot-toast'
+import { IUserResponse } from '@/types/user.interface'
 
-export const toastAuthPromise = async (promise: any) => {
+export const toastAuthPromise = async (promise: Promise<IUserResponse>) => {
 	await toast.promise(promise,
 		{
 			loading: 'Загрузка...',
