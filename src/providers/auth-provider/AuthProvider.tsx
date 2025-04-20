@@ -13,7 +13,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 	const { user } = useAuth()
 	const { checkAuth, logout } = useActions()
 	const { pathname } = useRouter()
-	const [isChecked, setIsChecked] = React.useState(false)
+	const [isChecked, setIsChecked] = React.useState<boolean>(false)
 
 	useEffect(() => {
 		const accessToken = getAccessToken()

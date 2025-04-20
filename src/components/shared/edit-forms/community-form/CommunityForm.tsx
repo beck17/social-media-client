@@ -12,6 +12,7 @@ import { ICommunityCreate } from '@/types/community.interface'
 
 import styles from '../EditForm.module.scss'
 import { useRouter } from 'next/router'
+import { communityGenres } from '@/constants/genres'
 
 
 interface Props {
@@ -46,10 +47,11 @@ const CommunityForm: FC<Props> = ({
 	const onSubmitCommunity: SubmitHandler<ICommunityCreate> = async ({
 																																			name,
 																																			description,
+																																			genre,
 																																			communityAvatar = photoPic?.image,
 																																			communityBackgroundPic = backgroundPicPhoto?.image,
 																																		}) => {
-		const data = { name, description, communityAvatar, communityBackgroundPic }
+		const data = { name, description, genre, communityAvatar, communityBackgroundPic }
 
 		const createdCommunity = await createCommunity(data)
 
@@ -75,6 +77,14 @@ const CommunityForm: FC<Props> = ({
 					})}
 					placeholder='Введите описание сообщества'
 				/>
+				<select
+					{...register('genre')}
+					className={styles.select}
+				>
+					{communityGenres.map((genre, index) => (
+						<option key={genre + index} value={genre}>{genre}</option>
+					))}
+				</select>
 				<div className={styles.buttons}>
 					<div className={styles.button}>
 						<FileUploadButton onUpload={uploadFile} text='Добавить аватар' htmlFor='communityAvatar' />

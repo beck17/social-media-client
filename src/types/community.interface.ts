@@ -19,6 +19,7 @@ export interface ICommunity {
 export interface ICommunityCreate {
 	name: string
 	description: string
+	genre: string
 	communityAvatar?: string
 	communityBackgroundPic?: string
 }
@@ -26,6 +27,7 @@ export interface ICommunityCreate {
 export interface ICommunityResponse {
 	_id: string
 	name: string
+	genre: string
 	members: string[]
 	communityAvatar: string
 }

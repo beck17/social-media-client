@@ -7,6 +7,8 @@ import { ICommunityResponse } from '@/types/community.interface'
 import styles from '../../screens/communities/Communities.module.scss'
 
 const CommunityItem: FC<{ community: ICommunityResponse }> = ({ community }) => {
+
+	console.log(community)
 	return (
 		<div className={styles.item}>
 			<div className={styles.item1}>
@@ -20,7 +22,7 @@ const CommunityItem: FC<{ community: ICommunityResponse }> = ({ community }) => 
 				</Link>
 				<div className={styles.info}>
 					<Link href={`/community/${community._id}`}>{community.name}</Link>
-					<span>Спорт</span>
+					<span>{community.genre}</span>
 					<span>{community.members.length} подписчиков</span>
 				</div>
 			</div>

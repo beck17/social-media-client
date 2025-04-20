@@ -32,7 +32,7 @@ export const login = createAsyncThunk<IUserResponse, IPhonePassword>(
 	},
 )
 
-export const logout = createAsyncThunk<any>('auth/logout', async () => {
+export const logout = createAsyncThunk('auth/logout', async () => {
 	removeFromStorage()
 })
 

@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-import { ITokens, IUserResponse } from '@/types/user.interface'
+import { ITokens, IUserResponse, IUserState } from '@/types/user.interface'
 
 
 export const getAccessToken = () => {
@@ -20,7 +20,7 @@ export const saveTokensStorage = (data: ITokens) => {
 export const removeFromStorage = () => {
 	Cookies.remove('accessToken')
 	Cookies.remove('refreshToken')
-	localStorage.removeItem('user')
+	localStorage.setItem('user', JSON.stringify({} as IUserState))
 }
 
 export const saveToStorage = (data: IUserResponse) => {

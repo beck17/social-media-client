@@ -26,8 +26,8 @@ export const FriendActions: FC<Props> = ({ friendId, refetch }) => {
 	const { user } = useAuth()
 	const isMyProfile = user._id === friendId
 
-	const [isOpenPopup, setIsOpenPopup] = React.useState(false)
-	const [modalIsOpen, setIsOpenModal] = React.useState(false)
+	const [isOpenPopup, setIsOpenPopup] = React.useState<boolean>(false)
+	const [modalIsOpen, setIsOpenModal] = React.useState<boolean>(false)
 
 	const { refetch: userPostRefetch } = useUserPost(user._id)
 

@@ -1,6 +1,6 @@
-import { instance } from '../../api/api.interceptor'
+import { instance } from '@/api/api.interceptor'
 import { UrlEnums } from '@/constants/url.enum'
-import { ILike } from '../../types/like.interface'
+import { ILike } from '@/types/like.interface'
 
 export const LikePostService = {
 	async getLike(postId: string) {
