@@ -1,79 +1,24 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import toast from 'react-hot-toast'
 
-import { useChat } from '@/hooks/conversations/useChat'
-import { useAuth } from '@/hooks/user/useAuth'
-import { useUserProfile } from '@/hooks/user/useProfile'
-
-import Input from '@/components/ui/input/Input'
-import Button from '@/components/ui/button/Button'
-
-import ChatInfo from '@/components/ui/chat-info/ChatInfo'
 import Messages from '@/components/shared/messages/Messages'
+import ChatInfo from '@/components/ui/chat-info/ChatInfo'
+import { ChatFooter } from '@/components/ui/chat-footer/ChatFooter'
 
 import styles from '@/assets/styles/screens/Chat.module.scss'
 
 
 const Chat: FC = () => {
-	const [message, setMessage] = useState<string>('')
-
 	const router = useRouter()
-	const id = router.query.id as string
+
 	const withId = router.query.withId as string
-
-	const { userProfile } = useUserProfile(withId)
-
-	const { user } = useAuth()
-
-	const { sendMessage } = useChat(String(id))
-
-	const addMessageHandler = () => {
-		if (message.trim() === '') {
-			toast.error('Нельзя отправлять пустое сообщение', {
-				duration: 2000,
-				style: {
-					borderRadius: '10px',
-					background: '#15151c',
-					color: '#fff',
-				},
-			})
-			return null
-		}
-
-		sendMessage({
-			text: message,
-			conversationId: String(id),
-			userFrom: String(user._id),
-			userTo: String(userProfile?._id),
-		})
-
-		setMessage('')
-	}
-
-	const pressKeyHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === 'Enter') {
-			e.preventDefault()
-			addMessageHandler()
-		}
-	}
+	const conversationId = router.query.id as string
 
 	return (
 		<div className={styles.chat}>
-			<div className={styles.container}>
-				<ChatInfo />
-				<Messages />
-				<div className={styles.bottomMenu}>
-					<Input
-						autoFocus
-						onKeyDown={pressKeyHandler}
-						value={message}
-						onChange={(e) => setMessage(e.target.value)}
-						placeholder='Введите сообщение...'
-					/>
-					<Button onClick={addMessageHandler}>Отправить</Button>
-				</div>
-			</div>
+			<ChatInfo withId={withId} />
+			<Messages conversationId={conversationId} />
+			<ChatFooter conversationId={conversationId} withId={withId} />
 		</div>
 	)
 }

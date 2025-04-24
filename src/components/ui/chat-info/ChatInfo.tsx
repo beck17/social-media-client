@@ -1,18 +1,21 @@
 import React, { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 import { useUserProfile } from '@/hooks/user/useProfile'
 
 import styles from './ChatInfo.module.scss'
 
 
-const ChatInfo: FC = () => {
-	const router = useRouter()
-	const  withId  = router.query.withId as string
+interface Props {
+	withId: string
+}
 
+const ChatInfo: FC<Props> = ({withId}) => {
 	const { userProfile, isLoading } = useUserProfile(withId)
+
+	const imageSrc = isLoading ? `/uploads/default/no-avatar.jpg` :`${userProfile?.avatar}`
+	const avatarImage = process.env.BASE_URL + imageSrc
 
 	return (
 		<div className={styles.chatInfo}>
@@ -22,11 +25,7 @@ const ChatInfo: FC = () => {
 			</span>
 			<Link href={`/profile/${userProfile?._id}`}>
 				<Image
-					src={
-						isLoading
-							? process.env.BASE_URL + `/uploads/default/no-avatar.jpg`
-							: process.env.BASE_URL + `${userProfile?.avatar}`
-					}
+					src={avatarImage}
 					alt="avatar photo"
 					width={400}
 					height={400}
