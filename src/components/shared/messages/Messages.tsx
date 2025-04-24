@@ -1,5 +1,4 @@
 import React, { FC, useRef } from 'react'
-import { useRouter } from 'next/router'
 
 import { useChat } from '@/hooks/conversations/useChat'
 
@@ -8,10 +7,11 @@ import Message from '@/components/ui/message/Message'
 import styles from './Messages.module.scss'
 
 
-const Messages: FC = () => {
-	const router = useRouter()
-	const conversationId = router.query.id as string
+interface Props {
+	conversationId: string
+}
 
+const Messages: FC<Props> = ({ conversationId }) => {
 	const scrollBottomRef = useRef<HTMLDivElement>(null)
 
 	const { conversation } = useChat(conversationId)
@@ -26,7 +26,7 @@ const Messages: FC = () => {
 
 	return (
 		<div className={styles.messages}>
-			{conversation.messages && {} ? (
+			{conversation.messages?.length ? (
 				conversation.messages.map((message) => (
 					<Message key={message._id} message={message} />
 				))

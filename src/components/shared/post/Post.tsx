@@ -26,28 +26,26 @@ const Post: FC<Props> = ({
 	const { isLiked, likedCount, toggleLikeHandler, isLoadingLike } = useLike(post._id)
 	return (
 		<div className={styles.post}>
-			<div className={styles.container}>
-				<PostInfo
-					post={post}
-					isCreator={isCreator}
-					refetchPosts={refetchPosts}
-				/>
-				<PostContent
-					postId={post._id}
-					text={post.text}
-					image={post.image}
-					isLoadingLike={isLoadingLike}
-					toggleLikeHandler={toggleLikeHandler}
-				/>
-				<PostFooter
-					postId={post._id}
-					postUserId={post.user._id}
-					isLiked={isLiked}
-					likedCount={likedCount}
-					toggleLikeHandler={toggleLikeHandler}
-					isLoadingLike={isLoadingLike}
-				/>
-			</div>
+			<PostInfo
+				post={post}
+				isCreator={isCreator}
+				refetchPosts={refetchPosts}
+			/>
+			<PostContent
+				postId={post._id}
+				text={post.text}
+				image={post.image}
+				isLoadingLike={isLoadingLike}
+				toggleLikeHandler={toggleLikeHandler}
+			/>
+			<PostFooter
+				postId={post._id}
+				postUserId={post.user._id}
+				isLiked={isLiked}
+				likedCount={likedCount}
+				toggleLikeHandler={toggleLikeHandler}
+				isLoadingLike={isLoadingLike}
+			/>
 		</div>
 	)
 }
