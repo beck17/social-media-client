@@ -11,7 +11,7 @@ export const LikePostService = {
 	},
 
 	async getCount(postId: string) {
-		return instance<boolean>({
+		return instance<number>({
 			url: `${UrlEnums.postLikes}/count/${postId}`,
 			method: 'GET',
 		})

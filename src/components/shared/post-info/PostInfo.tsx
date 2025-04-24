@@ -31,7 +31,6 @@ const PostInfo: FC<Props> = ({ post, isCreator, refetchPosts }) => {
 	const imageSrc = isCommunityPost ? post.community!.communityAvatar : post.user.avatar
 	const linkUrl = isCommunityPost ? `/community/${post.community?._id}` : `/profile/${post.user._id}`
 
-
 	const { updatePost, deletePost } = updateRemovePostHandler(post._id, Boolean(post.community))
 
 	return (
