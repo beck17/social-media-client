@@ -18,14 +18,16 @@ export const PostContent: FC<Props> = ({ postId, text, image, isLoadingLike, tog
 			onDoubleClick={() => !isLoadingLike && toggleLikeHandler(postId)}
 		>
 			<p>{text}</p>
-			{image && (
-				<Image
-					src={process.env.BASE_URL + `${image}`}
-					width={100}
-					height={100}
-					alt='Фото'
-				/>
-			)}
+			<div className={styles.contentImage}>
+				{image && (
+					<Image
+						src={process.env.BASE_URL + `${image}`}
+						alt='Фото'
+						width={1000}
+						height={1000}
+					/>
+				)}
+			</div>
 		</div>
 	)
 }
