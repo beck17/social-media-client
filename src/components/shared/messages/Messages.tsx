@@ -4,6 +4,8 @@ import { useChat } from '@/hooks/conversations/useChat'
 
 import Message from '@/components/ui/message/Message'
 
+import { groupMessageByDay } from '@/lib/utils/group-message-by-day'
+
 import styles from './Messages.module.scss'
 
 
@@ -16,6 +18,9 @@ const Messages: FC<Props> = ({ conversationId }) => {
 
 	const { conversation } = useChat(conversationId)
 
+	const groupMessage = groupMessageByDay(conversation.messages)
+
+
 	const scrollToBottom = () => {
 		scrollBottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
 	}
@@ -26,9 +31,16 @@ const Messages: FC<Props> = ({ conversationId }) => {
 
 	return (
 		<div className={styles.messages}>
-			{conversation.messages?.length ? (
-				conversation.messages.map((message) => (
-					<Message key={message._id} message={message} />
+			{groupMessage?.length ? (
+				groupMessage.map((group) => (
+					<>
+						<div className={styles.dateLabelWrapper}>
+							<div className={styles.dateLabel} key={group.date}>{group.date}</div>
+						</div>
+						{group.messages.map((message) => (
+							<Message key={message._id} message={message} />
+						))}
+					</>
 				))
 			) : (
 				<p>Подождите идёт загрузка</p>
